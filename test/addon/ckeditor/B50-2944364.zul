@@ -1,0 +1,4 @@
+<zk>
+	<button label="visible" onClick="ed.visible = !ed.visible;" />
+	<ckeditor id="ed" visible="false" />
+</zk>

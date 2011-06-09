@@ -1,0 +1,64 @@
+	--------
+Ckez 3.5.2.0
+* Features:
+* Bugs:
+	3094513: filebrowserBrowseUrl in ckeditor throws exception
+	3310440: ckeditor can not set empty string on IE
+	
+* Upgrade Notes:
+
+	--------
+Ckez 3.3.2.51
+* Features:
+* Bugs:
+	3063733: FilebrowserImageBrowseUrl mess up with context path
+	3089750: Text-selection is lost when using popup-menus from CK
+	3112213: The image browse of the CKEditor shall hide the folder url
+	3112231: CKEditor setToolbar twice cause error
+	3304385: CKEditor detach on IE9 in sandbox cause javascript error
+	
+* Upgrade Notes:
+
+	--------
+Ckez 3.3.2_50
+* Features:
+	3055436: Ckeditor support filebrowser
+* Bugs:
+	3048386: detach ckeditor before it loaded cause js error
+	3023871: CKeditor "hangs" on second use in modal window
+* Upgrade Notes:
+
+	--------
+Ckez 3.1_52
+* Features:
+* Bugs:
+	3003187: The CKEditor will not post  onSave event 
+* Upgrade Notes:
+
+	--------
+Ckez 3.1_51
+* Features:
+* Bugs:  
+	2964214: Link editor broken.
+* Upgrade Notes:
+
+	--------
+Ckez 3.1_50
+* Features:
+* Bugs:	
+    2960720: (F)CKEditor looses content when window title is changed
+	2946134:FCKEditor doesn't update content properly
+* Upgrade Notes:
+
+	--------
+Ckez 3.0.2_50
+* Features:
+* Bugs:
+	2944364: (F)CKEditor with initial visible=false doesn't work
+* Upgrade Notes:
+
+	--------
+Ckez 3.0.2_50-RC
+* Features:
+* Bugs:  
+* Upgrade Notes:

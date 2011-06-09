@@ -1,0 +1,67 @@
+<zk>
+	<borderlayout id="MetricBrowser_wnd" apply="TestSuiteResultCtrl2">
+		<west title="测试套" size="200px" flex="true" splittable="true" collapsible="true">
+			<tree id="tree" width="100%">
+				<treechildren>
+					<treeitem>
+						<treerow>
+							<treecell label="Rtsp Test" />
+						</treerow>
+						<treechildren>
+							<treeitem>
+								<treerow>
+									<treecell label="Rtsp-Test-AGGNE80E" />
+								</treerow>
+							</treeitem>
+							<treeitem>
+								<treerow>
+									<treecell label="Rtsp-Test-DSLAM" />
+								</treerow>
+							</treeitem>
+						</treechildren>
+					</treeitem>
+				</treechildren>
+			</tree>
+		</west>
+		<center>
+			<tabbox id="tbbox">
+				<tabs>
+					<tab label="表格对比" />
+					<tab label="图像对比" />
+				</tabs>
+				<tabpanels>
+					<tabpanel>
+						<grid fixedLayout="true">
+							<columns>
+								<column label="测试例" />
+								<column label="DF(时延因子)" />
+								<column label="MLR(媒体丢包率)" />
+								<column label="MLRT-24" />
+								<column label="TcpRt-24" />
+							</columns>
+							<rows>
+								<row><label value="Rtsp-Test-AGGNE80E"/><label value="12"/><label value="22"/><label value="60"/><label value="40"/></row>
+								<row><label value="Rtsp-Test-DSLAM"/><label value="13"/><label value="24"/><label value="75"/><label value="45"/></row>
+							</rows>
+						</grid>
+					</tabpanel>
+					<tabpanel>
+						<checkbox label="自动刷新(最近2小时)" id="auto" />
+						<button label="bugTest" id="bugBtn"/>
+						<separator orient="horizontal"/>
+						<label value="DF(时延因子):  " style="font-weight:bolder;"/>
+						<label value="Rtsp-Test-AGGNE80E" style="color:#008bb6;"/>
+						<label value="," />
+						<label value="Rtsp-Test-DSLAM" style="color:#917730;"/>
+						<timeplot id="timeplot" width="100%" height="300px" style="padding:0">
+							<plotinfo id="dfPlot1" width="100%" showValues="true"
+								lineColor="#008bb6" />
+							<plotinfo id="dfPlot2" width="100%" showValues="true"
+								lineColor="#917730" />
+						</timeplot>
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+		</center>
+	</borderlayout>
+</zk>

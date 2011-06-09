@@ -1,0 +1,4 @@
+<zk>
+<fckeditor id="fck" />
+<button label="save" onClick="alert(fck.value);" />
+</zk>

@@ -1,0 +1,7 @@
+D.ON=true
+javadoc=~/prj/javadoc
+unzip=true
+debug=true
+optimize=true
+#jboss.deploy=default/deploy
+start.service=Apache Tomcat 6

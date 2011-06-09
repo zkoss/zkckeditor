@@ -1,0 +1,17 @@
+<zk>
+	<button label="add">
+		<attribute name="onClick"><![CDATA[
+			String cnt = "<window mode=\"modal\" title=\"win\" closable=\"true\">"+
+				"<ckeditor  width=\"690px\" height=\"350px\" value=\"&lt;b&gt;this is some &lt;i&gt;sample&lt;/i&gt; text&lt;/b&gt;\"/>"+
+				"</window>";
+			Executions.createComponentsDirectly(cnt, null,div, null);
+		]]></attribute>
+	</button>
+	<div id="div"/>
+	<button label="add">
+		<attribute name="onClick"><![CDATA[
+			String cnt = "<ckeditor  width=\"690px\" height=\"350px\" value=\"&lt;b&gt;this is some &lt;i&gt;sample&lt;/i&gt; text&lt;/b&gt;\"/>";
+			Executions.createComponentsDirectly(cnt, "zul",div, null);
+		]]></attribute>
+	</button>
+</zk>

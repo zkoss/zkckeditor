@@ -1,0 +1,41 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk>
+	<style>
+		.ckTree span.z-filetree-tee, span.z-filetree-last {
+			background-image: url(${c:encodeURL('~./zul/img/tree/folder-toggle.gif')});
+			background-position:0 -18px;
+		}
+		.ckImg .z-toolbarbutton-cnt img {
+			display:block;
+			max-height:100px;
+			max-width:100px;
+			margin:0 auto;
+		}
+		.ckImg .z-toolbarbutton-cnt {
+			text-align:center;
+		}
+		.ckImg .z-toolbarbutton-over {
+			background-color:#DFF1FF;
+			border-color:#99CCFF;
+		}
+		.ckImg .sel {
+			background-color:#B4D9FF;
+			padding:0;
+			border-bottom: 1px solid #6565FE;
+			border-top: 1px solid #6565FE;
+		}
+		.ckImg .sel .z-toolbarbutton-body{
+			padding:0;
+			border-left: 1px solid #6565FE;
+			border-right: 1px solid #6565FE;
+		}
+	</style>
+	<borderlayout apply="org.zkforge.ckez.FilebrowserController">
+		<west size="20%" splittable="true" autoscroll="true">
+			<tree id="tree" zclass="z-filetree" sclass="ckTree"/>
+		</west>
+		<center autoscroll="true">
+			<div id="cntDiv" sclass="ckImg"/>
+		</center>
+	</borderlayout>
+</zk>

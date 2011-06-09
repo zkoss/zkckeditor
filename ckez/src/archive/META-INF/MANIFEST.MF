@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Specification-Title: The ZK Ckeditor Components
+Specification-Version: 3.3.2.51
+Specification-Vendor: Potix Corporation
+Implementation-Title: org.zkforge.ckez
+Implementation-URL: http://www.zkforge.org/ckez
+Implementation-Version: 3.3.2.51
+Implementation-Vendor: Potix Corporation

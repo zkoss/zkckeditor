@@ -1,0 +1,5 @@
+<zk xmlns:n="http://www.zkoss.org/2005/zk/native">
+	<n:form>
+		<ckeditor onSave="alert(self.value);"/>
+	</n:form>
+</zk>

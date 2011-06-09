@@ -1,0 +1,27 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<button label="visible" onClick="ed.visible = !ed.visible"/>
+<fckeditor id="ed" onChange="ta.value = self.value" visible="false">
+		<attribute name="value">
+		&lt;table width="200" cellspacing="1" cellpadding="1" border="1"&gt;
+		    &lt;tbody&gt;
+		        &lt;tr style="background: #B7B313; color:white;"&gt;
+		            &lt;td&gt;First Name&lt;/td&gt;
+		            &lt;td&gt;Last Name&lt;/td&gt;
+		        &lt;/tr&gt;
+		        &lt;tr&gt;
+		            &lt;td&gt;Jone&lt;/td&gt;
+		            &lt;td&gt;Hayes&lt;/td&gt;
+		        &lt;/tr&gt;
+		        &lt;tr&gt;
+		            &lt;td&gt;Mary&lt;/td&gt;
+		            &lt;td&gt;Bally&lt;/td&gt;
+		        &lt;/tr&gt;
+		    &lt;/tbody&gt;
+		&lt;/table&gt;
+		</attribute>
+	</fckeditor>
+	<textbox id="ta" rows="6" width="100%" height="250px" onChange="ed.value = self.value"/>	
+	<toolbarbutton href="/componentTEST5(ckeditor).zul" label="previous" />
+	<toolbarbutton href="/componentTEST(timeline).zul" label="next" />
+</zk>

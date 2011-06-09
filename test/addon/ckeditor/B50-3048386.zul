@@ -1,0 +1,20 @@
+<zk xmlns:w="http://www.zkoss.org/2005/zk/client">
+	<div id="div"/>
+	<button label="add Ckeditor">
+		<attribute name="onClick"><![CDATA[
+			div.appendChild(new org.zkforge.ckez.CKeditor());
+		]]></attribute>
+		<attribute w:name="onClick"><![CDATA[
+			var btn = this;
+			setTimeout(function(){
+				zAu.send(new zk.Event(btn, 'onUser'));
+			},1000);
+		]]></attribute>
+		<attribute name="onUser"><![CDATA[
+			div.detach();
+		]]></attribute>
+	</button>
+	<button label="detach"><attribute name="onClick"><![CDATA[
+			div.detach();
+		]]></attribute></button>
+</zk>
