@@ -133,6 +133,7 @@ Copyright (C) 2009 Potix Corporation. All Rights Reserved.
 	<script src="ext/CKeditor/_source/plugins/panel/plugin.js"/>
 	<script src="ext/CKeditor/_source/plugins/listblock/plugin.js"/>
 	<script src="ext/CKeditor/_source/themes/default/theme.js"/>
+	<script src="ext/CKeditor/_source/adapters/jquery.js"/>
 	
 	<widget name="CKeditor"/>
 </package>
