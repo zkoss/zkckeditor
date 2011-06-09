@@ -1,0 +1,1 @@
+CKEDITOR.htmlParser.comment=function(a){this.value=a;this._={isBlockLike:false}};CKEDITOR.htmlParser.comment.prototype={type:CKEDITOR.NODE_COMMENT,writeHtml:function(b,a){var c=this.value;if(a){if(!(c=a.onComment(c,this))){return}if(typeof c!="string"){c.parent=this.parent;c.writeHtml(b,a);return}}b.comment(c)}};

@@ -1,0 +1,1 @@
+CKEDITOR.dom.comment=CKEDITOR.tools.createClass({base:CKEDITOR.dom.node,$:function(b,a){if(typeof b=="string"){b=(a?a.$:document).createComment(b)}this.base(b)},proto:{type:CKEDITOR.NODE_COMMENT,getOuterHtml:function(){return"<!--"+this.$.nodeValue+"-->"}}});

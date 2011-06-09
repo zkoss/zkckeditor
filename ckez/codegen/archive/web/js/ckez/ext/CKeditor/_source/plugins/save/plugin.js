@@ -1,0 +1,1 @@
+(function(){var b={modes:{wysiwyg:1,source:1},readOnly:1,exec:function(d){var c=d.element.$.form;if(c){try{c.submit()}catch(f){if(c.submit.click){c.submit.click()}}}}};var a="save";CKEDITOR.plugins.add(a,{init:function(c){var d=c.addCommand(a,b);d.modes={wysiwyg:!!(c.element.$.form)};c.ui.addButton("Save",{label:c.lang.save,command:a})}})})();
