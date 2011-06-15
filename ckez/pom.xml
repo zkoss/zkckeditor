@@ -15,7 +15,7 @@
 	<description>The CKeditor Component for ZK 5.0.0 or later</description>
 	<licenses>
 		<license>
-			<name>GNU General Public License, Version 3.0</name>
+			<name>GNU LESSER General Public License, Version 3.0</name>
 			<url>http://www.gnu.org/licenses/lgpl.html</url>
 			<distribution>repo</distribution>
 		</license>
