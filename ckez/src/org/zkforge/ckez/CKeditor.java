@@ -22,8 +22,8 @@ import org.zkoss.lang.Strings;
 
 import org.zkoss.zk.ui.AbstractComponent;
 import org.zkoss.zk.ui.Desktop;
-import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.UiException;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.InputEvent;
 
@@ -52,6 +52,10 @@ public class CKeditor extends AbstractComponent {
 
 	/** Used by setTextByClient() to disable sending back the value */
 	private String _txtByClient;
+
+	private String _hflex;
+
+	private String _vflex;
 
 	private boolean _autoHeight;
 	
@@ -142,7 +146,83 @@ public class CKeditor extends AbstractComponent {
 			smartUpdate("height", height);
 		}
 	}
+
+	/**
+	 * Sets vertical flexibility hint of this component. 
+	 * <p>Number flex indicates how 
+	 * this component's container distributes remaining empty space among its 
+	 * children vertically. Flexible component grow and shrink to fit their 
+	 * given space. Flexible components with larger flex values will be made 
+	 * larger than components with lower flex values, at the ratio determined by 
+	 * all flexible components. The actual flex value is not relevant unless 
+	 * there are other flexible components within the same container. Once the 
+	 * default sizes of components in a container are calculated, the remaining 
+	 * space in the container is divided among the flexible components, 
+	 * according to their flex ratios.</p>
+	 * <p>Only positive integer allowed for ckeditor hflex value,
+	 * other value make no effect of it.</p>
+	 * 
+	 * @param flex the vertical flex hint.
+	 * @since 3.6.0
+	 * @see #setHflex
+	 * @see #getVflex 
+	 */
+	public void setVflex(String flex) {
+		if (flex != null && flex.length() == 0)
+			flex = null;
+		if (!Objects.equals(_vflex, flex)) {
+			_vflex = flex;
+			smartUpdate("vflex", flex);
+		}
+	}
+	/**
+	 * Return vertical flex hint of this component.
+	 * <p>Default: null
+	 * @return vertical flex hint of this component.
+	 * @since 3.6.0
+	 * @see #setVflex 
+	 */
+	public String getVflex() {
+		return _vflex;
+	}
+	/**
+	 * Sets horizontal flex hint of this component.
+	 * <p>Number flex indicates how 
+	 * this component's container distributes remaining empty space among its 
+	 * children horizontally. Flexible component grow and shrink to fit their 
+	 * given space. Flexible components with larger flex values will be made 
+	 * larger than components with lower flex values, at the ratio determined by 
+	 * all flexible components. The actual flex value is not relevant unless 
+	 * there are other flexible components within the same container. Once the 
+	 * default sizes of components in a container are calculated, the remaining 
+	 * space in the container is divided among the flexible components, 
+	 * according to their flex ratios.</p>
+	 * <p>Only positive integer allowed for ckeditor vflex value,
+	 * other value make no effect of it.</p> 
+	 * @param flex horizontal flex hint of this component.
+	 * @since 3.6.0 
+	 * @see #setVflex
+	 * @see #getHflex 
+	 */
+	public void setHflex(String flex) {
+		if (flex != null && flex.length() == 0)
+			flex = null;
+		if (!Objects.equals(_hflex, flex)) {
+			_hflex = flex;
+			smartUpdate("hflex", flex);
+		}
+	}
 	
+	/**
+	 * Returns horizontal flex hint of this component.
+	 * <p>Default: null
+	 * @return horizontal flex hint of this component.
+	 * @since 3.6.0
+	 * @see #setHflex 
+	 */
+	public String getHflex() {
+		return _hflex;
+	}
 	/**
 	 * Returns whether enable to automatically grow the height of the component or not.
 	 * <p> Default: false.
@@ -304,6 +384,10 @@ public class CKeditor extends AbstractComponent {
 			render(renderer, "filebrowserImageBrowseUrl", true);
 		if (!Strings.isBlank(_filebrowserFlashBrowseUrl))
 			render(renderer, "filebrowserFlashBrowseUrl", true);
+		if (_hflex != null)
+			render(renderer, "hflex", _hflex);
+		if (_vflex != null)
+			render(renderer, "vflex", _vflex);
 	}
 	
 	private class EncodedURL implements org.zkoss.zk.ui.util.DeferredValue {

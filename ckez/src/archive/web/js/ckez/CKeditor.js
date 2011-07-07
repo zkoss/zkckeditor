@@ -45,7 +45,57 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			this._setSize(jq('td#cke_contents_' + this.uuid + '-cnt'), v, 'height');
 		}
 	},	
-	
+
+	setVflex: function (v) {
+		if (v == 'min') v = false;
+		// set vflex if editor is prepared,
+		// or sotre it in temp value.
+		if (this._editor)
+			this.$super(ckez.CKeditor, 'setVflex', v);
+		else
+			this._tmpVflex = v;
+	},
+	setHflex: function (v) {
+		if (v == 'min') v = false;
+			// set hflex if editor is prepared,
+			// or sotre it in temp value.
+			if (this._editor)
+				this.$super(ckez.CKeditor, 'setHflex', v);
+			else
+				this._tmpHflex = v;
+	},
+	setFlexSizeH_: function(n, zkn, height, ignoreMargins) {
+		// store height in temp value because setFlexSizeW_
+		// might change topHeight then reset height again.
+		this._hflexHeight = height;
+
+		this.$super(ckez.CKeditor, 'setFlexSizeH_', n, zkn, height, ignoreMargins);
+		var h = parseInt(n.style.height); // get parent setted height
+
+		// compute text area height
+		var textArea = jq('td#cke_contents_' + this.uuid + '-cnt'),
+			textParent = textArea.get(0).parentNode,
+			topHeight = jq(textParent.previousSibling).outerHeight(), // top menu buttons
+			bottomHeight = jq(textParent.nextSibling).outerHeight();
+		h = h - topHeight - bottomHeight - 25;
+
+		// set text area height
+		this._setSize(textArea, jq.px0(h), 'height');
+	},
+	setFlexSizeW_: function(n, zkn, width, ignoreMargins) {
+		// get current topHeight
+		var topHeight = jq('td#cke_top_' + this.uuid + '-cnt').outerHeight();
+
+		this.$super(ckez.CKeditor, 'setFlexSizeW_', n, zkn, width, ignoreMargins);
+		var w = parseInt(n.style.width); // get parent setted width
+
+		// set content width
+		w = w - 16;
+		this._setSize(jq('#cke_' + this.uuid + '-cnt'), jq.px0(w), 'width');
+		// set height again if topHeight changed
+		if (topHeight != jq('td#cke_top_' + this.uuid + '-cnt').outerHeight())
+			this.setFlexSizeH_(n, zkn, this._hflexHeight, ignoreMargins);
+	},
 	redraw: function (out) {
 		out.push('<div', this.domAttrs_({domStyle: true}), '><textarea id="', this.uuid, '-cnt">', this._value, '</textarea></div>');
 	},
@@ -62,7 +112,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		var wgt = this;
 		setTimeout(function(){wgt._init();},50);
 		zWatch.listen({onSend : this});
-		zWatch.listen({onRestore : this});		
+		zWatch.listen({onRestore : this});
 	},
 	
 	unbind_ : function() {
@@ -173,6 +223,14 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			this.on('loadSnapshot', ckez.CKeditor.onAutoHeight);//on Redo And Undo
 			this.on('beforePaste', ckez.CKeditor.onAutoHeight);
 			this.resetDirty();
+			if (wgt._tmpHflex) {
+				wgt.setHflex(wgt._tmpHflex, {force:true});
+				wgt._tmpHflex = null;
+			}
+			if (wgt._tmpVflex) {
+				wgt.setVflex(wgt._tmpVflex, {force:true});
+				wgt._tmpVflex = null;
+			}
 		}, config);
 	},
 	
