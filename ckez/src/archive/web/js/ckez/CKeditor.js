@@ -122,7 +122,8 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			return;			
 		}
 		this._editor.destroy(true);
-		this._unbind = this._editor = null;
+
+		this._unbind = this._editor = this._tmpVflex = this._tmpHflex = null;
 		zWatch.unlisten({onSend : this});
 		zWatch.unlisten({onRestore : this});
 		this.$supers('unbind_', arguments);
