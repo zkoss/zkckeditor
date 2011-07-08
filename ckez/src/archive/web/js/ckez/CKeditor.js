@@ -57,12 +57,43 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 	},
 	setHflex: function (v) {
 		if (v == 'min') v = false;
-			// set hflex if editor is prepared,
-			// or sotre it in temp value.
-			if (this._editor)
-				this.$super(ckez.CKeditor, 'setHflex', v);
-			else
-				this._tmpHflex = v;
+		// set hflex if editor is prepared,
+		// or sotre it in temp value.
+		if (this._editor)
+			this.$super(ckez.CKeditor, 'setHflex', v);
+		else
+			this._tmpHflex = v;
+	},
+	setFlexSize_: function(sz, ignoreMargins) {
+		var n = this.$n(),
+			zkn = zk(n);
+		if (sz.height !== undefined) {
+			if (sz.height == 'auto')
+				n.style.height = '';
+			else if (sz.height != '') //bug #2943174, #2979776
+				this.setFlexSizeH_(n, zkn, sz.height, ignoreMargins);
+			else {
+				n.style.height = this._height || '';
+				if (this._height)
+					this._setSize(jq('td#cke_contents_' + this.uuid + '-cnt'), this._height, 'height');
+				else
+					this._setSize(jq('td#cke_contents_' + this.uuid + '-cnt'), '200px', 'height');
+			}
+		}
+		if (sz.width !== undefined) {
+			if (sz.width == 'auto')
+				n.style.width = '';
+			else if (sz.width != '') //bug #2943174, #2979776
+				this.setFlexSizeW_(n, zkn, sz.width, ignoreMargins);
+			else {
+				n.style.width = this._width || '';
+				if (this._width)
+					this._setSize(jq('#cke_' + this.uuid + '-cnt'), this._width, 'width');
+				else
+					this._setSize(jq('#cke_' + this.uuid + '-cnt'), '100%', 'width');
+			}
+		}
+		return {height: n.offsetHeight, width: n.offsetWidth};
 	},
 	setFlexSizeH_: function(n, zkn, height, ignoreMargins) {
 		// store height in temp value because setFlexSizeW_
@@ -71,7 +102,8 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 
 		this.$super(ckez.CKeditor, 'setFlexSizeH_', n, zkn, height, ignoreMargins);
 		var h = parseInt(n.style.height); // get parent setted height
-
+		// remove outer div height so container like groupbox can change size with it
+		n.style.height = '';
 		// compute text area height
 		var textArea = jq('td#cke_contents_' + this.uuid + '-cnt'),
 			textParent = textArea.get(0).parentNode,
@@ -93,7 +125,8 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		w = w - 16;
 		this._setSize(jq('#cke_' + this.uuid + '-cnt'), jq.px0(w), 'width');
 		// set height again if topHeight changed
-		if (topHeight != jq('td#cke_top_' + this.uuid + '-cnt').outerHeight())
+		// ignore if vflex not setted
+		if (topHeight != jq('td#cke_top_' + this.uuid + '-cnt').outerHeight() && this._vflex)
 			this.setFlexSizeH_(n, zkn, this._hflexHeight, ignoreMargins);
 	},
 	redraw: function (out) {
