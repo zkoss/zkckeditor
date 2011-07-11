@@ -65,35 +65,37 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			this._tmpHflex = v;
 	},
 	setFlexSize_: function(sz, ignoreMargins) {
-		var n = this.$n(),
-			zkn = zk(n);
-		if (sz.height !== undefined) {
-			if (sz.height == 'auto')
-				n.style.height = '';
-			else if (sz.height != '') //bug #2943174, #2979776
-				this.setFlexSizeH_(n, zkn, sz.height, ignoreMargins);
-			else {
-				n.style.height = this._height || '';
-				if (this._height)
-					this._setSize(jq('td#cke_contents_' + this.uuid + '-cnt'), this._height, 'height');
-				else
-					this._setSize(jq('td#cke_contents_' + this.uuid + '-cnt'), '200px', 'height');
+		if (this._editor) {
+			var n = this.$n(),
+				zkn = zk(n);
+			if (sz.height !== undefined) {
+				if (sz.height == 'auto')
+					n.style.height = '';
+				else if (sz.height != '') //bug #2943174, #2979776
+					this.setFlexSizeH_(n, zkn, sz.height, ignoreMargins);
+				else {
+					n.style.height = this._height || '';
+					if (this._height)
+						this._setSize(jq('td#cke_contents_' + this.uuid + '-cnt'), this._height, 'height');
+					else
+						this._setSize(jq('td#cke_contents_' + this.uuid + '-cnt'), '200px', 'height');
+				}
 			}
-		}
-		if (sz.width !== undefined) {
-			if (sz.width == 'auto')
-				n.style.width = '';
-			else if (sz.width != '') //bug #2943174, #2979776
-				this.setFlexSizeW_(n, zkn, sz.width, ignoreMargins);
-			else {
-				n.style.width = this._width || '';
-				if (this._width)
-					this._setSize(jq('#cke_' + this.uuid + '-cnt'), this._width, 'width');
-				else
-					this._setSize(jq('#cke_' + this.uuid + '-cnt'), '100%', 'width');
+			if (sz.width !== undefined) {
+				if (sz.width == 'auto')
+					n.style.width = '';
+				else if (sz.width != '') //bug #2943174, #2979776
+					this.setFlexSizeW_(n, zkn, sz.width, ignoreMargins);
+				else {
+					n.style.width = this._width || '';
+					if (this._width)
+						this._setSize(jq('#cke_' + this.uuid + '-cnt'), this._width, 'width');
+					else
+						this._setSize(jq('#cke_' + this.uuid + '-cnt'), '100%', 'width');
+				}
 			}
+			return {height: n.offsetHeight, width: n.offsetWidth};
 		}
-		return {height: n.offsetHeight, width: n.offsetWidth};
 	},
 	setFlexSizeH_: function(n, zkn, height, ignoreMargins) {
 		// store height in temp value because setFlexSizeW_
@@ -257,6 +259,17 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			this.on('loadSnapshot', ckez.CKeditor.onAutoHeight);//on Redo And Undo
 			this.on('beforePaste', ckez.CKeditor.onAutoHeight);
 			this.resetDirty();
+
+			// restore tmp value while rerendered
+			if (!wgt._tmpHflex && wgt._hflex) {
+				wgt._tmpHflex = wgt._hflex;
+				wgt.setHflex(null);
+			}
+			if (!wgt._tmpVflex && wgt._vflex) {
+				wgt._tmpVflex = wgt._vflex;
+				wgt.setVflex(null);
+			}
+
 			if (wgt._tmpHflex) {
 				wgt.setHflex(wgt._tmpHflex, {force:true});
 				wgt._tmpHflex = null;
