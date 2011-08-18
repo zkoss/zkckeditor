@@ -1,6 +1,8 @@
 	--------
 Ckez 3.6.0.0
 * Features:
+	Issue 4: CKEditor support on hflex/vflex
+
 * Bugs:
 * Upgrade Notes:
 
@@ -10,7 +12,7 @@ Ckez 3.5.2.0
 * Bugs:
 	3094513: filebrowserBrowseUrl in ckeditor throws exception
 	3310440: ckeditor can not set empty string on IE
-	
+
 * Upgrade Notes:
 
 	--------
