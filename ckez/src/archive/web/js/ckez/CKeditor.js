@@ -230,12 +230,12 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		if (filebrowserImageBrowseUrl)
 			config.filebrowserImageBrowseUrl = 
 				(typeof filebrowserImageBrowseUrl == "string")? filebrowserImageBrowseUrl:
-						  zk.ajaxURI(_filebrowserBrowseUrl + '?Type=Flash', {desktop : this.desktop,au : true});
+						  zk.ajaxURI(_filebrowserBrowseUrl + '?Type=Images', {desktop : this.desktop,au : true});
 
 		if (filebrowserFlashBrowseUrl)
 			config.filebrowserFlashBrowseUrl = 
 				(typeof filebrowserFlashBrowseUrl == "string")? filebrowserFlashBrowseUrl:
-						 zk.ajaxURI(_filebrowserBrowseUrl + '?Type=Images', {desktop : this.desktop,au : true});
+						 zk.ajaxURI(_filebrowserBrowseUrl + '?Type=Flash', {desktop : this.desktop,au : true});
 		
 		if (this._toolbar)
 			config.toolbar = this._toolbar;

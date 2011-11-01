@@ -1,4 +1,12 @@
 	--------
+Ckez 3.6.0.1
+* Features:
+* Bugs:
+	Issue 7: File upload issue
+
+* Upgrade Notes:
+
+	--------
 Ckez 3.6.0.0
 * Features:
 	Issue 4: CKEditor support on hflex/vflex
