@@ -1,1 +1,0 @@
-(function(){var b={canUndo:false,exec:function(c){c.insertElement(c.document.createElement("hr"))}};var a="horizontalrule";CKEDITOR.plugins.add(a,{init:function(c){c.addCommand(a,b);c.ui.addButton("HorizontalRule",{label:c.lang.horizontalrule,command:a})}})})();

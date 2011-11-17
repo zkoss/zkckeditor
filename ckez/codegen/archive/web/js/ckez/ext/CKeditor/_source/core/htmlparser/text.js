@@ -1,1 +1,0 @@
-(function(){var a=/[\t\r\n ]{2,}|[\t\r\n]/g;CKEDITOR.htmlParser.text=function(b){this.value=b;this._={isBlockLike:false}};CKEDITOR.htmlParser.text.prototype={type:CKEDITOR.NODE_TEXT,writeHtml:function(c,b){var d=this.value;if(b&&!(d=b.onText(d,this))){return}c.text(d)}}})();
