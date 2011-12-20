@@ -343,7 +343,7 @@ public class CKeditor extends AbstractComponent {
 	public void service(org.zkoss.zk.au.AuRequest request, boolean everError) {
 		final String cmd = request.getCommand();
 		if (cmd.equals(Events.ON_CHANGE)) {
-			InputEvent evt = InputEvent.getInputEvent(request);
+			InputEvent evt = InputEvent.getInputEvent(request, _value);
 			final String value = evt.getValue();
 			_txtByClient = value;
 			try {
@@ -356,11 +356,11 @@ public class CKeditor extends AbstractComponent {
 			}
 			Events.postEvent(evt);
 		} else if (cmd.equals("onSave")) {
-			InputEvent evt = InputEvent.getInputEvent(request);
+			InputEvent evt = InputEvent.getInputEvent(request, _value);
 			setValue(evt.getValue()); 
 			Events.postEvent(evt);
 		} else if (cmd.equals(Events.ON_CHANGING)) {
-			Events.postEvent(InputEvent.getInputEvent(request));
+			Events.postEvent(InputEvent.getInputEvent(request, _value));
 		} else
 			super.service(request, everError);
 	}
