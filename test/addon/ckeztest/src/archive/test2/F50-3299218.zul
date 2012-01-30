@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+F50-3299218.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Mon Jul 4 15:59:22 TST 2011, Created by benbai
+
+Copyright (C) 2011 Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+	<html><![CDATA[
+		<ol>
+			<li>F50-3299218: CKEditor support on hflex/vflex</li>
+			<li>editors should fix size to the layout at begining, and resize with it.</li>
+		</ol>
+	]]>
+	</html>
+	<window id="win" title="CKEditor hflex vflex with borderlayout" border="normal" width="1100px" height="950px">
+		<borderlayout width="1050px" height="900px">
+			<north title="North" size="45%" splittable="true" collapsible="true">
+				<ckeditor hflex="1" vflex="1">
+				</ckeditor>
+			</north>
+			<center>
+				<borderlayout>
+					<west title="CW" size="50%" splittable="true" collapsible="true">
+						<ckeditor hflex="1" vflex="1">
+						</ckeditor>
+					</west>
+					<center title="CC">
+						<ckeditor hflex="1" vflex="1">
+						</ckeditor>
+					</center>
+				</borderlayout>
+			</center>
+			<south title="South" size="10%" border="0">
+				South area...
+			</south>
+		</borderlayout>
+	</window>
+</zk>

@@ -1,0 +1,19 @@
+<window id="VentanaEditor" title="_" border="normal" position="parent" mode="overlapped" width="99%"
+	defaultActionOnShow="moveDiagonal" closable="true" focus="true">
+	If you copy this code in the sandbox,
+		when BTAceptar is clicked a javascript error appears on IE9
+	<ckeditor id="EditorHtml" width="100%" height="450px"/>
+	<textbox id="TBContenidoHTML" width="100%" visible="false"/>	
+	<div id="DivBotonera" sclass="BotoneraListBox" height="27px">
+		<hbox width="99%" pack="center">
+			<button id="BTAceptar" onMouseUp='alert("MouseUp");' autodisable="self" label="_Aceptar">
+				<attribute name="onClick"><![CDATA[
+					TBContenidoHTML.setFocus(true);
+					desktop.setAttribute("HTMLDevuelto", TBContenidoHTML.getValue());
+					//Cerramos ventana
+					VentanaEditor.detach();
+				]]></attribute>
+			</button>
+		</hbox>
+	</div>	
+</window>

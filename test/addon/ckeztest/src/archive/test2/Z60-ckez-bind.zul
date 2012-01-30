@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Z60-ckez-bind.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Mon Jan 30 12:00:00 TST 2012, Created by benbai
+
+Copyright (C) 2011 Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+	<div> Before this test, edit WEB-INF/zk.xml and turn on ckez-bind-addon.xml</div>
+	<div> Change any value below, all value should sync.</div>
+	<window apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('org.zkoss.zktest.test2.bind.CkezBindVM')"
+		width="800px" height="600px">
+		<textbox id="tb" value="@bind(vm.value)" />
+		<ckeditor id="@load(vm.idone)"
+			customConfigurationsPath="@load(vm.configPath)"
+			width="@load(vm.width)" height="@load(vm.height)"
+			value="@bind(vm.value)" text="@save(vm.value)" />
+		<textbox id="tbOne" value="@bind(vm.value)" />
+		<label value="@load(vm.value)" />
+	</window>
+</zk>

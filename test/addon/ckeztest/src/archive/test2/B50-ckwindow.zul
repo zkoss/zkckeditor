@@ -1,0 +1,17 @@
+<window title="${arg.title}" border="normal" width="740px">
+
+	<variables _origValue="${arg.origValue}" local="true" />
+
+	<hbox id="fckhbox" width="100%" height="370px">
+		<ckeditor id="cked" width="690px" height="350px"
+			value="${arg.origValue}" />
+	</hbox>
+
+	<hbox style="margin-left: auto; margin-right: auto;">
+		<button label="OK" id="okBtn"
+			onClick="Events.postEvent(Events.ON_CLOSE,self.root,null);" />
+		<button label="cancel" id="cancelBtn"
+			onClick="Events.postEvent(Events.ON_CLOSE,self.root,null);" />
+	</hbox>
+
+</window>

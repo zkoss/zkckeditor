@@ -1,0 +1,5 @@
+
+<zk>
+	<ckeditor customConfigurationsPath="/ckeditor_demo/data/config.js" toolbar="Basic"/>
+	<ckeditor/>
+</zk>

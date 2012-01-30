@@ -1,0 +1,18 @@
+<zk>
+<portallayout maximizedMode="whole">
+	<portalchildren style="padding: 5px" width="30%">
+		<panel height="300px" title="Google Tools" border="normal" collapsible="true" closable="true" maximizable="true" style="margin-bottom:10px">
+			<panelchildren>
+				<ckeditor  width="690px" height="350px" value="&lt;b&gt;this is some &lt;i&gt;sample&lt;/i&gt; text&lt;/b&gt;"/>
+			</panelchildren>
+		</panel>
+		<panel height="300px" title="LabPixies Clock" border="normal" collapsible="true" closable="true" maximizable="true" style="margin-bottom:10px">
+			<panelchildren>
+				<label>test</label>
+			</panelchildren>
+		</panel>
+		
+	</portalchildren>
+</portallayout>      
+</zk>
+

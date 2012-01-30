@@ -1,0 +1,43 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+
+<zk xmlns:h="http://www.w3.org/1999/xhtml">
+<button label="visible" onClick="ed.visible = !ed.visible"/>
+<textbox id="h"/>
+<textbox id="w"/>
+<ckeditor/>
+<button label="update" onClick="ed.width = w.value;ed.height = h.value"/>
+	
+	<h:form>
+	
+	<ckeditor id="ed" onChange="ta.value = self.value" visible="false" autoHeight="true" width="500px" height="500px">
+		<attribute name="value">
+			&lt;table width="200" cellspacing="1" cellpadding="1"
+			border="1"&gt; &lt;tbody&gt; &lt;tr style="background:
+			#B7B313; color:white;"&gt; &lt;td&gt;First Name&lt;/td&gt;
+			&lt;td&gt;Last Name&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
+			&lt;td&gt;Jone&lt;/td&gt; &lt;td&gt;Hayes&lt;/td&gt;
+			&lt;/tr&gt; &lt;tr&gt; &lt;td&gt;Mary&lt;/td&gt;
+			&lt;td&gt;Bally&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt;
+			&lt;/table&gt;
+		</attribute>
+		<attribute name="onChanging">
+			System.out.println(event.getValue());
+			System.out.println(event.isChangingBySelectBack());
+			System.out.println(event.getStart());
+		</attribute>
+		<attribute name="onSelection">
+			System.out.println(event.getSelectedText());
+		</attribute>
+	</ckeditor>
+	</h:form>
+	<textbox id="ta" rows="6" width="100%" height="250px"
+		onChange="ed.value = self.value" />
+	<button label="click me">
+		<attribute name="onClick" id="fastClick">
+			alert("textbox value: " + ta.value + "\n" + "fck value: " + ed.value);
+		</attribute>
+	</button>
+	<toolbarbutton href="/componentTEST4(timeplot).zul"
+		label="previous" />
+	<toolbarbutton href="/componentTEST6(fckeditor).zul" label="next" />
+</zk>

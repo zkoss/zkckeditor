@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- lang-addon.xml
+	Purpose:
+		
+	Description:
+		
+	History:
+		Tue Oct 7 17:56:45     2009, Created by jimmyshiau
+
+Copyright (C) 2009 Potix Corporation. All Rights Reserved.
+-->
+
+<language-addon>
+	<!-- The name of this addon. It must be unique -->
+	<addon-name>ckezbind</addon-name>
+	<!-- Specifies what other addon this depends
+	<depends></depends>
+	-->
+	<!-- Which language this addon will be added to -->
+	<language-name>xul/html</language-name>
+
+	<component>
+		<component-name>ckeditor</component-name>
+		<extends>ckeditor</extends>
+		<annotation>
+			<annotation-name>ZKBIND</annotation-name>
+			<property-name>value</property-name>
+			<attribute>
+				<attribute-name>ACCESS</attribute-name>
+				<attribute-value>both</attribute-value>
+			</attribute>
+			<attribute>
+				<attribute-name>SAVE_EVENT</attribute-name>
+				<attribute-value>onChange</attribute-value>
+			</attribute>
+			<attribute>
+				<attribute-name>LOAD_REPLACEMENT</attribute-name>
+				<attribute-value>value</attribute-value>
+			</attribute>
+			<attribute>
+				<attribute-name>LOAD_TYPE</attribute-name>
+				<attribute-value>java.lang.String</attribute-value>
+			</attribute>
+		</annotation>
+	</component>
+</language-addon>
