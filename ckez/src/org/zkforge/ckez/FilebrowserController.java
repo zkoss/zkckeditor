@@ -71,7 +71,7 @@ public class FilebrowserController extends GenericForwardComposer {
 		parseFolders(url, map);
 		
 		tree.setItemRenderer(new ExplorerTreeitemRenderer());
-		tree.setModel(new SimpleTreeModel(new SimpleTreeNode("ROOT",initTreeModel(rootFolderMap, new ArrayList()))));
+		tree.setModel(new DefaultTreeModel(new DefaultTreeNode("ROOT",initTreeModel(rootFolderMap, new ArrayList()))));
 		
 		showImages(map);
 	}
@@ -117,7 +117,7 @@ public class FilebrowserController extends GenericForwardComposer {
 				Map map = (Map) value;
 				if (map.size() == 0) continue;
 				ArrayList al = new ArrayList();
-				list.add(new SimpleTreeNode(entry, al));
+				list.add(new DefaultTreeNode(entry, al));
 				initTreeModel(map, al);
 			}
 		}
@@ -217,7 +217,7 @@ public class FilebrowserController extends GenericForwardComposer {
 	
 	private class ExplorerTreeitemRenderer implements TreeitemRenderer {
 		public void render(Treeitem item, Object data) throws Exception {
-			Map.Entry entry = (Map.Entry)((SimpleTreeNode)data).getData();
+			Map.Entry entry = (Map.Entry)((DefaultTreeNode)data).getData();
 			item.setLabel(String.valueOf(entry.getKey()));
 			Object value = entry.getValue();
 			item.setValue(value);
