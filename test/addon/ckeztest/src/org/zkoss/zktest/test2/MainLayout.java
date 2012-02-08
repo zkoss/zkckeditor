@@ -425,6 +425,11 @@ public class MainLayout extends Borderlayout {
 					.setParent(item);
 		}
 
+		public void render(Listitem item, Object data, int index)
+				throws Exception {
+			render(item, data);
+		}
+
 	}
 
 	public Textbox getCodeView() {
