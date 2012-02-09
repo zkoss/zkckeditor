@@ -102,7 +102,6 @@ Copyright (C) 2006 Potix Corporation. All Rights Reserved.
 
 	<!-- Turn on if you want to use language addons.
 	<language-config>
-		<addon-uri>/WEB-INF/ckez-bind-addon.xml</addon-uri>
 		<addon-uri>/WEB-INF/lang-addon.xml</addon-uri>
 	</language-config>
 	 -->
