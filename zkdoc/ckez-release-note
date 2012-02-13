@@ -5,6 +5,7 @@ Ckez 3.6.0.1
 	Issue 7: File upload issue
 
 * Upgrade Notes:
+	+ Upgrade to support zkbind.
 
 	--------
 Ckez 3.6.0.0
