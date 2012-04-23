@@ -79,15 +79,7 @@ public class FilebrowserController extends GenericForwardComposer {
 	private String getFolderUrl() {
 		String uuid = ((String[])param.get("CKEditor"))[0];
 		uuid = uuid.substring(0, uuid.lastIndexOf("-cnt"));
-		
-		String url = null;
-		if ("Images".equals(type))
-			url = (String) session.getAttribute("filebrowserImageBrowseUrl"+ uuid);
-		else if ("Flash".equals(type))
-			url = (String) session.getAttribute("filebrowserFlashBrowseUrl"+ uuid);
-		
-		if (url == null) 
-			url = (String) session.getAttribute("filebrowserBrowseUrl"+ uuid);
+		String url = ((String[]) param.get("url"))[0];
 		
 		String updateURI = application.getUpdateURI();
 		apName = updateURI.substring(0, updateURI.indexOf("/zkau"));

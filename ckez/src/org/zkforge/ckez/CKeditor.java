@@ -34,6 +34,9 @@ import org.zkoss.zk.ui.event.InputEvent;
  * @version $Revision: 3.0 $ $Date: 2009/10/7 17:56:45 $
  */
 public class CKeditor extends AbstractComponent {
+	private static String _fileBrowserTempl = "~./ckez/html/browse.zul";
+	private static String _fileUploadTempl = "~./ckez/html/upload.zul";
+	
 	private String _value = "";
 
 	private String _width = "100%";
@@ -242,8 +245,6 @@ public class CKeditor extends AbstractComponent {
 		}
 	};
 
-	
-
 	/**
 	 * Set the url of the custom configuration .js file. See CKeditor's 
 	 * <a href="http://wiki.fckeditor.net/Developer%27s_Guide/Configuration/Configurations_File">
@@ -271,14 +272,10 @@ public class CKeditor extends AbstractComponent {
 	 * @param filebrowserBrowseUrl
 	 */
 	public void setFilebrowserBrowseUrl(String filebrowserBrowseUrl) {
-		boolean isSetted = false;
 		if (!Objects.equals(_filebrowserBrowseUrl, filebrowserBrowseUrl)) {
 			this._filebrowserBrowseUrl = filebrowserBrowseUrl;
-			String url = String.valueOf(new EncodedURL(filebrowserBrowseUrl).getValue());
-			Executions.getCurrent().getSession().setAttribute("filebrowserBrowseUrl"+this.getUuid(), url);
-			isSetted = true;
+			smartUpdate("filebrowserBrowseUrl", new EncodedURL(filebrowserBrowseUrl));
 		}
-		smartUpdate("filebrowserBrowseUrl", isSetted);//won't send the url info to client
 	}
 
 	/**
@@ -294,14 +291,10 @@ public class CKeditor extends AbstractComponent {
 	 * @param filebrowserImageBrowseUrl
 	 */
 	public void setFilebrowserImageBrowseUrl(String filebrowserImageBrowseUrl) {
-		boolean isSetted = false;
 		if (!Objects.equals(_filebrowserImageBrowseUrl, filebrowserImageBrowseUrl)) {
 			this._filebrowserImageBrowseUrl = filebrowserImageBrowseUrl;
-			String url = String.valueOf(new EncodedURL(filebrowserImageBrowseUrl).getValue());
-			Executions.getCurrent().getSession().setAttribute("filebrowserImageBrowseUrl"+this.getUuid(),url);
-			isSetted = true;
+			smartUpdate("filebrowserImageBrowseUrl", new EncodedURL(filebrowserImageBrowseUrl));
 		}
-		smartUpdate("filebrowserImageBrowseUrl", isSetted);//won't send the url info to client
 	}
 
 	/**
@@ -320,11 +313,8 @@ public class CKeditor extends AbstractComponent {
 		boolean isSetted = false;
 		if (!Objects.equals(_filebrowserFlashBrowseUrl, filebrowserFlashBrowseUrl)) {
 			this._filebrowserFlashBrowseUrl = filebrowserFlashBrowseUrl;
-			String url = String.valueOf(new EncodedURL(filebrowserFlashBrowseUrl).getValue());
-			Executions.getCurrent().getSession().setAttribute("filebrowserFlashBrowseUrl"+this.getUuid(), url);
-			isSetted = true;
+			smartUpdate("filebrowserFlashBrowseUrl", new EncodedURL(filebrowserFlashBrowseUrl));
 		}
-		smartUpdate("filebrowserFlashBrowseUrl", isSetted);//won't send the url info to client
 	}
 
 	/**
@@ -379,15 +369,18 @@ public class CKeditor extends AbstractComponent {
 		render(renderer, "toolbar", _toolbar);
 		render(renderer, "autoHeight", _autoHeight);
 		if (!Strings.isBlank(_filebrowserBrowseUrl))
-			render(renderer, "filebrowserBrowseUrl", true);
+			render(renderer, "filebrowserBrowseUrl", getEncodedURL(_filebrowserBrowseUrl));
 		if (!Strings.isBlank(_filebrowserImageBrowseUrl))
-			render(renderer, "filebrowserImageBrowseUrl", true);
+			render(renderer, "filebrowserImageBrowseUrl", getEncodedURL(_filebrowserImageBrowseUrl));
 		if (!Strings.isBlank(_filebrowserFlashBrowseUrl))
-			render(renderer, "filebrowserFlashBrowseUrl", true);
+			render(renderer, "filebrowserFlashBrowseUrl", getEncodedURL(_filebrowserFlashBrowseUrl));
 		if (_hflex != null)
 			render(renderer, "hflex", _hflex);
 		if (_vflex != null)
 			render(renderer, "vflex", _vflex);
+		render(renderer, "fileBrowserTempl", getEncodedURL(_fileBrowserTempl));
+		render(renderer, "fileUploadTempl", getEncodedURL(_fileUploadTempl));
+		
 	}
 	
 	private class EncodedURL implements org.zkoss.zk.ui.util.DeferredValue {
@@ -403,5 +396,47 @@ public class CKeditor extends AbstractComponent {
 	/** Not childable. */
 	public boolean isChildable() {
 		return false;
+	}
+	
+	/** Sets the template used to create the file browser dialog.
+	 *
+	 * <p>The template must follow the default template:
+	 * ~./ckez/html/browse.zul
+	 *
+	 * <p>In other words, just adjust the label and layout and don't
+	 * change the component's ID.
+	 *
+	 * <p>Note: the template has no effect, ifds
+	 */
+	public static void setFileBrowserTemplate(String uri) {
+		if (uri == null || uri.length() == 0)
+			throw new IllegalArgumentException("empty");
+		_fileBrowserTempl = uri;
+	}
+	/** Returns the template used to create the file browser dialog.
+	 */
+	public static String getFileBrowserTemplate() {
+		return _fileBrowserTempl;
+	}
+	
+	/** Sets the template used to upload file to the server.
+	 *
+	 * <p>The template must follow the default template:
+	 * ~./ckez/html/upload.zul
+	 *
+	 * <p>In other words, just adjust the label and layout and don't
+	 * change the component's ID.
+	 *
+	 * <p>Note: the template has no effect, ifds
+	 */
+	public static void setFileUploadTemplate(String uri) {
+		if (uri == null || uri.length() == 0)
+			throw new IllegalArgumentException("empty");
+		_fileUploadTempl = uri;
+	}
+	/** Returns the template used to upload file to the server.
+	 */
+	public static String getFileUploadTemplate() {
+		return _fileUploadTempl;
 	}
 }

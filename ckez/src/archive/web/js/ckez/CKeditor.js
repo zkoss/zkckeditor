@@ -214,28 +214,21 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			filebrowserBrowseUrl = this._filebrowserBrowseUrl,
 			filebrowserImageBrowseUrl = this._filebrowserImageBrowseUrl,
 			filebrowserFlashBrowseUrl = this._filebrowserFlashBrowseUrl,
-			_filebrowserBrowseUrl = '/web/ckez/html/browse.zul',
+			fileBrowserTempl = this.fileBrowserTempl,
 			config = {
 				customConfig: customConfigPath,
 				width: this._getValue(this._width),
 				height: this._getValue(this._height)
 			};
 
-		
 		if (filebrowserBrowseUrl)
-			config.filebrowserBrowseUrl = 
-				(typeof filebrowserBrowseUrl == "string")? filebrowserBrowseUrl:
-						 zk.ajaxURI(_filebrowserBrowseUrl + '?Type=Files', {desktop : this.desktop,au : true});
+			config.filebrowserBrowseUrl = fileBrowserTempl + '?Type=Files&url=' + filebrowserBrowseUrl;
 
 		if (filebrowserImageBrowseUrl)
-			config.filebrowserImageBrowseUrl = 
-				(typeof filebrowserImageBrowseUrl == "string")? filebrowserImageBrowseUrl:
-						  zk.ajaxURI(_filebrowserBrowseUrl + '?Type=Images', {desktop : this.desktop,au : true});
+			config.filebrowserImageBrowseUrl = fileBrowserTempl + '?Type=Images&url=' + filebrowserImageBrowseUrl;
 
 		if (filebrowserFlashBrowseUrl)
-			config.filebrowserFlashBrowseUrl = 
-				(typeof filebrowserFlashBrowseUrl == "string")? filebrowserFlashBrowseUrl:
-						 zk.ajaxURI(_filebrowserBrowseUrl + '?Type=Flash', {desktop : this.desktop,au : true});
+			config.filebrowserFlashBrowseUrl = fileBrowserTempl + '?Type=Flash&url=' + filebrowserFlashBrowseUrl;
 		
 		if (this._toolbar)
 			config.toolbar = this._toolbar;
