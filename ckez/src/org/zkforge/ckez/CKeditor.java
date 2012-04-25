@@ -35,7 +35,7 @@ import org.zkoss.zk.ui.event.InputEvent;
  */
 public class CKeditor extends AbstractComponent {
 	private static String _fileBrowserTempl = "~./ckez/html/browse.zul";
-	private static String _fileUploadTempl = "~./ckez/html/upload.zul";
+	private static String _fileUploadHandlePage = "";
 	
 	private String _value = "";
 
@@ -52,6 +52,12 @@ public class CKeditor extends AbstractComponent {
 	private String _filebrowserImageBrowseUrl;
 	
 	private String _filebrowserFlashBrowseUrl;
+	
+	private String _filebrowserUploadUrl;
+	
+	private String _filebrowserImageUploadUrl;
+	
+	private String _filebrowserFlashUploadUrl;
 
 	/** Used by setTextByClient() to disable sending back the value */
 	private String _txtByClient;
@@ -268,7 +274,9 @@ public class CKeditor extends AbstractComponent {
 	}
 	
 	/**
-	 * Set the location of an external file browser, that should be launched when "Browse Server" button is pressed.
+	 * Set the location of the folder for the file browser, that should be launched 
+	 * when "Browse Server" button is pressed.
+	 * If configured, the Browse Server button will appear in the Link, Image, and Flash dialog windows. 
 	 * @param filebrowserBrowseUrl
 	 */
 	public void setFilebrowserBrowseUrl(String filebrowserBrowseUrl) {
@@ -279,7 +287,10 @@ public class CKeditor extends AbstractComponent {
 	}
 
 	/**
-	 * Get the location of an external file browser, that should be launched when "Browse Server" button is pressed.
+	 * Get the location of the folder for the file browser, that should be launched 
+	 * when "Browse Server" button is pressed.
+	 * If configured, the Browse Server button will appear in the Link, Image, and Flash dialog windows. 
+	 * 
 	 * @return String
 	 */
 	public String getFilebrowserBrowseUrl() {
@@ -287,7 +298,9 @@ public class CKeditor extends AbstractComponent {
 	}
 	
 	/**
-	 * Set the location of an external file browser, that should be launched when "Browse Server" button is pressed in the Image dialog.
+	 * Set the location of the folder for the file browser, that should be launched 
+	 * when "Browse Server" button is pressed in the Image dialog.
+	 * If not set, CKEditor will use {@link #getFilebrowserBrowseUrl()}. 
 	 * @param filebrowserImageBrowseUrl
 	 */
 	public void setFilebrowserImageBrowseUrl(String filebrowserImageBrowseUrl) {
@@ -298,7 +311,8 @@ public class CKeditor extends AbstractComponent {
 	}
 
 	/**
-	 * Get the location of an external file browser, that should be launched when "Browse Server" button is pressed in the Image dialog.
+	 * Get the location of the folder for the file browser, that should be launched 
+	 * when "Browse Server" button is pressed in the Image dialog.
 	 * @return
 	 */
 	public String getFilebrowserImageBrowseUrl() {
@@ -306,11 +320,12 @@ public class CKeditor extends AbstractComponent {
 	}
 
 	/**
-	 * Set the location of an external file browser, that should be launched when "Browse Server" button is pressed in the Flash dialog.
+	 * Set the location of the folder for the file browser, that should be launched 
+	 * when "Browse Server" button is pressed in the Flash dialog.
+	 * If not set, CKEditor will use {@link #getFilebrowserBrowseUrl()}. 
 	 * @param filebrowserFlashBrowseUrl
 	 */
 	public void setFilebrowserFlashBrowseUrl(String filebrowserFlashBrowseUrl) {
-		boolean isSetted = false;
 		if (!Objects.equals(_filebrowserFlashBrowseUrl, filebrowserFlashBrowseUrl)) {
 			this._filebrowserFlashBrowseUrl = filebrowserFlashBrowseUrl;
 			smartUpdate("filebrowserFlashBrowseUrl", new EncodedURL(filebrowserFlashBrowseUrl));
@@ -318,13 +333,78 @@ public class CKeditor extends AbstractComponent {
 	}
 
 	/**
-	 * Get the location of an external file browser, that should be launched when "Browse Server" button is pressed in the Flash dialog.
+	 * Get the location of the folder for the file browser, that should be launched 
+	 * when "Browse Server" button is pressed in the Flash dialog.
 	 * @return
 	 */
 	public String getFilebrowserFlashBrowseUrl() {
 		return _filebrowserFlashBrowseUrl;
 	}
 	
+	
+	/**
+	 * Get the location of the folder for the file uploads. 
+	 * If set, the Upload tab will appear in the Link, Image, and Flash dialog windows. 
+	 * @return
+	 */
+	public String getFilebrowserUploadUrl() {
+		return _filebrowserUploadUrl;
+	}
+
+	/**
+	 * Set the location of the folder for the file uploads. 
+	 * If set, the Upload tab will appear in the Link, Image, and Flash dialog windows.
+	 * @param filebrowserUploadUrl
+	 */
+	public void setFilebrowserUploadUrl(String filebrowserUploadUrl) {
+		if (!Objects.equals(_filebrowserUploadUrl, filebrowserUploadUrl)) {
+			this._filebrowserUploadUrl = filebrowserUploadUrl;
+			smartUpdate("filebrowserUploadUrl", new EncodedURL(filebrowserUploadUrl));
+		}
+	}
+
+	/**
+	 * Get the location of the folder for the file uploads in the Image dialog window. 
+	 * If not set, CKEditor will use {@link #getFilebrowserUploadUrl()}. 
+	 * @return
+	 */
+	public String getFilebrowserImageUploadUrl() {
+		return _filebrowserImageUploadUrl;
+	}
+
+	/**
+	 * Set the location of the folder for the file uploads in the Image dialog window. 
+	 * If not set, CKEditor will use {@link #getFilebrowserUploadUrl()}. 
+	 * @param filebrowserImageUploadUrl
+	 */
+	public void setFilebrowserImageUploadUrl(String filebrowserImageUploadUrl) {
+		if (!Objects.equals(_filebrowserImageUploadUrl, filebrowserImageUploadUrl)) {
+			this._filebrowserImageUploadUrl = filebrowserImageUploadUrl;
+			smartUpdate("filebrowserImageUploadUrl", new EncodedURL(filebrowserImageUploadUrl));
+		}
+	}
+
+	/**
+	 * Get the location of the script that handles file uploads in the Flash dialog window. 
+	 * If not set, CKEditor will use {@link #getFilebrowserUploadUrl()}. 
+	 * @return
+	 */
+	public String getFilebrowserFlashUploadUrl() {
+		return _filebrowserFlashUploadUrl;
+	}
+
+	/**
+	 * Set the location of the script that handles file uploads in the Flash dialog window. 
+	 * If not set, CKEditor will use {@link #getFilebrowserUploadUrl()}. 
+	 * @param filebrowserFlashUploadUrl
+	 */
+	public void setFilebrowserFlashUploadUrl(String filebrowserFlashUploadUrl) {
+		if (!Objects.equals(_filebrowserFlashUploadUrl, filebrowserFlashUploadUrl)) {
+			this._filebrowserFlashUploadUrl = filebrowserFlashUploadUrl;
+			smartUpdate("filebrowserFlashUploadUrl", new EncodedURL(filebrowserFlashUploadUrl));
+		}
+	}
+
 	private String getEncodedURL(String path) {
 		  final Desktop dt = getDesktop(); //it might not belong to any desktop
 		  return dt != null ? dt.getExecution().encodeURL(path): "";			 
@@ -368,18 +448,27 @@ public class CKeditor extends AbstractComponent {
 		render(renderer, "customConfigurationsPath", getEncodedURL(_customPath));
 		render(renderer, "toolbar", _toolbar);
 		render(renderer, "autoHeight", _autoHeight);
+		
 		if (!Strings.isBlank(_filebrowserBrowseUrl))
 			render(renderer, "filebrowserBrowseUrl", getEncodedURL(_filebrowserBrowseUrl));
 		if (!Strings.isBlank(_filebrowserImageBrowseUrl))
 			render(renderer, "filebrowserImageBrowseUrl", getEncodedURL(_filebrowserImageBrowseUrl));
 		if (!Strings.isBlank(_filebrowserFlashBrowseUrl))
 			render(renderer, "filebrowserFlashBrowseUrl", getEncodedURL(_filebrowserFlashBrowseUrl));
+		
+		if (!Strings.isBlank(_filebrowserUploadUrl))
+			render(renderer, "filebrowserUploadUrl", getEncodedURL(_filebrowserUploadUrl));
+		if (!Strings.isBlank(_filebrowserImageUploadUrl))
+			render(renderer, "filebrowserImageUploadUrl", getEncodedURL(_filebrowserImageUploadUrl));
+		if (!Strings.isBlank(_filebrowserFlashUploadUrl))
+			render(renderer, "filebrowserFlashUploadUrl", getEncodedURL(_filebrowserFlashUploadUrl));
+		
 		if (_hflex != null)
 			render(renderer, "hflex", _hflex);
 		if (_vflex != null)
 			render(renderer, "vflex", _vflex);
 		render(renderer, "fileBrowserTempl", getEncodedURL(_fileBrowserTempl));
-		render(renderer, "fileUploadTempl", getEncodedURL(_fileUploadTempl));
+		render(renderer, "fileUploadTempl", getEncodedURL(_fileUploadHandlePage));
 		
 	}
 	
@@ -419,24 +508,16 @@ public class CKeditor extends AbstractComponent {
 		return _fileBrowserTempl;
 	}
 	
-	/** Sets the template used to upload file to the server.
-	 *
-	 * <p>The template must follow the default template:
-	 * ~./ckez/html/upload.zul
-	 *
-	 * <p>In other words, just adjust the label and layout and don't
-	 * change the component's ID.
-	 *
-	 * <p>Note: the template has no effect, ifds
+	/** Sets the location of the script that handles file uploads.
 	 */
-	public static void setFileUploadTemplate(String uri) {
+	public static void setFileUploadHandlePage(String uri) {
 		if (uri == null || uri.length() == 0)
 			throw new IllegalArgumentException("empty");
-		_fileUploadTempl = uri;
+		_fileUploadHandlePage = uri;
 	}
-	/** Returns the template used to upload file to the server.
+	/** Returnsthe location of the script that handles file uploads.
 	 */
-	public static String getFileUploadTemplate() {
-		return _fileUploadTempl;
+	public static String getFileUploadHandlePage() {
+		return _fileUploadHandlePage;
 	}
 }

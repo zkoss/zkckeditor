@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- config.xml
+	Purpose:
+		
+	Description:
+		
+	History:
+		Mon Apr 23 19:10:47     2012, Created by jimmyshiau
+
+Copyright (C) 2012 Potix Corporation. All Rights Reserved.
+-->
+
+<config>
+	<config-name>ckez</config-name><!-- used to resolve dependency -->
+	<!-- Specifies what other addon this depends
+	<depends></depends>
+	-->
+
+	<version>
+		<version-class>org.zkforge.ckez.Version</version-class>
+		<version-uid>3.6.0.2</version-uid>
+		<zk-version>5.0.0</zk-version><!-- or later -->
+	</version>
+
+	<listener>
+		<listener-class>org.zkforge.ckez.WebAppInit</listener-class>
+	</listener>
+</config>

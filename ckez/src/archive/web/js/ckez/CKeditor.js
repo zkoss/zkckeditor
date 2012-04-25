@@ -28,9 +28,6 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 				editor.setData(v);
 		}],
 		autoHeight: null,
-		filebrowserBrowseUrl: null,
-		filebrowserImageBrowseUrl: null,
-		filebrowserFlashBrowseUrl: null,
 		customConfigurationsPath: _zkf = function () {
 			if (this.desktop)
 				this.rerender();
@@ -211,10 +208,14 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		
 		var wgt = this,
 			customConfigPath = this._customConfigurationsPath,
-			filebrowserBrowseUrl = this._filebrowserBrowseUrl,
-			filebrowserImageBrowseUrl = this._filebrowserImageBrowseUrl,
-			filebrowserFlashBrowseUrl = this._filebrowserFlashBrowseUrl,
+			filebrowserBrowseUrl = this.filebrowserBrowseUrl,
+			filebrowserImageBrowseUrl = this.filebrowserImageBrowseUrl,
+			filebrowserFlashBrowseUrl = this.filebrowserFlashBrowseUrl,
+			filebrowserUploadUrl = this.filebrowserUploadUrl,
+			filebrowserImageUploadUrl = this.filebrowserImageUploadUrl,
+			filebrowserFlashUploadUrl = this.filebrowserFlashUploadUrl,
 			fileBrowserTempl = this.fileBrowserTempl,
+			fileUploadTempl = this.fileUploadTempl,
 			config = {
 				customConfig: customConfigPath,
 				width: this._getValue(this._width),
@@ -229,6 +230,15 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 
 		if (filebrowserFlashBrowseUrl)
 			config.filebrowserFlashBrowseUrl = fileBrowserTempl + '?Type=Flash&url=' + filebrowserFlashBrowseUrl;
+		
+		if (filebrowserUploadUrl)
+			config.filebrowserUploadUrl = fileUploadTempl + '?Type=Files&url=' + filebrowserUploadUrl;
+
+		if (filebrowserImageUploadUrl)
+			config.filebrowserImageUploadUrl = fileUploadTempl + '?Type=Images&url=' + filebrowserImageUploadUrl;
+
+		if (filebrowserFlashUploadUrl)
+			config.filebrowserFlashUploadUrl = fileUploadTempl + '?Type=Flash&url=' + filebrowserFlashUploadUrl;
 		
 		if (this._toolbar)
 			config.toolbar = this._toolbar;
