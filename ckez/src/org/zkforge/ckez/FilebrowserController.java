@@ -1,4 +1,4 @@
-/* Filebrowser.java
+/* FilebrowserController.java
 
  {{IS_NOTE
  Purpose:
@@ -19,17 +19,26 @@ package org.zkforge.ckez;
  * 
  * @author Jimmy Shiau
  */
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.zkoss.lang.Strings;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.UiException;
-import org.zkoss.zk.ui.util.GenericForwardComposer;
-import org.zkoss.zul.*;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.util.GenericForwardComposer;
+import org.zkoss.zul.DefaultTreeModel;
+import org.zkoss.zul.DefaultTreeNode;
+import org.zkoss.zul.Div;
+import org.zkoss.zul.Toolbarbutton;
+import org.zkoss.zul.Tree;
+import org.zkoss.zul.Treeitem;
+import org.zkoss.zul.TreeitemRenderer;
 
 public class FilebrowserController extends GenericForwardComposer {
 	
@@ -43,7 +52,6 @@ public class FilebrowserController extends GenericForwardComposer {
 	private static final String[] FLASH = {"swf"};
 	private static final String[] MEDIA = {"swf", "fla", "jpg", "gif", "jpeg", "png", "avi", "mpg", "mpeg"}; 
 	
-	private String apName = "";
 	private String type = "";
 	private Map fileFilterMap;
 	
@@ -77,19 +85,8 @@ public class FilebrowserController extends GenericForwardComposer {
 	}
 
 	private String getFolderUrl() {
-		String uuid = ((String[])param.get("CKEditor"))[0];
-		uuid = uuid.substring(0, uuid.lastIndexOf("-cnt"));
 		String url = ((String[]) param.get("url"))[0];
-		
-		String updateURI = application.getUpdateURI();
-		apName = updateURI.substring(0, updateURI.indexOf("/zkau"));
-		int index = url.indexOf(apName);
-		if (index == 0 && apName.length() > 0)
-			index = url.indexOf("/", 1);
-		
-		url = index < 0 ? url: url.substring(index);
-		
-		index = url.lastIndexOf(";jsessionid");
+		int index = url.lastIndexOf(";jsessionid");
 		if (index > 0)
 			url = url.substring(0, index);
 		
@@ -102,7 +99,6 @@ public class FilebrowserController extends GenericForwardComposer {
 	private List initTreeModel(Map parentFolderMap, List list) {
 		for (Iterator it = parentFolderMap.entrySet().iterator(); it.hasNext();) {
 			Map.Entry entry = (Map.Entry)it.next();
-			Object key = entry.getKey();
 			Object value = entry.getValue();
 			
 			if (value instanceof Map) {
@@ -179,7 +175,7 @@ public class FilebrowserController extends GenericForwardComposer {
 	}
 	
 	
-	private void showImages(Map map){
+	private void showImages(Map map) {
 		for (Iterator it = map.entrySet().iterator(); it.hasNext();) {
 			Map.Entry me = (Map.Entry) it.next();
 			Object value = me.getValue();
@@ -199,7 +195,8 @@ public class FilebrowserController extends GenericForwardComposer {
 			});
 			int CKEditorFuncNum = 1;
 			CKEditorFuncNum = new Integer(((String[])param.get("CKEditorFuncNum"))[0]).intValue();
-			String script = "window.opener.CKEDITOR.tools.callFunction("+CKEditorFuncNum+", '" + apName + path + "'); window.close(); ";
+			String script = "window.opener.CKEDITOR.tools.callFunction("+
+				CKEditorFuncNum+", '" + execution.encodeURL(path) + "'); window.close(); ";
 			tb.setWidgetListener("onDoubleClick",script);
 			
 			cntDiv.appendChild(tb);
