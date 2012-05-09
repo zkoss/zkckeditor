@@ -34,9 +34,11 @@ import org.zkoss.util.logging.Log;
 import org.zkoss.web.servlet.Servlets;
 import org.zkoss.zk.au.http.AuExtension;
 import org.zkoss.zk.au.http.DHtmlUpdateServlet;
+import org.zkoss.zk.ui.Desktop;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.UiException;
+import org.zkoss.zk.ui.sys.WebAppCtrl;
 /**
  * The AU extension to upload files by ckeditor.
  * It is based on Apache Commons File Upload.
@@ -68,31 +70,28 @@ public class CkezUploadExtension implements AuExtension {
 			return;
 		}
 		String type = request.getParameter("type");
+		String dtid = request.getParameter("dtid");
+		String uuid = request.getParameter("uuid");
+		String url = request.getParameter("url");
+		
 		try {
-			String path = parseRequest(request);
-			if (path != null) {
-//				PrintWriter out = response.getWriter();
-//				 out.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("+
-//						 request.getParameter("CKEditorFuncNum")+",'"+path+"')</script>");  
-//				final Desktop desktop = ((WebAppCtrl)sess.getWebApp())
-//					.getDesktopCache(sess).getDesktopIfAny(dtid);
-//				
-//				final Execution exec = new ExecutionImpl(
-//						_ctx, request, response, desktop, null);
-//				exec.addAuResponse(new AuScript(null, "window.parent.CKEDITOR.tools.callFunction("+
-//						 request.getParameter("CKEditorFuncNum")+",'"+path+"')"));
-				
-				
+			
+			FileItem item = parseFileItem(request);
+			url = FilebrowserController.getFolderUrl(url);
+		    String path = request.getContextPath() + url;
+			
+			
+			if (item != null) {
+				final Desktop desktop = ((WebAppCtrl)sess.getWebApp())
+					.getDesktopCache(sess).getDesktopIfAny(dtid);
+				CKeditor ckez = (CKeditor)desktop.getComponentByUuidIfAny(uuid);
 				String nextURI = "~./ckez/html/fileupload-done.html.dsp";
 				final Map attrs = new HashMap();
 				attrs.put("CKEditorFuncNum", request.getParameter("CKEditorFuncNum"));
-				attrs.put("path", path);
+				attrs.put("path", ckez.writeFileItem(path, 
+						desktop.getWebApp().getRealPath(url), item, type));
 				Servlets.forward(_ctx, request, response,
 					nextURI, attrs, Servlets.PASS_THRU_ATTR);
-				
-				
-//				Clients.evalJavaScript("window.parent.CKEDITOR.tools.callFunction("+
-//						 request.getParameter("CKEditorFuncNum")+",'"+path+"')");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -100,14 +99,9 @@ public class CkezUploadExtension implements AuExtension {
 	}
 	
 	
-	private String parseRequest(HttpServletRequest request) throws Exception {
+	private FileItem parseFileItem(HttpServletRequest request) throws Exception {
 		if (ServletFileUpload.isMultipartContent(request)) {
-		    String url = request.getParameter("url");
-		    int index = url.lastIndexOf(";jsessionid");
-			if (index > 0)
-				url = url.substring(0, index);
-		    
-		    String path = request.getContextPath() + "/" + url;
+			
 		    
 		    FileItemFactory factory = new DiskFileItemFactory();  
 		    ServletFileUpload servletFileUpload = new ServletFileUpload(factory);  
@@ -117,20 +111,10 @@ public class CkezUploadExtension implements AuExtension {
 		    for (Iterator it = fileItemsList.iterator(); it.hasNext();) {
 		    	FileItem item = (FileItem) it.next();
 		        if (!item.isFormField()) {
-		        	url = request.getSession().getServletContext().getRealPath(url);
-		        	writeFile(item, url);
-		            return path + "/" + item.getName();
+		            return item;
 		        }  
 		    }  
-		}  
+		} 
 		return null;
 	}
-
-	private void writeFile(FileItem item, String url) throws Exception {
-        File file = new File(url + "/" + item.getName());  
-        if (!file.getParentFile().exists())
-        	throw new UiException("Folder not found: " + url);
-        item.write(file);
-	}
-
 }

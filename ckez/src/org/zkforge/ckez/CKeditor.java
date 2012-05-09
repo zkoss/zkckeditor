@@ -17,6 +17,9 @@
 package org.zkforge.ckez;
 
 
+import java.io.File;
+
+import org.apache.commons.fileupload.FileItem;
 import org.zkoss.lang.Objects;
 import org.zkoss.lang.Strings;
 
@@ -58,6 +61,8 @@ public class CKeditor extends AbstractComponent {
 	private String _filebrowserImageUploadUrl;
 	
 	private String _filebrowserFlashUploadUrl;
+	
+	private CkezFileWriter fileWriter;
 
 	/** Used by setTextByClient() to disable sending back the value */
 	private String _txtByClient;
@@ -282,7 +287,7 @@ public class CKeditor extends AbstractComponent {
 	public void setFilebrowserBrowseUrl(String filebrowserBrowseUrl) {
 		if (!Objects.equals(_filebrowserBrowseUrl, filebrowserBrowseUrl)) {
 			this._filebrowserBrowseUrl = filebrowserBrowseUrl;
-			smartUpdate("filebrowserBrowseUrl", new EncodedURL(filebrowserBrowseUrl));
+			smartUpdate("filebrowserBrowseUrl", filebrowserBrowseUrl);
 		}
 	}
 
@@ -306,7 +311,7 @@ public class CKeditor extends AbstractComponent {
 	public void setFilebrowserImageBrowseUrl(String filebrowserImageBrowseUrl) {
 		if (!Objects.equals(_filebrowserImageBrowseUrl, filebrowserImageBrowseUrl)) {
 			this._filebrowserImageBrowseUrl = filebrowserImageBrowseUrl;
-			smartUpdate("filebrowserImageBrowseUrl", new EncodedURL(filebrowserImageBrowseUrl));
+			smartUpdate("filebrowserImageBrowseUrl", filebrowserImageBrowseUrl);
 		}
 	}
 
@@ -328,7 +333,7 @@ public class CKeditor extends AbstractComponent {
 	public void setFilebrowserFlashBrowseUrl(String filebrowserFlashBrowseUrl) {
 		if (!Objects.equals(_filebrowserFlashBrowseUrl, filebrowserFlashBrowseUrl)) {
 			this._filebrowserFlashBrowseUrl = filebrowserFlashBrowseUrl;
-			smartUpdate("filebrowserFlashBrowseUrl", new EncodedURL(filebrowserFlashBrowseUrl));
+			smartUpdate("filebrowserFlashBrowseUrl", filebrowserFlashBrowseUrl);
 		}
 	}
 
@@ -359,7 +364,7 @@ public class CKeditor extends AbstractComponent {
 	public void setFilebrowserUploadUrl(String filebrowserUploadUrl) {
 		if (!Objects.equals(_filebrowserUploadUrl, filebrowserUploadUrl)) {
 			this._filebrowserUploadUrl = filebrowserUploadUrl;
-			smartUpdate("filebrowserUploadUrl", new EncodedURL(filebrowserUploadUrl));
+			smartUpdate("filebrowserUploadUrl", filebrowserUploadUrl);
 		}
 	}
 
@@ -380,7 +385,7 @@ public class CKeditor extends AbstractComponent {
 	public void setFilebrowserImageUploadUrl(String filebrowserImageUploadUrl) {
 		if (!Objects.equals(_filebrowserImageUploadUrl, filebrowserImageUploadUrl)) {
 			this._filebrowserImageUploadUrl = filebrowserImageUploadUrl;
-			smartUpdate("filebrowserImageUploadUrl", new EncodedURL(filebrowserImageUploadUrl));
+			smartUpdate("filebrowserImageUploadUrl", filebrowserImageUploadUrl);
 		}
 	}
 
@@ -401,7 +406,7 @@ public class CKeditor extends AbstractComponent {
 	public void setFilebrowserFlashUploadUrl(String filebrowserFlashUploadUrl) {
 		if (!Objects.equals(_filebrowserFlashUploadUrl, filebrowserFlashUploadUrl)) {
 			this._filebrowserFlashUploadUrl = filebrowserFlashUploadUrl;
-			smartUpdate("filebrowserFlashUploadUrl", new EncodedURL(filebrowserFlashUploadUrl));
+			smartUpdate("filebrowserFlashUploadUrl", filebrowserFlashUploadUrl);
 		}
 	}
 
@@ -410,6 +415,41 @@ public class CKeditor extends AbstractComponent {
 		  return dt != null ? dt.getExecution().encodeURL(path): "";			 
 	}
 	
+	public CkezFileWriter getFileWriter() {
+		return fileWriter;
+	}
+
+	public void setFileWriter(CkezFileWriter fileWriter) {
+		this.fileWriter = fileWriter;
+	}
+	
+	private static final CkezFileWriter _defWriter = new CkezFileWriter() {
+
+		public String writeFileItem(String uploadUrl, String realPath,
+				FileItem item, String type) {
+
+			String fileName = item.getName();
+			File file = new File(realPath + "/" + fileName);
+			
+			if (!file.getParentFile().exists())
+				throw new UiException("Folder not found: " + realPath);
+			try {
+				item.write(file);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			return uploadUrl + "/" + fileName;
+		}
+	};
+	
+	
+	
+	/**/ String writeFileItem(String uploadUrl, String realPath, FileItem item, String type) {
+		return (fileWriter != null ? fileWriter: _defWriter)
+			.writeFileItem(uploadUrl, realPath, item, type);
+	}
+
 	public void service(org.zkoss.zk.au.AuRequest request, boolean everError) {
 		final String cmd = request.getCommand();
 		if (cmd.equals(Events.ON_CHANGE)) {
@@ -450,18 +490,18 @@ public class CKeditor extends AbstractComponent {
 		render(renderer, "autoHeight", _autoHeight);
 		
 		if (!Strings.isBlank(_filebrowserBrowseUrl))
-			render(renderer, "filebrowserBrowseUrl", getEncodedURL(_filebrowserBrowseUrl));
+			render(renderer, "filebrowserBrowseUrl", _filebrowserBrowseUrl);
 		if (!Strings.isBlank(_filebrowserImageBrowseUrl))
-			render(renderer, "filebrowserImageBrowseUrl", getEncodedURL(_filebrowserImageBrowseUrl));
+			render(renderer, "filebrowserImageBrowseUrl", _filebrowserImageBrowseUrl);
 		if (!Strings.isBlank(_filebrowserFlashBrowseUrl))
-			render(renderer, "filebrowserFlashBrowseUrl", getEncodedURL(_filebrowserFlashBrowseUrl));
+			render(renderer, "filebrowserFlashBrowseUrl", _filebrowserFlashBrowseUrl);
 		
 		if (!Strings.isBlank(_filebrowserUploadUrl))
-			render(renderer, "filebrowserUploadUrl", getEncodedURL(_filebrowserUploadUrl));
+			render(renderer, "filebrowserUploadUrl", _filebrowserUploadUrl);
 		if (!Strings.isBlank(_filebrowserImageUploadUrl))
-			render(renderer, "filebrowserImageUploadUrl", getEncodedURL(_filebrowserImageUploadUrl));
+			render(renderer, "filebrowserImageUploadUrl", _filebrowserImageUploadUrl);
 		if (!Strings.isBlank(_filebrowserFlashUploadUrl))
-			render(renderer, "filebrowserFlashUploadUrl", getEncodedURL(_filebrowserFlashUploadUrl));
+			render(renderer, "filebrowserFlashUploadUrl", _filebrowserFlashUploadUrl);
 		
 		if (_hflex != null)
 			render(renderer, "hflex", _hflex);

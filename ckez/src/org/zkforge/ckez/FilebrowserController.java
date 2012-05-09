@@ -64,14 +64,14 @@ public class FilebrowserController extends GenericForwardComposer {
 		
 		type = ((String[])param.get("Type"))[0];
 		fileFilterMap = initFileFilterMap();
-		String url = getFolderUrl();
 		
+		String url = ((String[]) param.get("url"))[0];
 		if (Strings.isBlank(url)) return;
-		if (url.startsWith("./"))
-			url = url.substring(1);
 		
-		if (!url.startsWith("/"))
-			url = "/" + url;
+		url = getFolderUrl(url);
+		if (application.getResourcePaths(url) == null)
+			throw new UiException("Folder not found: " + url);
+		
 		Map rootFolderMap = new TreeMap();
 		Map map = new TreeMap();
 		rootFolderMap.put(url, map);
@@ -84,15 +84,16 @@ public class FilebrowserController extends GenericForwardComposer {
 		showImages(map);
 	}
 
-	private String getFolderUrl() {
-		String url = ((String[]) param.get("url"))[0];
-		int index = url.lastIndexOf(";jsessionid");
-		if (index > 0)
-			url = url.substring(0, index);
+	/*package*/ static String getFolderUrl(String url) {
+//		int index = url.lastIndexOf(";jsessionid");
+//		if (index > 0)
+//			url = url.substring(0, index);
 		
-		if (application.getResourcePaths(url) == null)
-			throw new UiException("Folder not found: " + url);
+		if (url.startsWith("./"))
+			url = url.substring(1);
 		
+		if (!url.startsWith("/"))
+			url = "/" + url;
 		return url;
 	}
 

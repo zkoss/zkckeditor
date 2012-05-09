@@ -207,6 +207,8 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 	_init: function() {
 		
 		var wgt = this,
+			uuid = this.uuid,
+			dtid = this.desktop.id,
 			customConfigPath = this._customConfigurationsPath,
 			filebrowserBrowseUrl = this.filebrowserBrowseUrl,
 			filebrowserImageBrowseUrl = this.filebrowserImageBrowseUrl,
@@ -232,13 +234,16 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			config.filebrowserFlashBrowseUrl = fileBrowserTempl + '?Type=Flash&url=' + filebrowserFlashBrowseUrl;
 		
 		if (filebrowserUploadUrl)
-			config.filebrowserUploadUrl = fileUploadTempl + '?Type=Files&url=' + filebrowserUploadUrl;
+			config.filebrowserUploadUrl = fileUploadTempl + '?Type=Files&url=' + filebrowserUploadUrl + 
+				'&dtid=' + dtid + '&uuid=' + uuid;
 
 		if (filebrowserImageUploadUrl)
-			config.filebrowserImageUploadUrl = fileUploadTempl + '?Type=Images&url=' + filebrowserImageUploadUrl;
+			config.filebrowserImageUploadUrl = fileUploadTempl + '?Type=Images&url=' + filebrowserImageUploadUrl + 
+				'&dtid=' + dtid + '&uuid=' + uuid;
 
 		if (filebrowserFlashUploadUrl)
-			config.filebrowserFlashUploadUrl = fileUploadTempl + '?Type=Flash&url=' + filebrowserFlashUploadUrl;
+			config.filebrowserFlashUploadUrl = fileUploadTempl + '?Type=Flash&url=' + filebrowserFlashUploadUrl + 
+				'&dtid=' + dtid + '&uuid=' + uuid;
 		
 		if (this._toolbar)
 			config.toolbar = this._toolbar;
