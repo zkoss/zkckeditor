@@ -20,7 +20,7 @@ Copyright (C) 2009 Potix Corporation. All Rights Reserved.
 
 	<version>
 		<version-class>org.zkforge.ckez.Version</version-class>
-		<version-uid>3.6.0.2</version-uid>
+		<version-uid>3.6.4.0</version-uid>
 		<zk-version>5.0.0</zk-version><!-- or later -->
 	</version>
 
@@ -31,7 +31,7 @@ Copyright (C) 2009 Potix Corporation. All Rights Reserved.
 		such that, if the version is changed, the browser will reload them.
 		The name is either a package's name or a portion of it.
 	-->
-	<javascript-module name="ckez" version="3.6.0.2"/>
+	<javascript-module name="ckez" version="3.6.4.0"/>
 
 	<zscript>
 	import org.zkforge.ckez.*;
