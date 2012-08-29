@@ -215,5 +215,10 @@ public class FilebrowserController extends GenericForwardComposer {
 			if (item.getParentItem() == null)
 				item.setSelected(true);
 		}
+
+		public void render(Treeitem item, Object data, int index)
+				throws Exception {
+			render(item, data);
+		}
 	}
 }
