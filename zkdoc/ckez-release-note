@@ -1,4 +1,13 @@
 	--------
+Ckez 3.6.4.0
+* Features:
+
+* Bugs:
+	
+* Upgrade Notes:
+	+ Upgrade to ckeditor 3.6.4
+	
+	--------
 Ckez 3.6.0.2
 * Features:
 	Issue 9: Ckeditor support fileupload
