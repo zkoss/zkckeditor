@@ -19,7 +19,7 @@ Copyright (C) 2012 Potix Corporation. All Rights Reserved.
 
 	<version>
 		<version-class>org.zkforge.ckez.Version</version-class>
-		<version-uid>3.6.0.2</version-uid>
+		<version-uid>3.6.4.0</version-uid>
 		<zk-version>5.0.0</zk-version><!-- or later -->
 	</version>
 
