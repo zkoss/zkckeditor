@@ -24,22 +24,24 @@ Copyright (C) 2009 Potix Corporation. All Rights Reserved.
 	<div>
 		<ckeditor id="ed" autoHeight="true">
 		<attribute name="value">
-		&lt;table width="200" cellspacing="1" cellpadding="1" border="1"&gt;
-		    &lt;tbody&gt;
-		        &lt;tr style="background: #B7B313; color:white;"&gt;
-		            &lt;td&gt;First Name&lt;/td&gt;
-		            &lt;td&gt;Last Name&lt;/td&gt;
-		        &lt;/tr&gt;
-		        &lt;tr&gt;
-		            &lt;td&gt;Jone&lt;/td&gt;
-		            &lt;td&gt;Hayes&lt;/td&gt;
-		        &lt;/tr&gt;
-		        &lt;tr&gt;
-		            &lt;td&gt;Mary&lt;/td&gt;
-		            &lt;td&gt;Bally&lt;/td&gt;
-		        &lt;/tr&gt;
-		    &lt;/tbody&gt;
-		&lt;/table&gt;
+		<![CDATA[
+		<table width="200" cellspacing="1" cellpadding="1" border="1">
+		    <tbody>
+		        <tr style="background: #B7B313; color:white;">
+		            <td>First Name</td>
+		            <td>Last Name</td>
+		        </tr>
+		        <tr>
+		            <td>Jone</td>
+		            <td>Hayes1</td>
+		        </tr>
+		        <tr>
+		            <td>Mary</td>
+		            <td>Bally</td>
+		        </tr>
+		    </tbody>
+		</table>
+		]]>
 		</attribute>
 	</ckeditor></div>
 		<button label="Submit"

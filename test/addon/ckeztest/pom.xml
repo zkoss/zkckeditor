@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.zkoss.zk</groupId>
-	<artifactId>zktest</artifactId>
+	<artifactId>ckeztest</artifactId>
 	<properties>
 		<zkel.version>1.1.0</zkel.version>
 		<commons-lang.version>2.4</commons-lang.version>
@@ -21,13 +21,13 @@
 		<jasperreports.version>4.0.1</jasperreports.version>
 		<jfreechart.version>1.0.13</jfreechart.version>
 		<filters.version>2.0.235</filters.version>
-		<ckez.version>3.6.4.0</ckez.version>
+		<ckez.version>4.0.1</ckez.version>
 		<fckez.version>2.6.5_50</fckez.version>
 		<gmapsz.version>2.0.51</gmapsz.version>
 		<timelinez.version>2.3.1_50</timelinez.version>
 		<timeplotz.version>1.1_50</timeplotz.version>
 	</properties>
-	<version>6.5.0</version>
+	<version>6.5.1</version>
 	<packaging>war</packaging>
 	<licenses>
 		<license>
@@ -226,11 +226,13 @@
 			<artifactId>ckez</artifactId>
 			<version>${ckez.version}</version>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>org.zkoss.zkforge</groupId>
 			<artifactId>fckez</artifactId>
 			<version>${fckez.version}</version>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>org.zkoss.zkforge</groupId>
 			<artifactId>timelinez</artifactId>
