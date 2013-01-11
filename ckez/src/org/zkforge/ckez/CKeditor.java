@@ -512,7 +512,7 @@ public class CKeditor extends AbstractComponent {
 		
 	}
 	
-	private class EncodedURL implements org.zkoss.zk.ui.util.DeferredValue {
+	private class EncodedURL implements org.zkoss.zk.au.DeferredValue {
 		private String path;
 		public EncodedURL(String path) {
 			this.path = path;

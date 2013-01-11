@@ -12,8 +12,7 @@ Copyright (C) 2009 Potix Corporation. All Rights Reserved.
 This program is distributed under LGPL Version 2.1 in the hope that
 it will be useful, but WITHOUT ANY WARRANTY.
 */
-window.CKEDITOR.focusManager.prototype['blur'] =
-window.CKEDITOR.focusManager.prototype['forceBlur'];
+delete CKEDITOR.focusManager._.blurDelay;
 
 ckez.CKeditor = zk.$extends(zul.Widget, {
 	_height: '200',
@@ -39,7 +38,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		},
 		height: function (v) {
 			if (!v || !this.$n()) return;			
-			this._setSize(jq('td#cke_contents_' + this.uuid + '-cnt'), v, 'height');
+			this._setSize(jq('#cke_' + this.uuid + '-cnt'), v, 'height');
 		}
 	},	
 
@@ -73,9 +72,9 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 				else {
 					n.style.height = this._height || '';
 					if (this._height)
-						this._setSize(jq('td#cke_contents_' + this.uuid + '-cnt'), this._height, 'height');
+						this._setSize(jq('#cke_' + this.uuid + '-cnt'), this._height, 'height');
 					else
-						this._setSize(jq('td#cke_contents_' + this.uuid + '-cnt'), '200px', 'height');
+						this._setSize(jq('#cke_' + this.uuid + '-cnt'), '200px', 'height');
 				}
 			}
 			if (sz.width !== undefined) {
@@ -104,7 +103,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		// remove outer div height so container like groupbox can change size with it
 		n.style.height = '';
 		// compute text area height
-		var textArea = jq('td#cke_contents_' + this.uuid + '-cnt'),
+		var textArea = jq('#cke_' + this.uuid + '-cnt'),
 			textParent = textArea.get(0).parentNode,
 			topHeight = jq(textParent.previousSibling).outerHeight(), // top menu buttons
 			bottomHeight = jq(textParent.nextSibling).outerHeight();
@@ -115,7 +114,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 	},
 	setFlexSizeW_: function(n, zkn, width, ignoreMargins) {
 		// get current topHeight
-		var topHeight = jq('td#cke_top_' + this.uuid + '-cnt').outerHeight();
+		var topHeight = jq('#cke_' + this.uuid + '-cnt .cke_top').outerHeight();
 
 		this.$super(ckez.CKeditor, 'setFlexSizeW_', n, zkn, width, ignoreMargins);
 		var w = parseInt(n.style.width); // get parent setted width
@@ -125,7 +124,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		this._setSize(jq('#cke_' + this.uuid + '-cnt'), jq.px0(w), 'width');
 		// set height again if topHeight changed
 		// ignore if vflex not setted
-		if (topHeight != jq('td#cke_top_' + this.uuid + '-cnt').outerHeight() && this._vflex)
+		if (topHeight != jq('#cke_' + this.uuid + '-cnt .cke_top').outerHeight() && this._vflex)
 			this.setFlexSizeH_(n, zkn, this._hflexHeight, ignoreMargins);
 	},
 	redraw: function (out) {
@@ -172,7 +171,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 	},
 	
 	onRestore: function () {
-		var iframe = jq('td#cke_contents_' + this.uuid + '-cnt iframe')[0];
+		var iframe = jq('#cke_' + this.uuid + '-cnt iframe')[0];
 		if (!iframe) return;
 		
 		CKEDITOR.remove( this._editor );
@@ -342,7 +341,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		if (editor.checkDirty()) {
 			var val = editor.getData();
 			wgt._value = val; //save for onRestore
-			wgt.fire('onChange', {value: val}, {sendAhead: ahead});
+			wgt.fire('onChange', {value: val}, {sendAhead: ahead ? ahead : true});
 			editor.resetDirty();
 		}
 	},
@@ -372,8 +371,8 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 	onAutoHeight: function (event) {			
 		var editor = event.editor,
 			wgt = zk.Widget.$(editor.element.getId()),
-			td = jq('td#cke_contents_' + wgt.uuid + '-cnt'),
-			iframe = jq('td#cke_contents_' + wgt.uuid + '-cnt iframe'),
+			cnt = jq('#cke_' + wgt.uuid + '-cnt'),
+			iframe = cnt.find('iframe'),
 			body = iframe.contents().find("body"),	
 			defaultHeight = zk.parseInt(editor.config.height);
 				
@@ -382,9 +381,9 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 				
 				var pMargin = zk.parseInt(body.find("P").css("marginBottom")),// for FF
 					bodyMargin = zk.parseInt(body.css("marginBottom"));//for ie				
-				td.height(body.height() + pMargin + bodyMargin);
-				if(td.height() < defaultHeight) {  // less then default					
-					td.height(defaultHeight);
+				cnt.height(body.height() + pMargin + bodyMargin);
+				if(cnt.height() < defaultHeight) {  // less then default					
+					cnt.height(defaultHeight);
 				}
 			},20); 
 		}
