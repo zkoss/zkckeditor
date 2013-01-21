@@ -20,8 +20,8 @@ Copyright (C) 2009 Potix Corporation. All Rights Reserved.
 
 	<version>
 		<version-class>org.zkforge.ckez.Version</version-class>
-		<version-uid>4.0.1</version-uid>
-		<zk-version>5.0.0</zk-version><!-- or later -->
+		<version-uid>4.0.1.0</version-uid>
+		<zk-version>5.0.6</zk-version><!-- or later -->
 	</version>
 
 	<!-- Which language this addon will be added to -->
