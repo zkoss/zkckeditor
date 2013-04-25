@@ -103,11 +103,11 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		// remove outer div height so container like groupbox can change size with it
 		n.style.height = '';
 		// compute text area height
-		var textArea = jq('#cke_' + this.uuid + '-cnt'),
-			textParent = textArea.get(0).parentNode,
-			topHeight = jq(textParent.previousSibling).outerHeight(), // top menu buttons
-			bottomHeight = jq(textParent.nextSibling).outerHeight();
-		h = h - topHeight - bottomHeight - 25;
+		// B-CKEZ-14: CKEditor Vflex doesn't work properly
+		var textArea  = jq(n).find('.cke_contents'),
+			topHeight = textArea.prev().outerHeight(), // top menu buttons
+			bottomHeight = textArea.next().outerHeight();
+		h = h - topHeight - bottomHeight;
 
 		// set text area height
 		this._setSize(textArea, jq.px0(h), 'height');
