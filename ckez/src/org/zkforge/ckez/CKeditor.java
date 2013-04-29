@@ -486,6 +486,7 @@ public class CKeditor extends AbstractComponent {
 			render(renderer, "height", _height);
 
 		render(renderer, "customConfigurationsPath", getEncodedURL(_customPath));
+		render(renderer, "instanceConfigurationPath", getEncodedURL(_instancePath));
 		render(renderer, "toolbar", _toolbar);
 		render(renderer, "autoHeight", _autoHeight);
 		
