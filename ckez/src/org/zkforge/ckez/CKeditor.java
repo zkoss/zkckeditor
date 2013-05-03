@@ -18,14 +18,13 @@ package org.zkforge.ckez;
 
 
 import java.io.File;
+import java.util.Map;
 
 import org.apache.commons.fileupload.FileItem;
 import org.zkoss.lang.Objects;
 import org.zkoss.lang.Strings;
-
 import org.zkoss.zk.ui.AbstractComponent;
 import org.zkoss.zk.ui.Desktop;
-import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.UiException;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.InputEvent;
@@ -50,6 +49,8 @@ public class CKeditor extends AbstractComponent {
 	
 	private String _customPath;
 	
+	private Map<String, Object> _config;
+		
 	private String _filebrowserBrowseUrl;
 	
 	private String _filebrowserImageBrowseUrl;
@@ -257,25 +258,48 @@ public class CKeditor extends AbstractComponent {
 	};
 
 	/**
-	 * Set the url of the custom configuration .js file. See CKeditor's 
-	 * <a href="http://wiki.fckeditor.net/Developer%27s_Guide/Configuration/Configurations_File">
-	 * Configurtions File</a> for details.
+	 * Set the url of the custom configuration .js file. See  
+	 * <a href="http://docs.ckeditor.com/#!/api/CKEDITOR.config">
+	 * CKEDITOR.config</a> for available configuration options.
 	 * @param url the url path for the customized configuration path
 	 */
 	public void setCustomConfigurationsPath(String url) {
 		if (!Objects.equals(_customPath, url)) {
 			_customPath = url;
-			smartUpdate("customConfigurationsPath", new EncodedURL(_customPath));	
+			smartUpdate("customConfigurationsPath", getEncodedURL(_customPath));	
 		}
 	}
 
 	/**
-	 * Get the url of the custom configuration .js file. See CKeditor's 
-	 * <a href="http://wiki.fckeditor.net/Developer%27s_Guide/Configuration/Configurations_File">
-	 * Configurtions File</a> for details.
+	 * Get the url of the custom configuration .js file. See  
+	 * <a href="http://docs.ckeditor.com/#!/api/CKEDITOR.config">
+	 * CKEDITOR.config</a> for available configuration options.
 	 */
 	public String getCustomConfigurationsPath() {
 		return _customPath;
+	}
+
+	/**
+	 * Set the configuration for instance creation. See 
+	 * <a href="http://docs.ckeditor.com/#!/api/CKEDITOR.config">
+	 * CKEDITOR.config</a> for available configuration options.
+	 * 
+	 * @param config - a map for describing the configuration 
+	 */
+	public void setConfig(Map<String, Object> config) {
+		if (config != null) {
+			_config = config;
+			smartUpdate("config", _config);
+		}
+	}
+
+	/**
+	 * Get the configuration for instance creation. See 
+	 * <a href="http://docs.ckeditor.com/#!/api/CKEDITOR.config">
+	 * CKEDITOR.config</a> for available configuration options.
+	 */
+	public Map<String, Object> getConfig() {
+		return _config;
 	}
 	
 	/**
@@ -486,7 +510,8 @@ public class CKeditor extends AbstractComponent {
 			render(renderer, "height", _height);
 
 		render(renderer, "customConfigurationsPath", getEncodedURL(_customPath));
-		render(renderer, "instanceConfigurationPath", getEncodedURL(_instancePath));
+		render(renderer, "config", _config);
+		
 		render(renderer, "toolbar", _toolbar);
 		render(renderer, "autoHeight", _autoHeight);
 		

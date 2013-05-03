@@ -1,0 +1,40 @@
+<zk xmlns:w="client">
+	<hlayout>
+		<window title="Client-side Method" border="normal" hflex="1" height="300px" sizable="true">
+			<ckeditor id="editor1" vflex="1">
+			<attribute w:name="getConfig_">
+			function (config) {
+				config.toolbar =
+					[
+					    ['Source','-','Save','NewPage','Preview','-','Templates'],
+					];
+				return config;
+			}
+			</attribute>
+			</ckeditor>
+		</window>
+		<window title="Client-side Method" border="normal" vflex="1" hflex="1" sizable="true">
+			<ckeditor vflex="1">
+			<attribute w:name="getConfig_">
+			function (config) {
+				config.toolbar =
+					[
+					    ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+					];
+				return config;
+			}
+			</attribute>
+			</ckeditor>
+		</window>
+	</hlayout>
+	<hlayout 
+		apply="org.zkoss.bind.BindComposer" 
+		viewModel="@id('vm') @init('org.zkoss.zktest.test2.F65CKEZ15_ViewModel')">
+		<window title="Server-side API" border="normal" hflex="1" height="300px" sizable="true">
+			<ckeditor vflex="1" config="@load(vm.config1)" />
+		</window>
+		<window title="Server-side API" border="normal" vflex="1" hflex="1" sizable="true">
+			<ckeditor vflex="1" config="@load(vm.config2)" />
+		</window>
+	</hlayout>			
+</zk>

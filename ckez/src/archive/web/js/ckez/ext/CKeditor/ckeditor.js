@@ -12152,7 +12152,8 @@ CKEDITOR.keystrokeHandler = function( editor ) {
  */
 CKEDITOR.scriptLoader = (function() {
 	var uniqueScripts = {},
-		waitingList = {};
+		waitingList = {},
+		pendingQueue = [];
 
 	return {
 		/**
@@ -12184,8 +12185,9 @@ CKEDITOR.scriptLoader = (function() {
 		 * the callback call. Defaults to {@link CKEDITOR}.
 		 * @param {Boolean} [showBusy] Changes the cursor of the document while
 		 * the script is loaded.
+		 * @param {Boolean} [ordered] Signals that the script is part of a queue.
 		 */
-		load: function( scriptUrl, callback, scope, showBusy ) {
+		load: function( scriptUrl, callback, scope, showBusy, ordered ) {
 			var isString = ( typeof scriptUrl == 'string' );
 
 			if ( isString )
@@ -12233,6 +12235,9 @@ CKEDITOR.scriptLoader = (function() {
 					for ( var i = 0; i < waitingInfo.length; i++ )
 						waitingInfo[ i ]( url, success );
 				};
+				
+			if ( ordered )
+				CKEDITOR.scriptLoader.advanceQueue();
 
 			var loadScript = function( url ) {
 					if ( uniqueScripts[ url ] ) {
@@ -12287,6 +12292,39 @@ CKEDITOR.scriptLoader = (function() {
 			for ( var i = 0; i < scriptCount; i++ ) {
 				loadScript( scriptUrl[ i ] );
 			}
+		},
+		
+		/**
+		 * Loads a script in a queue, so only one of teh scripts in the queue is
+		 * to be loaded at the same time.
+		 * @param {String|Array} scriptUrl One or more URLs pointing to the 
+		 * scripts to be loaded.
+		 * @param {Function} [callback] A function to be called when the script
+		 * is loaded and executed. If a string is passed to "scriptUrl", a
+		 * boolean parameter is passed to the callback, indicating the
+		 * success of the load. If an array is passed instead, two array
+		 * parameters are passed to the callback; the first contains the
+		 * URLs that have been properly loaded, and the second the failed
+		 * ones.
+		 * @example
+		 * see CKEDITOR.scriptLoader.load
+		 */
+		queue: function( scriptUrl, callback ) {
+			// Let's add this script to the queue
+			pendingQueue.push( {'url': scriptUrl, 'callback': callback} );
+			
+			// Load it if it's the only one in the queue at the moment
+			if ( pendingQueue.length == 1 )
+				this.load( scriptUrl, callback, CKEDITOR, 0, 1);
+		},
+		
+		advanceQueue: function() {
+			// Remove the first one
+			pendingQueue.shift();
+			
+			// Load the new first one
+			if ( pendingQueue.length )
+				this.load( scriptUrl, callback, CKEDITOR, 0, 1);
 		}
 	};
 })();
@@ -13039,7 +13077,7 @@ CKEDITOR.event.implementOn( CKEDITOR.ui );
 				editor.fireOnce( 'customConfigLoaded' );
 		} else {
 			// Load the custom configuration file.
-			CKEDITOR.scriptLoader.load( customConfig, function() {
+			CKEDITOR.scriptLoader.queue( customConfig, function() {
 				// If the CKEDITOR.editorConfig function has been properly
 				// defined in the custom configuration file, cache it.
 				if ( CKEDITOR.editorConfig )

@@ -31,6 +31,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			if (this.desktop)
 				this.rerender();
 		},
+		config: _zkf,
 		toolbar: _zkf,
 		width: function (v) {
 			if (!v || !this.$n()) return;
@@ -120,7 +121,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		var w = parseInt(n.style.width); // get parent setted width
 
 		// set content width
-		w = w - 16;
+		//w = w - 16;
 		this._setSize(jq('#cke_' + this.uuid + '-cnt'), jq.px0(w), 'width');
 		// set height again if topHeight changed
 		// ignore if vflex not setted
@@ -203,8 +204,15 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		return this._editor;
 	},
 	
-	_init: function() {
+	/** Returns the config used to instantiate
+	 * @param config - the default config 
+	 * @return the config used to instantiate
+	 */
+	getConfig_: function(config) {
+		return config;
+	}, 
 		
+	_init: function() {		
 		var wgt = this,
 			uuid = this.uuid,
 			dtid = this.desktop.id,
@@ -217,12 +225,16 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			filebrowserFlashUploadUrl = this.filebrowserFlashUploadUrl,
 			fileBrowserTempl = this.fileBrowserTempl,
 			fileUploadTempl = this.fileUploadTempl,
-			config = {
+			config = this.getConfig_({
 				customConfig: customConfigPath,
 				width: this._getValue(this._width),
 				height: this._getValue(this._height)
-			};
-
+			});
+		
+		if (this._config) {
+			zk.override(config, {}, this._config);
+		}
+		
 		if (filebrowserBrowseUrl)
 			config.filebrowserBrowseUrl = fileBrowserTempl + '?Type=Files&url=' + filebrowserBrowseUrl;
 
