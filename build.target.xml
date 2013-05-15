@@ -31,7 +31,8 @@ Copyright (C) 2002-2006 Potix Corporation. All Rights Reserved.
 	<mkdir dir="${out.dir}"/>
 	<javac srcdir="${src.dir}:${codegen.dir}" destdir="${out.dir}"
 	 debug="${debug}" optimize="${optimize}" encoding="UTF-8"
-	 target="${target.version}" deprecation="${deprecation}" source="${source.version}"/>
+	 target="1.5" deprecation="${deprecation}" 
+	 source="1.5"/>
 </target>
 
 <!-- ====== -->
@@ -252,7 +253,7 @@ depends="deploy.export, deploy.lib, deploy.tomcat, deploy.jboss">
 	<delete quiet="true" dir="${bin.dir}"/>
 </target>
 
-<target name="clean" depends="clean.all, clean.bin">
+<target name="clean" depends="clean.all">
 	<delete quiet="true" dir="${out.dir}"/>
 	<delete quiet="true" dir="${tmp.dir}"/>
 	<delete quiet="true" dir="${outv.dir}"/>
@@ -300,7 +301,7 @@ depends="deploy.export, deploy.lib, deploy.tomcat, deploy.jboss">
 	 author="true" protected="true" version="true" use="true"
 	 windowtitle="${project.name} ${project.version} API"
 	 doctitle="${project.name} ${project.version} API"
-	 additionalparam="-breakiterator -source ${source.version}"
+	 additionalparam="-breakiterator -source 1.5"
 	 bottom="Copyright &amp;copy; 2005-2007 Potix Corporation. All Rights Reserved.">
 		<classpath>
 			<pathelement path="${javadoc.class.path}"/>
