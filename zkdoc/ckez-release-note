@@ -1,11 +1,16 @@
     --------
-Ckez 4.0.1.1
+Ckez 4.1.1.0
 * Features:
+	Issue 15: Support per-instance config
 
 * Bugs:
-    Issue 14: CKEditor vflex doesn't work properly
+	Issue 14: CKEditor vflex doesn't work properly
+	Issue 17: CKEditor autoHeight doesn't work properly
 
 * Upgrade Notes:
+	+ Upgrade to ckeditor 4.1.1
+	+ New attribute 'config' is introduced to provide per-instance config via server-side
+	+ Overriding javascript function 'getConfig_' provides per-instance config via client-side
 
 	--------
 Ckez 4.0.1.0

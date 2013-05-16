@@ -384,19 +384,26 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		var editor = event.editor,
 			wgt = zk.Widget.$(editor.element.getId()),
 			cnt = jq('#cke_' + wgt.uuid + '-cnt'),
-			iframe = cnt.find('iframe'),
-			body = iframe.contents().find("body"),	
+			body = cnt.find('iframe').contents().find("body"),	
 			defaultHeight = zk.parseInt(editor.config.height);
 				
 		if (wgt._autoHeight) {				
 			setTimeout(function(){//body.height() is correct after delay time
 				
-				var pMargin = zk.parseInt(body.find("P").css("marginBottom")),// for FF
-					bodyMargin = zk.parseInt(body.css("marginBottom"));//for ie				
-				cnt.height(body.height() + pMargin + bodyMargin);
-				if(cnt.height() < defaultHeight) {  // less then default					
-					cnt.height(defaultHeight);
-				}
+				var pMargin = zk.parseInt(body.find("P").css("marginBottom")), // for FF
+					bodyMargin = zk.parseInt(body.css("marginBottom")),        // for ie
+					textArea  = jq(cnt).find('.cke_contents'),
+					topHeight = textArea.prev().outerHeight(), // top menu buttons
+					bottomHeight = textArea.next().outerHeight(),
+					h = body.height() + pMargin + bodyMargin,
+					cnth = h + topHeight + bottomHeight;
+				
+				// Issue 17: autoHeight="true" not work well in ckez 4.0.1.0
+				if (cnth < defaultHeight) cnth = defaultHeight;
+				h = cnth - topHeight - bottomHeight;
+				
+				cnt.height(cnth);
+				textArea.height(h);
 			},20); 
 		}
 	}
