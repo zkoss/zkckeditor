@@ -1,0 +1,12 @@
+<zk>
+	<window id="win" title="CKEditor" border="normal" mode="modal" 
+			height="500px" width="800px" closable="true">
+		<ckeditor vflex="true" />
+	</window>
+	<panel title="CKEditor" border="normal" 
+			height="500px" width="800px" closable="true">
+		<panelchildren>
+			<ckeditor vflex="true" />
+		</panelchildren>
+	</panel>
+</zk>

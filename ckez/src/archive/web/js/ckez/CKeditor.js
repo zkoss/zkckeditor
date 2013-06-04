@@ -14,6 +14,17 @@ it will be useful, but WITHOUT ANY WARRANTY.
 */
 delete CKEDITOR.focusManager._.blurDelay;
 
+// Issue 18: Closing a modal window containing ckeditor causes js error  
+zk.afterLoad('zul.wnd', function() {
+	var _zjq = {};
+	zk.override(zjq.prototype, _zjq, {
+		undoVParent: function() {
+			zWatch.fireDown('beforeUndoVParent', this);
+			_zjq.undoVParent.apply(this, arguments);
+		}
+	});	
+});
+
 ckez.CKeditor = zk.$extends(zul.Widget, {
 	_height: '200',
 	_value: '',
@@ -145,6 +156,9 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		setTimeout(function(){wgt._init();},50);
 		zWatch.listen({onSend : this});
 		zWatch.listen({onRestore : this});
+		
+		// Issue 18: Closing a modal window containing ckeditor causes js error
+		zWatch.listen({beforeUndoVParent : this});
 	},
 	
 	unbind_ : function() {
@@ -153,12 +167,29 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			this._arguments = arguments;
 			return;			
 		}
-		this._editor.destroy(true);
+	
+		if (!this._destroyed)
+			this._editor.destroy(true);
+		
 
 		this._unbind = this._editor = this._tmpVflex = this._tmpHflex = null;
 		zWatch.unlisten({onSend : this});
 		zWatch.unlisten({onRestore : this});
+		
+		// Issue 18: Closing a modal window containing ckeditor causes js error
+		zWatch.unlisten({beforeUnbindWindow : this});
+		
 		this.$supers('unbind_', arguments);
+	},
+	
+	// Issue 18: Closing a modal window containing ckeditor causes js error
+	beforeUndoVParent: function() {
+		for (var p = this.parent; p; p = p.parent) {
+			if (p.$instanceof(zul.wnd.Window)) {
+				this._editor.destroy(true);				
+				this._destroyed = true;
+			}
+		}		
 	},
 	
 	onSend: function (ctrl) {

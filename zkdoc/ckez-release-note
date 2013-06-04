@@ -6,6 +6,7 @@ Ckez 4.1.1.0
 * Bugs:
 	Issue 14: CKEditor vflex doesn't work properly
 	Issue 17: CKEditor autoHeight doesn't work properly
+	Issue 18: Closing a modal window containing ckeditor causes js error
 
 * Upgrade Notes:
 	+ Upgrade to ckeditor 4.1.1
