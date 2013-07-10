@@ -168,9 +168,10 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			return;			
 		}
 	
-		if (!this._destroyed)
+		if (!this._destroyed) {
 			this._editor.destroy(true);
-		
+			this._destroyed = true;
+		}
 
 		this._unbind = this._editor = this._tmpVflex = this._tmpHflex = null;
 		zWatch.unlisten({onSend : this});
@@ -186,7 +187,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 	beforeUndoVParent: function() {
 		for (var p = this.parent; p; p = p.parent) {
 			if (p.$instanceof(zul.wnd.Window)) {
-				this._editor.destroy(true);				
+				this._destroyed || this._editor.destroy(true);				
 				this._destroyed = true;
 			}
 		}		
@@ -329,6 +330,8 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 				wgt._tmpVflex = null;
 			}
 		}, config);
+		
+		this._destroyed = false;
 	},
 	
 	_overrideFormSubmit: function() {
