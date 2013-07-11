@@ -19,7 +19,13 @@ zk.afterLoad('zul.wnd', function() {
 	var _zjq = {};
 	zk.override(zjq.prototype, _zjq, {
 		undoVParent: function() {
-			zWatch.fireDown('beforeUndoVParent', this);
+			var $vp = jq(this.vparentNode()),
+				id = $vp.attr('id');
+			
+			if (id.indexOf('-cave') != -1) {
+				zWatch.fireDown('beforeUndoVParent', this);
+			}
+			
 			_zjq.undoVParent.apply(this, arguments);
 		}
 	});	
