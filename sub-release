@@ -154,7 +154,7 @@ cd /tmp/zk
 echo Output ${binnm}.zip
 zip -qr9 ${binnm}.zip $binnm
 
-if [ "$target" == "official" ] ; then
+#if [ "$target" == "official"  ] ; then
 	#Prepare maven repository
 	function mvnrepo {
 		echo "Create $1-$ver-bundle.jar"
@@ -172,7 +172,7 @@ if [ "$target" == "official" ] ; then
 	mv *-bundle.jar /tmp/maven
 	cd ..
 	rm -rf maven
-fi
+#fi
 cd /tmp/zk
 rm -rf $binnm
 
