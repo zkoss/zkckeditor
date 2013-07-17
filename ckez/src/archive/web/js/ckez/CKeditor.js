@@ -22,7 +22,7 @@ zk.afterLoad('zul.wnd', function() {
 			var $vp = jq(this.vparentNode()),
 				id = $vp.attr('id');
 			
-			if (id.indexOf('-cave') != -1) {
+			if (id && id.indexOf('-cave') != -1) {
 				zWatch.fireDown('beforeUndoVParent', this);
 			}
 			
