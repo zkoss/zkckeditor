@@ -19,18 +19,15 @@ zk.afterLoad('zul.wnd', function() {
 	var _zjq = {};
 	zk.override(zjq.prototype, _zjq, {
 		beforeHideOnUnbind: function() {
-			var $vp = jq(this.vparentNode()),
-				id = $vp.attr('id');
 			
 			// Issue 19: Only fire the model widow's descendants		
-			if (id && id.indexOf('-cave') != -1) {
-				zWatch.fireDown('beforeHideOnUnbind', this.$());
-			}
+			zWatch.fireDown('beforeHideOnUnbind', this.$());
 			
 			_zjq.beforeHideOnUnbind.apply(this, arguments);
 		}
 	});	
 });
+
 
 ckez.CKeditor = zk.$extends(zul.Widget, {
 	_height: '200',
@@ -185,7 +182,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		zWatch.unlisten({onRestore : this});
 		
 		// Issue 18: Closing a modal window containing ckeditor causes js error
-		zWatch.unlisten({beforeUnbindWindow : this});
+		zWatch.unlisten({beforeHideOnUnbind : this});
 		
 		this.$supers('unbind_', arguments);
 	},
