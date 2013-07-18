@@ -7,11 +7,13 @@ Ckez 4.1.1.0
 	Issue 14: CKEditor vflex doesn't work properly
 	Issue 17: CKEditor autoHeight doesn't work properly
 	Issue 18: Closing a modal window containing ckeditor causes js error
+	Issue 19: JavaScript error by onClosing a window with ckEditor in it
 
 * Upgrade Notes:
 	+ Upgrade to ckeditor 4.1.1
 	+ New attribute 'config' is introduced to provide per-instance config via server-side
 	+ Overriding javascript function 'getConfig_' provides per-instance config via client-side
+	+ CKEditor is now distributed under the GPL, LGPL and MPL Open Source licenses.
 
 	--------
 Ckez 4.0.1.0
