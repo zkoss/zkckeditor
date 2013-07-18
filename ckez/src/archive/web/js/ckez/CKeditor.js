@@ -414,7 +414,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		if (selection == '') return;
 		
 		//unimplemented, because it just fire on select a html tag
- //  	zk.log(selection);
+//		zk.log(selection);
 //		wgt.fire('onSelection', {
 //			start: 0,
 //			end: 0,
