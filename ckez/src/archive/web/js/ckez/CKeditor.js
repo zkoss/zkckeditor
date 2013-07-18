@@ -18,15 +18,16 @@ delete CKEDITOR.focusManager._.blurDelay;
 zk.afterLoad('zul.wnd', function() {
 	var _zjq = {};
 	zk.override(zjq.prototype, _zjq, {
-		undoVParent: function() {
+		beforeHideOnUnbind: function() {
 			var $vp = jq(this.vparentNode()),
 				id = $vp.attr('id');
 			
+			// Issue 19: Only fire the model widow's descendants		
 			if (id && id.indexOf('-cave') != -1) {
-				zWatch.fireDown('beforeUndoVParent', this);
+				zWatch.fireDown('beforeHideOnUnbind', this.$());
 			}
 			
-			_zjq.undoVParent.apply(this, arguments);
+			_zjq.beforeHideOnUnbind.apply(this, arguments);
 		}
 	});	
 });
@@ -164,7 +165,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		zWatch.listen({onRestore : this});
 		
 		// Issue 18: Closing a modal window containing ckeditor causes js error
-		zWatch.listen({beforeUndoVParent : this});
+		zWatch.listen({beforeHideOnUnbind : this});
 	},
 	
 	unbind_ : function() {
@@ -190,11 +191,12 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 	},
 	
 	// Issue 18: Closing a modal window containing ckeditor causes js error
-	beforeUndoVParent: function() {
+	beforeHideOnUnbind: function() {
 		for (var p = this.parent; p; p = p.parent) {
 			if (p.$instanceof(zul.wnd.Window)) {
 				this._destroyed || this._editor.destroy(true);				
 				this._destroyed = true;
+				return;
 			}
 		}		
 	},
@@ -412,7 +414,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		if (selection == '') return;
 		
 		//unimplemented, because it just fire on select a html tag
-//		zk.log(selection);
+		zk.log(selection);
 //		wgt.fire('onSelection', {
 //			start: 0,
 //			end: 0,
