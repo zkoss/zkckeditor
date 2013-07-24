@@ -1,0 +1,4 @@
+<window id="win" title="CKEditor" border="normal" mode="modal" height="500px" width="800px" closable="true">
+	<label>When click close button, it should not cause any js error.</label>
+	<ckeditor vflex="true" />
+</window>

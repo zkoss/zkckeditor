@@ -8,6 +8,7 @@ Ckez 4.1.1.0
 	Issue 17: CKEditor autoHeight doesn't work properly
 	Issue 18: Closing a modal window containing ckeditor causes js error
 	Issue 19: JavaScript error by onClosing a window with ckEditor in it
+	Issue 20: CKeditor send onChange command in the wrong order in request
 
 * Upgrade Notes:
 	+ Upgrade to ckeditor 4.1.1

@@ -75,8 +75,9 @@ public class CKeditor extends AbstractComponent {
 	private boolean _autoHeight;
 	
 	static {
-		addClientEvent(CKeditor.class, Events.ON_CHANGE, CE_IMPORTANT|CE_REPEAT_IGNORE);
-		addClientEvent(CKeditor.class, Events.ON_CHANGING, CE_BUSY_IGNORE);
+		// Issue 20: Sends every onChange event when ckeditor sends onChange command
+		addClientEvent(CKeditor.class, Events.ON_CHANGE, CE_IMPORTANT|CE_REPEAT_IGNORE|CE_NON_DEFERRABLE);
+		addClientEvent(CKeditor.class, Events.ON_CHANGING, CE_BUSY_IGNORE|CE_NON_DEFERRABLE);
 		addClientEvent(CKeditor.class, "onSave", CE_IMPORTANT|CE_REPEAT_IGNORE);
 	}
 	/**

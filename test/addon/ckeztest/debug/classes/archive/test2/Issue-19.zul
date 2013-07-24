@@ -1,0 +1,17 @@
+<zk>
+<label>when close the window, it should not cause any js error.</label>
+<window title="CKEditor" id="ww" height="50%" width="50%" closable="true" onClose="close(editor)">
+	<div>
+		<ckeditor id="editor"/>
+	</div>
+</window>
+<zscript><![CDATA[
+void close(Component comp) {
+    if (comp != null) {
+        comp.detach();
+   }
+}
+]]>
+</zscript>
+
+</zk>

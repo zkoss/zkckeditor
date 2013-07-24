@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<div xmlns:a="http://www.zkoss.org/2005/zk/annotation" xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:w="client"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul">
+
+<ckeditor id="src"/>
+<vlayout>
+	<label><attribute name="value"><![CDATA[
+	1. Write the text "TEST" in the CKeditor.
+	]]></attribute></label>
+	<label><attribute name="value"><![CDATA[
+	2. Select the text you just entered and choose font size 48 in the CKeditor menu.
+	]]></attribute></label>
+	<label><attribute name="value"><![CDATA[
+	3. Click the "Click me!" button without first clicking anywhere else outside the CKeditor (it sometimes makes a difference).
+	]]></attribute></label>
+	<label><attribute name="value"><![CDATA[
+	4. The label value should have become "<p><span style='font-size:48px'>TEST</span></p>"
+	]]></attribute></label>
+	<button label="Click me!" onClick="dest.value=src.value"/>
+</vlayout>
+<label id="dest"/>
+
+</div>
