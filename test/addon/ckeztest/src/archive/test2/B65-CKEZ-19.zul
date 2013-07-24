@@ -1,0 +1,5 @@
+<?import org.zkoss.zktest.test2.* ?>
+
+<window id="parent">
+	<button label="EditorTest" onClick="new B65_CKEZ_19(parent);" />
+</window>
