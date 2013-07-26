@@ -191,6 +191,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		this._restore();
 	},
 	
+	// Prevent uneditable problem when makeVParent
 	onVParent: function () {
 		this._restore();
 	},
@@ -294,7 +295,6 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 				return;
 			}
 			wgt._editor = this;
-			wgt._editable = this.editable();
 			this.on('focus', ckez.CKeditor.onFocus);
 			this.on('blur', ckez.CKeditor.onBlur);
 			this.on('selectionChange', ckez.CKeditor.onSelection);
