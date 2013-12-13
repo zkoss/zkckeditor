@@ -379,7 +379,8 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		if (editor.checkDirty()) {
 			var val = editor.getData();
 			wgt._value = val; //save for onRestore
-			wgt.fire('onChange', {value: val}, {sendAhead: ahead ? ahead : true});
+			// B70-CKEZ-23: Do not send ahead when fire onChange, it will reverse the queue.
+			wgt.fire('onChange', {value: val});
 			editor.resetDirty();
 		}
 	},
