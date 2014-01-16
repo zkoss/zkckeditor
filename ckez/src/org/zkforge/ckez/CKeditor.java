@@ -343,7 +343,7 @@ public class CKeditor extends AbstractComponent {
 	/**
 	 * Get the location of the folder for the file browser, that should be launched 
 	 * when "Browse Server" button is pressed in the Image dialog.
-	 * @return
+	 * @return getFilebrowserImageBrowseUrl
 	 */
 	public String getFilebrowserImageBrowseUrl() {
 		return _filebrowserImageBrowseUrl;
@@ -365,7 +365,7 @@ public class CKeditor extends AbstractComponent {
 	/**
 	 * Get the location of the folder for the file browser, that should be launched 
 	 * when "Browse Server" button is pressed in the Flash dialog.
-	 * @return
+	 * @return filebrowserFlashBrowseUrl
 	 */
 	public String getFilebrowserFlashBrowseUrl() {
 		return _filebrowserFlashBrowseUrl;
@@ -375,7 +375,7 @@ public class CKeditor extends AbstractComponent {
 	/**
 	 * Get the location of the folder for the file uploads. 
 	 * If set, the Upload tab will appear in the Link, Image, and Flash dialog windows. 
-	 * @return
+	 * @return filebrowserUploadUrl
 	 */
 	public String getFilebrowserUploadUrl() {
 		return _filebrowserUploadUrl;
@@ -396,7 +396,7 @@ public class CKeditor extends AbstractComponent {
 	/**
 	 * Get the location of the folder for the file uploads in the Image dialog window. 
 	 * If not set, CKEditor will use {@link #getFilebrowserUploadUrl()}. 
-	 * @return
+	 * @return filebrowserImageUploadUrl
 	 */
 	public String getFilebrowserImageUploadUrl() {
 		return _filebrowserImageUploadUrl;
@@ -417,7 +417,7 @@ public class CKeditor extends AbstractComponent {
 	/**
 	 * Get the location of the script that handles file uploads in the Flash dialog window. 
 	 * If not set, CKEditor will use {@link #getFilebrowserUploadUrl()}. 
-	 * @return
+	 * @return filebrowserFlashUploadUrl
 	 */
 	public String getFilebrowserFlashUploadUrl() {
 		return _filebrowserFlashUploadUrl;
