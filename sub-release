@@ -109,9 +109,12 @@ cp build* /tmp/zk/$srcnm
 cp -rp bin /tmp/zk/$srcnm
 cp -rp $prjnm /tmp/zk/$srcnm
 cp -f dist/lib/$prjnm.jar /tmp/zk/$binnm/dist/lib
-cp zkdoc/COPYING /tmp/zk/$binnm/doc
-cp zkdoc/COPYING /tmp/zk/$srcnm/doc
-cp zkdoc/COPYING /tmp/zk/$demonm/doc
+cp zkdoc/LGPL /tmp/zk/$binnm/doc
+cp zkdoc/LGPL /tmp/zk/$srcnm/doc
+cp zkdoc/LGPL /tmp/zk/$demonm/doc
+cp zkdoc/MPL /tmp/zk/$binnm/doc
+cp zkdoc/MPL /tmp/zk/$srcnm/doc
+cp zkdoc/MPL /tmp/zk/$demonm/doc
 cp zkdoc/$releasenote /tmp/zk/$binnm/doc/release-note
 cp zkdoc/$releasenote /tmp/zk/$srcnm/doc/release-note
 cp zkdoc/$releasenote /tmp/zk/$demonm/doc/release-note
