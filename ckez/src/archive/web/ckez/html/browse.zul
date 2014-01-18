@@ -5,14 +5,23 @@
 			background-image: url(${c:encodeURL('~./zul/img/tree/folder-toggle.gif')});
 			background-position:0 -18px;
 		}
-		.ckImg .z-toolbarbutton-cnt img {
+		.ckImg .z-toolbarbutton {
+			height: auto;
+			vertical-align: middle;
+		}
+		.ckImg .z-toolbarbutton-cnt img,
+		.ckImg .z-toolbarbutton-content img {
 			display:block;
 			max-height:100px;
 			max-width:100px;
 			margin:0 auto;
 		}
-		.ckImg .z-toolbarbutton-cnt {
+		.ckImg .z-toolbarbutton-cnt,
+		.ckImg .z-toolbarbutton-content {
 			text-align:center;
+		}
+		.ckImg .z-toolbarbutton-content {
+			padding: 2;
 		}
 		.ckImg .z-toolbarbutton-over {
 			background-color:#DFF1FF;
