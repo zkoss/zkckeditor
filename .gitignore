@@ -1,0 +1,12 @@
+debug
+codegen
+*.local
+*.class
+javadoc
+Thumbs.db
+ckez/.classpath
+ckez/.project
+ckez/target/*
+*/.settings/*.prefs
+*/.settings/*.component
+*/.settings/*.xml
