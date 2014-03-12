@@ -4,8 +4,12 @@ codegen
 *.class
 javadoc
 Thumbs.db
-ckez/.classpath
-ckez/.project
+*.classpath
+*.project
+*.prefs
+*.component
+*.container
+*.name
 ckez/target/*
 */.settings/*.prefs
 */.settings/*.component

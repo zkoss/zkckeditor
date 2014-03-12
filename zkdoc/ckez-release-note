@@ -1,4 +1,12 @@
     --------
+Ckez 4.3.3.0
+* Features:
+	Issue #1: Add IE11 Support
+* Bugs:
+
+* Upgrade Notes:
+	+ Upgrade to ckeditor 4.3.3
+    --------
 Ckez 4.1.1.0
 * Features:
 	Issue 15: Support per-instance config

@@ -393,8 +393,15 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		
 		
 		if (!zk(wgt).isRealVisible) return;
-		selection = CKEDITOR.env.ie ? selection.getNative().createRange().text: 
-									selection.getNative().toString();		
+		
+		// fix selection for ie11
+		if (CKEDITOR.env.ie && CKEDITOR.env.version < 11) {
+			selection = selection.getNative().createRange().text;
+		} else if (CKEDITOR.env.ie && CKEDITOR.env.version > 10) {
+			selection = document.getSelection();
+		} else {
+			selection = selection.getNative().toString();
+		}
 		
 		if (selection == '') return;
 		
