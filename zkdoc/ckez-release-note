@@ -5,6 +5,8 @@ April 25 2014
 * Features:
 	Issue #1: Add IE11 Support
 * Bugs:
+	Issue #2: Using Java 1.5 to get rid of compiler error
+	Issue #3: Ckeditor cannot browse server's subfolder when inserting an image
 
 * Upgrade Notes:
 	+ Upgrade to ckeditor 4.3.3
