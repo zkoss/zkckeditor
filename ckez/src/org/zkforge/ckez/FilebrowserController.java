@@ -102,13 +102,8 @@ public class FilebrowserController extends GenericForwardComposer {
 			Map.Entry entry = (Map.Entry)it.next();
 			Object value = entry.getValue();
 			
-			if (value instanceof Map) {
-				Map map = (Map) value;
-				if (map.size() == 0) continue;
-				ArrayList al = new ArrayList();
-				list.add(new DefaultTreeNode(entry, al));
-				initTreeModel(map, al);
-			}
+			if (value instanceof Map)
+				list.add(new DefaultTreeNode(entry, initTreeModel((Map) value, new ArrayList())));
 		}
 		return list;
 	}
@@ -121,7 +116,7 @@ public class FilebrowserController extends GenericForwardComposer {
 			if (pagePath.endsWith("/")) {
 				String folderName = pagePath.substring(0, pagePath.length() - 1);
 				folderName = folderName.substring(folderName.lastIndexOf("/") + 1);
-				if (shallShowFile(folderName))
+				if (shallShowFolder(folderName))
 					parentFolderMap.put(folderName, parseFolders(pagePath, new TreeMap()));
 			} else {
 				String fileName = pagePath.substring(pagePath.lastIndexOf("/") + 1);
@@ -133,10 +128,14 @@ public class FilebrowserController extends GenericForwardComposer {
 		return parentFolderMap;
 	}
 	
+	private boolean shallShowFolder(String folderName) {
+		Object obj = fileFilterMap.get(folderName);
+		return (obj == null) ? true : Boolean.valueOf((String) obj).booleanValue();
+	}
 	
 	private boolean shallShowFile(String folderName) {
 		// B70-CKEZ-22: Ignore file extension case.
-		return new Boolean((String) fileFilterMap.get(folderName.toLowerCase())).booleanValue();
+		return Boolean.valueOf((String) fileFilterMap.get(folderName)).booleanValue();
 	}
 	
 	
