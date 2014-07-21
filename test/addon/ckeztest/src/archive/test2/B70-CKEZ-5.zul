@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+B70-CKEZ-5.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Thur, July 21, 2014  8:53:06 AM, Created by jerrychen
+
+Copyright (C)  Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+	<div>
+		1. add words into editor to let the scroll bar shown.
+		<separator/>
+		2. resize browser's window many times, if the scroll bar doesn't align beside the right side, it's a bug.
+	</div>
+	<borderlayout>
+		<north size="10%"></north>
+		<west size="10%" flex="true" splittable="true"></west>
+		<center>
+			<ckeditor></ckeditor>
+		</center>
+		<east size="10%" flex="true" splittable="true"></east>
+		<south size="10%"></south>
+	</borderlayout>
+</zk>
