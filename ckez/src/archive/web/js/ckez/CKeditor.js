@@ -143,9 +143,12 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		this.$supers('bind_', arguments);
 		var wgt = this;
 		setTimeout(function(){wgt._init();},50);
-		zWatch.listen({onSend : this});
-		zWatch.listen({onRestore : this});
-		zWatch.listen({onVParent : this});
+		zWatch.listen({
+			onSend : this,
+			onRestore : this,
+			onVParent : this,
+			onSize : this
+		});
 	},
 	
 	unbind_ : function() {
@@ -171,10 +174,18 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		}
 
 		this._unbind = this._editor = this._tmpVflex = this._tmpHflex = null;
-		zWatch.unlisten({onSend : this});
-		zWatch.unlisten({onRestore : this});
-		zWatch.unlisten({onVParent : this});
+		zWatch.unlisten({
+			onSend : this,
+			onRestore : this,
+			onVParent : this,
+			onSize : this
+		});
 		this.$supers('unbind_', arguments);
+	},
+	
+	onSize: function () {
+		var editor = this._editor;
+		if(editor) editor.resize();
 	},
 	
 	onSend: function (ctrl) {
