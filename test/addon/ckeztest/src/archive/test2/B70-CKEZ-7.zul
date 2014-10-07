@@ -1,0 +1,7 @@
+<zk>
+	<label multiline="true">
+		Type something into editor field.
+		Alert message should show.
+	</label>
+	<ckeditor onChanging='alert("onChanging fired")'/>
+</zk>

@@ -363,8 +363,9 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		wgt._tidChg = setInterval(function () {
 			if (tmp != editor._.previousValue)			
 				tmp = wgt.previousValue = editor._.previousValue;
-				
-			if (editor.mayBeDirty && wgt.previousValue != editor.getData()) {
+			
+			// Issue #7
+			if (editor.checkDirty() && wgt.previousValue != editor.getData()) {
 				wgt.fire('onChanging', {
 					value: editor.getData(),
 					start: 0,
@@ -372,7 +373,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 					},
 				{ignorable:1}, 100);
 				
-				if (editor.mayBeDirty)
+				if (editor.checkDirty()) // Issue #7
 					wgt.previousValue = editor.getData();
 			}			
 		}, 500);
