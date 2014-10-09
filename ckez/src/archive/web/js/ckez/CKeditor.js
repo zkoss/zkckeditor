@@ -21,10 +21,15 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 	$define: {
 		value: [function(v) {
 			return !v ? '' : v;
-		}, function (v) {
+		}, function (v, fromServer) {
 			var editor = this.getEditor();
-			if (editor)
+			if (editor) {
 				editor.setData(v);
+				// Issue #9: update editor's previousValue if set value from server
+				// to prevent unexpect onChange event
+				if (fromServer)
+					editor._.previousValue = v;
+			}
 		}],
 		autoHeight: null,
 		customConfigurationsPath: _zkf = function () {
