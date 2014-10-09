@@ -6,6 +6,7 @@ Ckez 4.3.3.1
 * Bugs:
 	Issue #5: textarea of zkeditor not resizing properly
 	Issue #7: onChanging event not fired since ZK CKEditor 4.x
+	Issue #9: unexpected onChange event after setting the value from the server
 
 * Upgrade Notes:
 	
