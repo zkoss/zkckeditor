@@ -1,18 +1,19 @@
-<zk>
-	<zscript>
-		String myValue = "initial value";
-		public updateMyValue(String newValue) {
-		myValue = newValue;
-		editor.setValue(myValue);
-		//Clients.showNotification("updated myValue to: " + myValue);
-		}
-	</zscript>
-	<vlayout>
-		<button label="1. update editor value to 'abc'" onClick='updateMyValue("&lt;p&gt;abc&lt;/p&gt;");' />
-		<button label="2. update editor value to 'XYZ'" onClick='updateMyValue("&lt;p&gt;XYZ&lt;/p&gt;");' />
-		<button label="3. do something unrelated and show 'myvalue'"
-			onClick='debugLabel.setValue("myValue: " + myValue);' />
-		<label id="debugLabel" />
-		<ckeditor id="editor" value="${myValue}" onChange='myValue = self.getValue(); alert("changed")' />
-	</vlayout>
-</zk>
+ <zk>
+    <zscript>
+        String myValue = "initial value";
+        public updateMyValue(String newValue) {
+            myValue = newValue;
+            editor.setValue(myValue);
+            //Clients.showNotification("updated myValue to: " + myValue);
+        }
+    </zscript>
+    <vlayout>
+        <button label="1. update editor value to 'abc'" onClick='updateMyValue("abc");'/>
+        <button label="2. update editor value to 'XYZ'" onClick='updateMyValue("XYZ");'/>
+        <button label="1-1 update editor value to 'abc' with p tag" onClick='updateMyValue("&lt;p&gt;abc&lt;/p&gt;");' />
+		<button label="2-1 update editor value to 'XYZ' with p tag" onClick='updateMyValue("&lt;p&gt;XYZ&lt;/p&gt;");' />
+        <button label="3. do something unrelated and show 'myvalue'" onClick='debugLabel.setValue("myValue: " + myValue);'/>
+        <label id="debugLabel"/>
+        <ckeditor id="editor" value="${myValue}" onChange='myValue = self.getValue(); Clients.showNotification("Triggered onChange");'/>
+        </vlayout>
+ </zk>

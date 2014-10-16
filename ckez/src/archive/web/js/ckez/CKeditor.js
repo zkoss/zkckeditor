@@ -25,10 +25,10 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			var editor = this.getEditor();
 			if (editor) {
 				editor.setData(v);
-				// Issue #9: update editor's previousValue if set value from server
+				// Issue #9 refix: update editor's previousValue if set value from server
 				// to prevent unexpect onChange event
 				if (fromServer)
-					editor._.previousValue = v;
+					editor._.previousValue = editor.dataProcessor.toHtml(v);
 			}
 		}],
 		autoHeight: null,
