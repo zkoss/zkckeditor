@@ -1,0 +1,34 @@
+<zk>
+	<zscript><![CDATA[
+		String myValue = "<br><p>line1<br/>\nline</p>";
+		public updateMyValue(String newValue) {
+		myValue = newValue;
+		editor.setValue(myValue);
+		//Clients.showNotification("updated myValue to: " + myValue);
+		}
+	]]></zscript>
+	<vlayout>
+		<button label="1. update editor value to empty" onClick='updateMyValue("");'/>
+		<button label="2. update editor value to 'XYZ'" onClick='updateMyValue("XYZ");'/>
+		<button label="3. do something unrelated and show 'myvalue'" onClick='debugLabel.setValue("myValue: " + myValue);'/>
+		<label id="debugLabel"/>
+		<ckeditor id="editor" value="${myValue}" onChange="myValue = self.getValue();"/>
+	</vlayout>
+<!-- 	<vlayout> -->
+<!-- 		<button -->
+<!-- 			label="1. update editor value to '&lt;p&gt;line1&lt;br/&gt;\nline2&lt;/p&gt;'" -->
+<!-- 			onClick='updateMyValue("&lt;p&gt;line1&lt;br/&gt;\nline2&lt;/p&gt;");' /> -->
+<!-- 		<button label="2. update editor value to 'XYZ'" onClick='updateMyValue("&lt;p&gt;XYZ&lt;/p&gt;");' /> -->
+<!-- 		<button label="3. do something unrelated and show 'myvalue'" -->
+<!-- 			onClick='debugLabel.setValue("myValue: " + myValue);' /> -->
+<!-- 		<label id="debugLabel" /> -->
+<!-- 		<ckeditor id="editor" value="${myValue}" onChange='myValue = self.getValue(); Clients.showNotification("onChanged");' /> -->
+<!-- 	</vlayout> -->
+<!-- 	<vlayout> -->
+<!-- 		<label value="1. edit the text below" /> -->
+<!-- 		<button label="2. update editor value to 'XYZ'" onClick='updateMyValue("&lt;p&gt;XYZ&lt;/p&gt;");'/> -->
+<!-- 		<button label="3. do something unrelated and show 'myvalue'" onClick='debugLabel.setValue("myValue: " + myValue);'/> -->
+<!-- 		<label id="debugLabel"/> -->
+<!-- 		<ckeditor id="editor" value="${myValue}" onChange='myValue = self.getValue();'/> -->
+<!-- 	</vlayout> -->
+</zk>	

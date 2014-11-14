@@ -25,7 +25,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			var editor = this.getEditor();
 			if (editor) {
 				editor.setData(v);
-				// Issue #9 refix: update editor's previousValue if set value from server
+				// Issue #9: update editor's previousValue if set value from server
 				// to prevent unexpect onChange event
 				if (fromServer)
 					editor._.previousValue = editor.dataProcessor.toHtml(v);
@@ -393,7 +393,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			wgt._tidChg = null;
 		}
 		
-		if (editor.checkDirty()) {
+		if (wgt.$class._checkEditorDirty(editor)) { // Issue #13
 			var val = editor.getData();
 			wgt._value = val; //save for onRestore
 			// B70-CKEZ-23: Do not send ahead when fire onChange, it will reverse the queue.
@@ -457,5 +457,12 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 				textArea.height(h);
 			},20); 
 		}
+	},
+	
+	// Issue #13: pass through the html formatter before compare
+	_checkEditorDirty: function (editor) {
+		var fmtSnapshot = editor.dataProcessor.toHtml(editor.getSnapshot());
+		var fmtPreviousVal = editor.dataProcessor.toHtml(editor._.previousValue);
+		return editor.status == 'ready' && fmtPreviousVal !== fmtSnapshot;
 	}
 });
