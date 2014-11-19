@@ -21,3 +21,6 @@ It brings to the web common editing features found on desktop editing applicatio
 
   [1]: http://ckeditor.com/
   [2]: http://books.zkoss.org/wiki/ZK_Component_Reference/Input/CKEditor
+
+### Issues
+We have transferred Issues to our [JIRA Issue Tracker](http://tracker.zkoss.org/browse/ZKCK) since 11/19/2014
