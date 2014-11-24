@@ -1,0 +1,11 @@
+<zk>
+    Hover on menu to open menupopup, the whole ckeditor blinks
+    <ckeditor value="REQUEST" />
+    <menubar autodrop="true" orient="vertical">
+        <menu label="Hover me!">
+            <menupopup>
+                <menuitem label="COMPLETE" />
+            </menupopup>
+        </menu>
+    </menubar>
+</zk>

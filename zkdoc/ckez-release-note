@@ -8,6 +8,7 @@ Ckez 4.3.3.1
 	Issue #7: onChanging event not fired since ZK CKEditor 4.x
 	Issue #9: unexpected onChange event after setting the value from the server
 	Issue #13: unexpected onChange event after setting the value (with BR) from the server
+	B-ZKCK-8: CKeditor blink when opening menupopup/popup component
 
 * Upgrade Notes:
 	
