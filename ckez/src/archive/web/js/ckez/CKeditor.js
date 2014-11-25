@@ -216,11 +216,13 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 	},
 	
 	_isChildOf: function(wgt) {
-		var parent = this.parent;
-		while (parent.widgetName != 'desktop') {
-			if (parent.$oid == wgt.$oid)
-				return true;
-			parent = parent.parent;
+		var p = this.parent;
+		if (p) {
+			do {
+				if (p == wgt)
+					return true;
+				p = p.parent;
+			} while (p != wgt.desktop);
 		}
 		return false;
 	},
