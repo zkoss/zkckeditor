@@ -8,7 +8,7 @@
 			var btn = this;
 			setTimeout(function(){
 				zAu.send(new zk.Event(btn, 'onUser'));
-			},1000);
+			}, 1500);
 		]]></attribute>
 		<attribute name="onUser"><![CDATA[
 			div.detach();

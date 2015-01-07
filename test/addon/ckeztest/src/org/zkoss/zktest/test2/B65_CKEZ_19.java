@@ -65,8 +65,7 @@ public class B65_CKEZ_19 {
 	
 	private final class OnCloseListener implements EventListener<Event> {
 
-		@Override
-        public void onEvent(Event event) throws Exception {
+		public void onEvent(Event event) throws Exception {
 	        doClose(event);
         }
 		
