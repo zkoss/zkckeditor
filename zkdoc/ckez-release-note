@@ -4,7 +4,7 @@ Ckez 4.4.6
 * Features:
 	
 * Bugs:
-
+	B-ZKCK-9: safari 8 linebreak handling (upgrade required)
 * Upgrade Notes:
 	+ Upgrade to ckeditor 4.4.6
 
