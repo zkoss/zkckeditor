@@ -135,9 +135,8 @@ public class FilebrowserController extends GenericForwardComposer {
 	
 	private boolean shallShowFile(String folderName) {
 		// B70-CKEZ-22: Ignore file extension case.
-		return Boolean.valueOf((String) fileFilterMap.get(folderName)).booleanValue();
+		return Boolean.valueOf((String) fileFilterMap.get(folderName.toLowerCase())).booleanValue();
 	}
-	
 	
 	private Map initFileFilterMap() {
 		Map fileFilterMap = new HashMap();

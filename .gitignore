@@ -14,3 +14,4 @@ ckez/target/*
 */.settings/*.prefs
 */.settings/*.component
 */.settings/*.xml
+test/addon/ckeztest/.settings
