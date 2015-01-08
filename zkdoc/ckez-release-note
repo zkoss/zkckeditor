@@ -5,6 +5,7 @@ Ckez 4.4.6
 	
 * Bugs:
 	B-ZKCK-9: safari 8 linebreak handling (upgrade required)
+	B-ZKCK-10: JS Error showed when CKeditor is inside popup
 * Upgrade Notes:
 	+ Upgrade to ckeditor 4.4.6
 

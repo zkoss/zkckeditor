@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+B-ZKCK-10.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Wed, Jan 07, 2015  4:34:28 PM, Created by hanhsu
+
+Copyright (C)  Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+	<label multiline="true">
+	1. Click Button to open popup.
+	2. Click other place to close popup.
+	3. Click Button to open popup again, the JS Error showed.
+	</label>
+	<window border="normal" title="hello" id="win">
+		<button id="btn" label="Click Me To Open Popup" onClick="myPopup.open(win)" />
+		<popup id="myPopup">
+			<ckeditor />
+		</popup>
+	</window>
+</zk>
