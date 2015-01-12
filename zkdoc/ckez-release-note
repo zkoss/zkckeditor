@@ -6,6 +6,7 @@ Ckez 4.4.6.0
 * Bugs:
 	B-ZKCK-9: safari 8 linebreak handling (upgrade required)
 	B-ZKCK-10: JS Error showed when CKeditor is inside popup
+	B-ZKCK-12: Calling Ckeditor.setValue() within doAfterCompose and button click have different result
 * Upgrade Notes:
 	+ Upgrade to ckeditor 4.4.6
 
