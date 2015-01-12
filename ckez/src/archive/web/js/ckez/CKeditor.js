@@ -24,11 +24,20 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		}, function (v, fromServer) {
 			var editor = this.getEditor();
 			if (editor) {
-				editor.setData(v);
-				// Issue #9: update editor's previousValue if set value from server
-				// to prevent unexpect onChange event
-				if (fromServer)
+				if (fromServer) {
+					// ZKCK-12: need to format the value from server first before set to ckeditor
+					var cnt = jq('#' + this.uuid + '-cnt'),
+						formatted;
+					jq(cnt).html(v);
+					formatted = jq(cnt).text();
+					editor.setData(formatted);
+					// Issue #9: update editor's previousValue if set value from server
+					// to prevent unexpect onChange event
 					editor._.previousValue = editor.dataProcessor.toHtml(v);
+				} else {
+					editor.setData(v);
+				}
+					
 			}
 		}],
 		autoHeight: null,
