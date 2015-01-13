@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+B-ZKCK-11.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Tue, Jan 13, 2015  9:54:36 AM, Created by hanhsu
+
+Copyright (C)  Potix Corporation. All Rights Reserved.
+
+-->
+<window>
+	<label multiline="true">
+		1. Inside editor text area, type anything.
+		> Expected: default font family and size are used.
+		
+		2. Select a different font family. Then, type anything.
+		> Expected: the newly typed text should be in the new font family.
+		
+		3. Select a different font size. Then, type anything.
+		> Expected: the newly typed text should have the new font size.
+	</label>
+	<ckeditor/>
+</window>
