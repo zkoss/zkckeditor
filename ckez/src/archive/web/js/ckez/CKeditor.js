@@ -26,11 +26,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			if (editor) {
 				if (fromServer) {
 					// ZKCK-12: need to format the value from server first before set to ckeditor
-					var cnt = jq('#' + this.uuid + '-cnt'),
-						formatted;
-					jq(cnt).html(v);
-					formatted = jq(cnt).text();
-					editor.setData(formatted);
+					editor.setData(jq(this.$n('cnt')).html(v).text());
 					// Issue #9: update editor's previousValue if set value from server
 					// to prevent unexpect onChange event
 					editor._.previousValue = editor.dataProcessor.toHtml(v);
