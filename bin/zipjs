@@ -98,15 +98,26 @@ function zips
 						if [ "$TERM" = "cygwin" ] ; then
 							dstfl=$(cygpath -wa $dstfl)
 						fi
-						java -jar $jarfl --charset UTF-8 $type "$f" -o "$dstfl" 2>&1
+						# B-ZKCK-11: skip ckeditor.js since it's already minified
+						if [ "$f" != "ckeditor.js" ] ; then
+							java -jar $jarfl --charset UTF-8 $type "$f" -o "$dstfl" 2>&1
+						fi
 						if [ $? != 0 ] ; then
 							echo "Warning failed to compress, use copy instead: $f"
 							cvt=false
 						elif [ "$type" = "" ] ; then #JS
 							if [ "$TERM" = "cygwin" ] ; then
-								srcfile=$(cygpath -wa $dst/${f%.js}.src.js)
+								if [ "$f" = "ckeditor.js" ] ; then # B-ZKCK-11
+									srcfile=$(cygpath -wa $dst/${f%.js}.js)	
+								else
+									srcfile=$(cygpath -wa $dst/${f%.js}.src.js)
+								fi
   							else
-								srcfile=$dst/${f%.js}.src.js
+  								if [ "$f" = "ckeditor.js" ] ; then # B-ZKCK-11
+  									srcfile=$dst/${f%.js}.js
+  								else
+									srcfile=$dst/${f%.js}.src.js
+								fi
 							fi
 							java -classpath $bshjar bsh.Interpreter $bshcmd "./$f" "$srcfile"
 								#always make a copy so we can use them if we want to debug them

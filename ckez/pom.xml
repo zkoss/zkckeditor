@@ -69,6 +69,11 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+	                <excludes>
+	                    <exclude>**/ckeditor.js</exclude>
+	                </excludes>
+	            </configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
