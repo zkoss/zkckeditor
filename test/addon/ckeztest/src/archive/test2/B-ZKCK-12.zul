@@ -13,15 +13,32 @@ B-ZKCK-12.zul
 Copyright (C)  Potix Corporation. All Rights Reserved.
 
 -->
+<!-- <zk> -->
+<!-- 	<label multiline="true"> -->
+<!-- 	1. Should see some content in ckeditor. -->
+<!-- 	2. Click "Clear Value" button. -->
+<!-- 	3. Click "Set Value" button, it is bug if the new content is different from the content set in doAfterCompose. -->
+<!-- 	</label> -->
+<!-- 	<window border="normal" title="hello" apply="org.zkoss.zktest.test2.B_ZKCK_12_Composer"> -->
+<!-- 	    <ckeditor id="editor" /> -->
+<!-- 	    <button id="btn1" label="Clear Value" /> -->
+<!-- 	    <button id="btn2" label="Set Value" /> -->
+<!-- 	    <button id="btn3" label="Check Value" /> -->
+<!-- 	</window> -->
+<!-- </zk> -->
 <zk>
-	<label multiline="true">
-	1. Should see some content in ckeditor.
-	2. Click "Clear Value" button.
-	3. Click "Set Value" button, it is bug if the new content is different from the content set in doAfterCompose.
-	</label>
-	<window border="normal" title="hello" apply="org.zkoss.zktest.test2.B_ZKCK_12_Composer">
-	    <ckeditor id="editor" />
-	    <button id="btn1" label="Clear Value" />
-	    <button id="btn2" label="Set Value" />
+	<button id="btn0" label="Click Me to open window"
+		onClick="window.setVisible(true);window.doOverlapped();" />
+	<window id="window" visible="false" apply="org.zkoss.zktest.test2.B_ZKCK_12_Composer" position="left">
+		<vbox>
+			<button id="btn1" label="Click Me to open more windows" />
+			<button id="btn2" label="Click Me to set html text" />
+			<button id="btn3" label="Click Me to invalidate ckeditor components" />
+			<ckeditor id="editor" />
+			<window id="window2" width="600px" visible="false" border="normal" title="hello2" position="right">
+				<ckeditor id="editor2" />
+			</window>
+			<button id="btn4" label="Click Me to get value after invalidate ckeditor components" />
+		</vbox>
 	</window>
 </zk>
