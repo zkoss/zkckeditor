@@ -26,14 +26,14 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			if (editor) {
 				if (fromServer) {
 					// ZKCK-12: need to format the value from server first before set to ckeditor
-					editor.setData(jq(this.$n('cnt')).html(v).text());
+					v = jq(this.$n('cnt')).html(v).text();
+					editor.setData(v);
 					// Issue #9: update editor's previousValue if set value from server
 					// to prevent unexpect onChange event
 					editor._.previousValue = editor.dataProcessor.toHtml(v);
 				} else {
 					editor.setData(v);
 				}
-					
 			}
 		}],
 		autoHeight: null,
