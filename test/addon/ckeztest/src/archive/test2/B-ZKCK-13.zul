@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+B-ZKCK-13.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Mon, Jan 26, 2015 11:26:47 AM, Created by hanhsu
+
+Copyright (C)  Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+    <label multiline="true">
+    1. Type "<abc>ddd</abc>" in ckeditor.
+    2. Click the button, only see "ddd" in the editor.
+    </label>
+    <ckeditor id="editor" onChange="alert(self.getValue())" />
+    <textbox onChange="editor.value=self.value" />
+    <button label="Click me!" onClick="editor.invalidate()" />
+</zk>
