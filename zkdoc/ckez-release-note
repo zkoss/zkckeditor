@@ -8,8 +8,10 @@ Ckez 4.4.6.0
 	B-ZKCK-10: JS Error showed when CKeditor is inside popup
 	B-ZKCK-12: Calling Ckeditor.setValue() within doAfterCompose and button click have different result
 	B-ZKCK-11: Changing font family or size does not affect subsequently entered text
+	B-ZKCK-13: Type xml tag value is escaping incorrect after invalidate CKeditor
 * Upgrade Notes:
 	+ Upgrade to ckeditor 4.4.6
+	+ Update content value with special characters like angle brackets only need to escape once instead of twice now
 
     --------
 Ckez 4.3.3.1

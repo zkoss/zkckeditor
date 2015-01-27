@@ -24,16 +24,11 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		}, function (v, fromServer) {
 			var editor = this.getEditor();
 			if (editor) {
-				if (fromServer) {
-					// ZKCK-12: need to format the value from server first before set to ckeditor
-					v = jq(this.$n('cnt')).html(v).text();
-					editor.setData(v);
-					// Issue #9: update editor's previousValue if set value from server
-					// to prevent unexpect onChange event
+				editor.setData(v);
+				// Issue #9: update editor's previousValue if set value from server
+				// to prevent unexpect onChange event
+				if (fromServer)
 					editor._.previousValue = editor.dataProcessor.toHtml(v);
-				} else {
-					editor.setData(v);
-				}
 			}
 		}],
 		autoHeight: null,
@@ -139,7 +134,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			this.setFlexSizeH_(n, zkn, this._hflexHeight, ignoreMargins);
 	},
 	redraw: function (out) {
-		out.push('<div', this.domAttrs_({domStyle: true}), '><textarea id="', this.uuid, '-cnt">', this._value, '</textarea></div>');
+		out.push('<div', this.domAttrs_({domStyle: true}), '><textarea id="', this.uuid, '-cnt"></textarea></div>');
 	},
 	
 	domAttrs_: function (no) {
@@ -321,9 +316,12 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		
 		if (this._toolbar)
 			config.toolbar = this._toolbar;
-			
 		
-		jq(this.$n('cnt')).ckeditor(function(){
+		
+		var cnt = this.$n('cnt'); 
+		jq(cnt).text(this._value); // ZKCK-13: init the value of the textarea here instead of at redraw
+		
+		jq(cnt).ckeditor(function(){
 			if (wgt._unbind) {
 				this.destroy();
 				wgt.unbind = wgt._editor = null;
