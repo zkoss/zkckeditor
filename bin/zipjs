@@ -119,7 +119,10 @@ function zips
 									srcfile=$dst/${f%.js}.src.js
 								fi
 							fi
-							java -classpath $bshjar bsh.Interpreter $bshcmd "./$f" "$srcfile"
+							#unix:
+							#java -classpath $bshjar bsh.Interpreter "$bshcmd "./$f" "$srcfile"
+							#cygwin:
+							java -classpath $bshjar bsh.Interpreter "C:$bshcmd" "./$f" "$srcfile"
 								#always make a copy so we can use them if we want to debug them
 						fi
 					fi
