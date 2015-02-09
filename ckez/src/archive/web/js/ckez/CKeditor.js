@@ -414,7 +414,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		}
 		
 		if (wgt.$class._checkEditorDirty(editor)) { // Issue #13
-			var val = editor.getData(true); // B-ZKCK-11: avoid fire duplicated events.
+			var val = editor.getSnapshot(); // ZKCK-11, ZKCK-14: avoid firing duplicated events
 			wgt._value = val; //save for onRestore
 			// B70-CKEZ-23: Do not send ahead when fire onChange, it will reverse the queue.
 			wgt.fire('onChange', {value: val});
