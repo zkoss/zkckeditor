@@ -4,6 +4,7 @@ Ckez 4.4.6.1
 * Features:
 	
 * Bugs:
+	B-ZKCK-14: Get ckeditor value within client onChange event return empty string
 	
 * Upgrade Notes:
 	
@@ -19,6 +20,7 @@ January 29 2015
 	B-ZKCK-12: Calling Ckeditor.setValue() within doAfterCompose and button click have different result
 	B-ZKCK-11: Changing font family or size does not affect subsequently entered text
 	B-ZKCK-13: Type xml tag value is escaping incorrect after invalidate CKeditor
+
 * Upgrade Notes:
 	+ Upgrade to ckeditor 4.4.6
 	+ Update content value with special characters like angle brackets only need to escape once instead of twice now

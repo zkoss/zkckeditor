@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+B-ZKCK-14.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Fri, Feb 06, 2015  5:59:12 PM, Created by hanhsu
+
+Copyright (C)  Potix Corporation. All Rights Reserved.
+
+-->
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
+<zk xmlns:w="client">
+	<script><![CDATA[
+		function fillTextboxFromCkEditor() {
+			var wgt = zk.Widget.$('$ckeditor'),
+				textbox = zk.Widget.$('$textbox');
+			console.log(wgt.getValue());
+			textbox.setValue(wgt.getValue());
+		}
+	]]></script>
+	<window border="normal" title="hello" id="window"
+		apply="org.zkoss.zktest.test2.B_ZKCK_14_Composer">
+		<vlayout>
+			<label multiline="true">
+				1. type TITLE in the title input box
+				2. type TEST in the editor
+				3. Click your mouse once on outside of the editor
+				4. You should see "<p>TEST</p>" in the button text input box
+			</label>
+			<label value="title" />
+			<textbox visible="true" value="@{window$composer.instruction.title}" />
+			<label value="content" />
+			<ckeditor id="ckeditor" value="@{window$composer.instructionText}" w:onChange="fillTextboxFromCkEditor()" />
+			<label value="invisibleContent" />
+			<textbox id="textbox" value="@{window$composer.instruction.text}" />
+			<button label="SAVE" id="saveButton" />
+		</vlayout>
+	</window>
+</zk>
