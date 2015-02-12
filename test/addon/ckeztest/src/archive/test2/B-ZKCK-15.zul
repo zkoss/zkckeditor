@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+B-ZKCK-15.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Wed, Feb 11, 2015  3:09:37 PM, Created by Han
+
+Copyright (C)  Potix Corporation. All Rights Reserved.
+
+-->
+<zk xmlns:a="http://www.zkoss.org/2005/zk/annotation" xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul" xmlns:w="client">
+	<ckeditor id="editor" toolbar="tb">
+		<!-- config ckeditor -->
+		<attribute w:name="getConfig_"><![CDATA[
+			function (config) {
+				config.toolbar_tb = [[ 'Source', 'Iframe']];
+				return config;
+			}
+		]]></attribute>
+	</ckeditor>
+	<button label="Show value" onClick="alert(editor.getValue());" />
+</zk>

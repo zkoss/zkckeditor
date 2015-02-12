@@ -414,11 +414,14 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		}
 		
 		if (wgt.$class._checkEditorDirty(editor)) { // Issue #13
-			var val = editor.getSnapshot(); // ZKCK-11, ZKCK-14: avoid firing duplicated events
-			wgt._value = val; //save for onRestore
-			// B70-CKEZ-23: Do not send ahead when fire onChange, it will reverse the queue.
-			wgt.fire('onChange', {value: val});
-			editor.resetDirty();
+			// ZKCK-11 refix: use setTimeout to avoid ckeditor internal event conflicts
+			setTimeout(function () {
+				var val = editor.getData();
+				wgt._value = val; //save for onRestore
+				// B70-CKEZ-23: Do not send ahead when fire onChange, it will reverse the queue.
+				wgt.fire('onChange', {value: val});
+				editor.resetDirty();
+			}, 0);
 		}
 	},
 	
