@@ -5,6 +5,7 @@ Ckez 4.4.6.1
 	
 * Bugs:
 	B-ZKCK-14: Get ckeditor value within client onChange event return empty string
+	B-ZKCK-15: Create iframe in CKeditor then get value will return incorrect HTML content
 	
 * Upgrade Notes:
 	
