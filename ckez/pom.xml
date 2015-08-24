@@ -5,9 +5,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.zkoss.zkforge</groupId>
 	<artifactId>ckez</artifactId>
-	<version>4.4.6.2-FL</version>
+	<version>4.4.6.2</version>
 	<properties>
 		<zk.version>5.0.6</zk.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<packaging>jar</packaging>
 	<name>The CKeditor Component for ZK</name>
@@ -73,6 +74,7 @@
 	                <excludes>
 	                    <exclude>**/ckeditor.js</exclude>
 	                </excludes>
+	                <encoding>UTF-8</encoding>
 	            </configuration>
 			</plugin>
 			<plugin>

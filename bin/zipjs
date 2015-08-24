@@ -112,18 +112,15 @@ function zips
 								else
 									srcfile=$(cygpath -wa $dst/${f%.js}.src.js)
 								fi
-  							else
-  								if [ "$f" = "ckeditor.js" ] ; then # B-ZKCK-11
-  									srcfile=$dst/${f%.js}.js
-  								else
+							else
+								if [ "$f" = "ckeditor.js" ] ; then # B-ZKCK-11
+									srcfile=$dst/${f%.js}.js
+								else
 									srcfile=$dst/${f%.js}.src.js
 								fi
 							fi
-							#unix:
-							#java -classpath $bshjar bsh.Interpreter "$bshcmd "./$f" "$srcfile"
-							#cygwin:
-							java -classpath $bshjar bsh.Interpreter "C:$bshcmd" "./$f" "$srcfile"
-								#always make a copy so we can use them if we want to debug them
+							java -classpath $bshjar bsh.Interpreter "$bshcmd" "./$f" "$srcfile"
+							#always make a copy so we can use them if we want to debug them
 						fi
 					fi
 					if [ $cvt = false ] ; then
