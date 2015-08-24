@@ -1,9 +1,11 @@
     --------
 Ckez 4.4.6.2
+August 24 2015
 
 * Features:
 	
 * Bugs:
+	B-ZKCK-21: Browser caching previous version after update
 	
 * Upgrade Notes:
 

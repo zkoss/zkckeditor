@@ -21,11 +21,12 @@
 		<jasperreports.version>4.0.1</jasperreports.version>
 		<jfreechart.version>1.0.13</jfreechart.version>
 		<filters.version>2.0.235</filters.version>
-		<ckez.version>4.4.6.2-FL</ckez.version>
+		<ckez.version>4.4.6.2</ckez.version>
 		<fckez.version>2.6.5_50</fckez.version>
 		<gmapsz.version>2.0.51</gmapsz.version>
 		<timelinez.version>2.3.1_50</timelinez.version>
 		<timeplotz.version>1.1_50</timeplotz.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<version>7.0.3-Eval</version>
 	<packaging>war</packaging>
@@ -265,6 +266,22 @@
 				<configuration>
 					<source>1.5</source>
 					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>7.6.8.v20121106</version>
+				<configuration>
+					<webAppSourceDirectory>${project.basedir}/src/archive/</webAppSourceDirectory>
+					<webAppConfig>
+						<contextPath>/${project.artifactId}</contextPath>
+						<allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
+					</webAppConfig>
+					<!--<scanIntervalSeconds>5</scanIntervalSeconds>-->
+					<scanTargets>
+						<scanTarget>${project.basedir}/src/archive/</scanTarget>
+					</scanTargets>
 				</configuration>
 			</plugin>
 		</plugins>
