@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+B-ZKCK-20.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Tue, Jan 12, 2016 11:16:46 AM, Created by Christopher
+
+Copyright (C) 2016 Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+	<ckeditor />
+</zk>

@@ -43,7 +43,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			this._setSize(jq('#cke_' + this.uuid + '-cnt'), v, 'width');
 		},
 		height: function (v) {
-			if (!v || !this.$n()) return;			
+			if (!v || !this.$n()) return;
 			this._setSize(jq('#cke_' + this.uuid + '-cnt'), v, 'height');
 		}
 	},	
@@ -144,7 +144,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		return attr;
 	},
 	
-    bind_ : function() {
+	bind_ : function() {
 		this.$supers('bind_', arguments);
 		var wgt = this;
 		setTimeout(function(){wgt._init();},50);
@@ -270,7 +270,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		return config;
 	}, 
 		
-	_init: function() {		
+	_init: function() {
 		var wgt = this,
 			uuid = this.uuid,
 			dtid = this.desktop.id,
@@ -318,7 +318,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			config.toolbar = this._toolbar;
 		
 		
-		var cnt = this.$n('cnt'); 
+		var cnt = this.$n('cnt');
 		jq(cnt).text(this._value); // ZKCK-13: init the value of the textarea here instead of at redraw
 		
 		jq(cnt).ckeditor(function(){
@@ -363,7 +363,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 	},
 	
 	_overrideFormSubmit: function() {
-		var editor = this.getEditor(),	
+		var editor = this.getEditor(),
 			wgt = zk.Widget.$(editor.element.getId()),
 			element = editor.element,
 			form = element.$.form && new CKEDITOR.dom.element(element.$.form);
@@ -386,7 +386,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			tmp = editor._.previousValue;
 			
 		wgt._tidChg = setInterval(function () {
-			if (tmp != editor._.previousValue)			
+			if (tmp != editor._.previousValue)
 				tmp = wgt.previousValue = editor._.previousValue;
 			
 			// Issue #7
@@ -429,15 +429,14 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		
 		var editor = event.editor,
 			wgt = zk.Widget.$(editor.element.getId()),
-			selection = editor.getSelection();		
-		
+			selection = editor.getSelection();
 		
 		if (!zk(wgt).isRealVisible) return;
 		
 		// fix selection for ie11
-		if (CKEDITOR.env.ie && CKEDITOR.env.version < 11) {
+		if (CKEDITOR.env.ie && CKEDITOR.env.version < 9) {
 			selection = selection.getNative().createRange().text;
-		} else if (CKEDITOR.env.ie && CKEDITOR.env.version > 10) {
+		} else if (CKEDITOR.env.ie && CKEDITOR.env.version >= 9) {
 			selection = document.getSelection();
 		} else {
 			selection = selection.getNative().toString();
@@ -454,11 +453,11 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 //		});
 	},
 	
-	onAutoHeight: function (event) {			
+	onAutoHeight: function (event) {
 		var editor = event.editor,
 			wgt = zk.Widget.$(editor.element.getId()),
 			cnt = jq('#cke_' + wgt.uuid + '-cnt'),
-			body = cnt.find('iframe').contents().find("body"),	
+			body = cnt.find('iframe').contents().find("body"),
 			defaultHeight = zk.parseInt(editor.config.height);
 				
 		if (wgt._autoHeight) {				

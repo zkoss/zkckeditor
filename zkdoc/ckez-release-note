@@ -3,7 +3,9 @@ Ckez 4.4.6.3
 * Features:
 	
 * Bugs:
-	
+	B-ZKCK-19: Including another instance of jQuery library causes javascript error
+	B-ZKCK-20: JS Error showed when focsing in ckeditor in IE9 and IE10
+
 * Upgrade Notes:
 
     --------
