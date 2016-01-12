@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+B-ZKCK-18.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Tue, Jan 12, 2016  2:24:22 PM, Created by Christopher
+
+Copyright (C) 2016 Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+	<label multiline="true">
+		once the page finished loading
+		1. switch to tab "b"
+		2. switch back to tab "a"
+		should not see any error in browser console
+	</label>
+	<tabbox width="800px" height="450px">
+		<tabs>
+			<tab label="a" />
+			<tab label="b" />
+		</tabs>
+		<tabpanels>
+			<tabpanel>
+				<ckeditor height="200px"></ckeditor>
+			</tabpanel>
+			<tabpanel>Testing</tabpanel>
+		</tabpanels>
+	</tabbox>
+</zk>

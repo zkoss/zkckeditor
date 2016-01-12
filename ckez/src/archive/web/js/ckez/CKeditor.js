@@ -191,8 +191,13 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 	onSize: function () {
 		var editor = this._editor;
 		// B-ZKCK-10: call resize only if window is binded to editor
-		if (editor && editor.document.getWindow().$)
-			editor.resize();
+		if (editor && editor.document.getWindow().$) {
+			if (zk.ie == 8) {
+				editor.resize('100%', this.$n().clientHeight);
+			} else {
+				editor.resize();
+			}
+		}
 	},
 	
 	onSend: function (ctrl) {
