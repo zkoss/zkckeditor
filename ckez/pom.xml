@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.zkoss.zkforge</groupId>
 	<artifactId>ckez</artifactId>
-	<version>4.4.6.2</version>
+	<version>4.4.6.3-SNAPSHOT</version>
 	<properties>
 		<zk.version>5.0.6</zk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<packname>-${project.version}</packname>
+		<outputname>zk-CKEditor</outputname>
 	</properties>
 	<packaging>jar</packaging>
 	<name>The CKeditor Component for ZK</name>
@@ -62,7 +63,7 @@
 			<plugin>
 				<groupId>org.zkoss.maven</groupId>
 				<artifactId>yuicompressor-maven-plugin-zk</artifactId>
-				<version>1.1.6</version>
+				<version>1.2.0</version>
 				<executions>
 					<execution>
 						<goals>
@@ -71,9 +72,15 @@
 					</execution>
 				</executions>
 				<configuration>
-	                <excludes>
-	                    <exclude>**/ckeditor.js</exclude>
-	                </excludes>
+					<excludes>
+						<exclude>**/ext/CKeditor/**</exclude>
+					</excludes>
+					<includes>
+						<include>**/ext/CKeditor/config.js</include>
+						<include>**/ext/CKeditor/content.css</include>
+						<include>**/ext/CKeditor/style.js</include>
+						<include>**/CKeditor.js</include>
+					</includes>
 	                <encoding>UTF-8</encoding>
 	            </configuration>
 			</plugin>
@@ -94,10 +101,107 @@
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>2.3.1</version>
 				<configuration>
+					<finalName>${project.artifactId}</finalName>
+					<outputDirectory>${project.build.directory}/bin</outputDirectory>
 					<archive>
-						<manifestFile>${project.basedir}/src/archive/META-INF/MANIFEST.MF</manifestFile>
+						<!--<manifestFile>${project.basedir}/src/archive/META-INF/MANIFEST.MF</manifestFile>-->
+						<addMavenDescriptor>false</addMavenDescriptor>
 					</archive>
 				</configuration>
+			</plugin>
+			<!-- Build javadoc -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<configuration>
+							<encoding>UTF-8</encoding>
+							<charset>UTF-8</charset>
+							<reportOutputDirectory>${project.basedir}/target/javadoc</reportOutputDirectory>
+							<destDir>ckez</destDir>
+							<author>true</author>
+							<show>protected</show>
+							<version>true</version>
+							<use>true</use>
+							<windowtitle>${project.name} ${project.version} API</windowtitle>
+							<doctitle>${project.name} ${project.version} API</doctitle>
+							<bottom>Copyright &amp;copy; 2005-2014 Potix Corporation. All
+								Rights Reserved.</bottom>
+							<additionalparam>-Xdoclint:none</additionalparam>
+						</configuration>
+						<goals>
+							<goal>javadoc</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<!-- Build sources.jar -->
+					<execution>
+						<id>sources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<descriptors>
+								<descriptor>assembly/sources.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+					<!-- Build bin.zip -->
+					<execution>
+						<id>bin</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<finalName>${outputname}-bin${packname}</finalName>
+							<outputDirectory>${project.build.directory}/bin</outputDirectory>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptors>
+								<descriptor>assembly/bin.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+					<!-- Build src.zip -->
+					<execution>
+						<id>src</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<finalName>${outputname}-src${packname}</finalName>
+							<outputDirectory>${project.build.directory}/bin</outputDirectory>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptors>
+								<descriptor>assembly/src.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+					<!-- Build bundle.jar -->
+					<execution>
+						<id>bundle</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/maven</outputDirectory>
+							<descriptors>
+								<descriptor>assembly/bundle.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

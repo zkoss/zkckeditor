@@ -21,8 +21,7 @@
 		<jasperreports.version>4.0.1</jasperreports.version>
 		<jfreechart.version>1.0.13</jfreechart.version>
 		<filters.version>2.0.235</filters.version>
-		<ckez.version>4.4.6.2</ckez.version>
-		<fckez.version>2.6.5_50</fckez.version>
+		<ckez.version>4.4.6.3-SNAPSHOT</ckez.version>
 		<gmapsz.version>2.0.51</gmapsz.version>
 		<timelinez.version>2.3.1_50</timelinez.version>
 		<timeplotz.version>1.1_50</timeplotz.version>
@@ -223,13 +222,6 @@
 			<artifactId>ckez</artifactId>
 			<version>${ckez.version}</version>
 		</dependency>
-		<!-- 
-		<dependency>
-			<groupId>org.zkoss.zkforge</groupId>
-			<artifactId>fckez</artifactId>
-			<version>${fckez.version}</version>
-		</dependency>
-		-->
 		<dependency>
 			<groupId>org.zkoss.zkforge</groupId>
 			<artifactId>timelinez</artifactId>
