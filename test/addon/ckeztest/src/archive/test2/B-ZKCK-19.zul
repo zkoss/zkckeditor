@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+B-ZKCK-19.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Fri, Oct 23, 2015  4:58:08 PM, Created by Christopher
+
+Copyright (C) 2015 Potix Corporation. All Rights Reserved.
+
+-->
+<?script src="http://code.jquery.com/jquery-1.10.2.js"?>
+<zk>
+<label multiline="true">
+the bug is about ckeditor's jquery adapter, which binds to window.jQuery.
+the correct behavior is to bind to zk's own jq.
+when this page finish loading, open your console, if there are not javascript error, then the bug is fixed.
+</label>
+<ckeditor />
+</zk>
