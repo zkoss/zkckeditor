@@ -436,8 +436,8 @@ public class CKeditor extends AbstractComponent {
 	}
 
 	private String getEncodedURL(String path) {
-		  final Desktop dt = getDesktop(); //it might not belong to any desktop
-		  return dt != null ? dt.getExecution().encodeURL(path): "";			 
+		final Desktop dt = getDesktop(); //it might not belong to any desktop
+		return dt != null ? dt.getExecution().encodeURL(path) : "";
 	}
 	
 	public CkezFileWriter getFileWriter() {
@@ -492,7 +492,7 @@ public class CKeditor extends AbstractComponent {
 			Events.postEvent(evt);
 		} else if (cmd.equals("onSave")) {
 			InputEvent evt = InputEvent.getInputEvent(request, _value);
-			setValue(evt.getValue()); 
+			setValue(evt.getValue());
 			Events.postEvent(evt);
 		} else if (cmd.equals(Events.ON_CHANGING)) {
 			Events.postEvent(InputEvent.getInputEvent(request, _value));

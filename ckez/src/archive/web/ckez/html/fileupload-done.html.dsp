@@ -31,7 +31,6 @@ ${z:outDeviceStyleSheets('ajax')}
 <body>
 </body>
 <script type="text/javascript">
-<!--
 	<%-- exec at the parent's scope --%>
 	function exec(cmd) {
 		parent.setTimeout(cmd, 0);
@@ -40,6 +39,5 @@ ${z:outDeviceStyleSheets('ajax')}
 		exec("window.parent.CKEDITOR.tools.callFunction(${arg.CKEditorFuncNum}, '${arg.path}');");
 		<%-- Bug 1920877 --%>
 	</c:if>
-// -->
 </script>
 </html>

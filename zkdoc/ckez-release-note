@@ -8,6 +8,7 @@ Ckez 4.4.6.3
 	B-ZKCK-18: CKeditor throws an exception after switching tabs [IE8]
 	B-ZKCK-19: Including another instance of jQuery library causes javascript error
 	B-ZKCK-20: JS Error showed when focsing in ckeditor in IE9 and IE10
+	B-ZKCK-23: ZK CKeditor unable to upload image
 
 * Upgrade Notes:
 

@@ -14,8 +14,8 @@ Copyright (C) 2012 Potix Corporation. All Rights Reserved.
 */
 package org.zkforge.ckez;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -30,14 +30,12 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.zkoss.util.logging.Log;
 import org.zkoss.web.servlet.Servlets;
 import org.zkoss.zk.au.http.AuExtension;
 import org.zkoss.zk.au.http.DHtmlUpdateServlet;
 import org.zkoss.zk.ui.Desktop;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
-import org.zkoss.zk.ui.UiException;
 import org.zkoss.zk.ui.sys.WebAppCtrl;
 /**
  * The AU extension to upload files by ckeditor.
@@ -46,9 +44,8 @@ import org.zkoss.zk.ui.sys.WebAppCtrl;
  * @author jimmyshiau
  * @since 3.6.0.2
  */
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class CkezUploadExtension implements AuExtension {
-	private static final Log log = Log.lookup(CkezUploadExtension.class);
-	
 	private ServletContext _ctx;
 	
 	public CkezUploadExtension() {
@@ -78,8 +75,7 @@ public class CkezUploadExtension implements AuExtension {
 			
 			FileItem item = parseFileItem(request);
 			url = FilebrowserController.getFolderUrl(url);
-		    String path = request.getContextPath() + url;
-			
+			String path = request.getContextPath() + url;
 			
 			if (item != null) {
 				final Desktop desktop = ((WebAppCtrl)sess.getWebApp())
@@ -88,8 +84,9 @@ public class CkezUploadExtension implements AuExtension {
 				String nextURI = "~./ckez/html/fileupload-done.html.dsp";
 				final Map attrs = new HashMap();
 				attrs.put("CKEditorFuncNum", request.getParameter("CKEditorFuncNum"));
-				attrs.put("path", ckez.writeFileItem(path, 
-						desktop.getWebApp().getRealPath(url), item, type));
+				String serverPath = ckez.writeFileItem(path, desktop.getWebApp().getRealPath(url), item, type);
+				String itemName = item.getName();
+				attrs.put("path", serverPath.replace(itemName, URLEncoder.encode(itemName, "UTF-8").replace("+", "%20")));
 				Servlets.forward(_ctx, request, response,
 					nextURI, attrs, Servlets.PASS_THRU_ATTR);
 			}
@@ -98,23 +95,21 @@ public class CkezUploadExtension implements AuExtension {
 		}
 	}
 	
-	
 	private FileItem parseFileItem(HttpServletRequest request) throws Exception {
 		if (ServletFileUpload.isMultipartContent(request)) {
-			
-		    
-		    FileItemFactory factory = new DiskFileItemFactory();  
-		    ServletFileUpload servletFileUpload = new ServletFileUpload(factory);  
-		    servletFileUpload.setHeaderEncoding("UTF-8");
-		    List fileItemsList = servletFileUpload.parseRequest(request);  
-		    
-		    for (Iterator it = fileItemsList.iterator(); it.hasNext();) {
-		    	FileItem item = (FileItem) it.next();
-		        if (!item.isFormField()) {
-		            return item;
-		        }  
-		    }  
-		} 
+
+			FileItemFactory factory = new DiskFileItemFactory();
+			ServletFileUpload servletFileUpload = new ServletFileUpload(factory);
+			servletFileUpload.setHeaderEncoding("UTF-8");
+			List fileItemsList = servletFileUpload.parseRequest(request);
+
+			for (Iterator it = fileItemsList.iterator(); it.hasNext();) {
+				FileItem item = (FileItem) it.next();
+				if (!item.isFormField()) {
+					return item;
+				}
+			}
+		}
 		return null;
 	}
 }
