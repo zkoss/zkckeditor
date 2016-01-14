@@ -3,6 +3,8 @@ Ckez 4.4.6.3
 * Features:
 	
 * Bugs:
+	B-ZKCK-16: JS Error showed when trying to get value in view source mode
+	B-ZKCK-17: client side race condition with onChange
 	B-ZKCK-18: CKeditor throws an exception after switching tabs [IE8]
 	B-ZKCK-19: Including another instance of jQuery library causes javascript error
 	B-ZKCK-20: JS Error showed when focsing in ckeditor in IE9 and IE10

@@ -12,7 +12,7 @@ Copyright (C) 2009 Potix Corporation. All Rights Reserved.
 This program is distributed under LGPL Version 2.1 in the hope that
 it will be useful, but WITHOUT ANY WARRANTY.
 */
-delete CKEDITOR.focusManager._.blurDelay;
+CKEDITOR.focusManager._.blurDelay = 0;
 
 ckez.CKeditor = zk.$extends(zul.Widget, {
 	_height: '200',
@@ -160,7 +160,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		if (!this._editor) {//bug 3048386: detach ckeditor before it loaded cause js error
 			this._unbind = true;
 			this._arguments = arguments;
-			return;			
+			return;
 		}
 		// Issue 18, 19: If it catches js error when destroying ckeditor, then finishes the following instructions
 		try {
@@ -339,7 +339,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			this.on('focus', ckez.CKeditor.onFocus);
 			this.on('blur', ckez.CKeditor.onBlur);
 			this.on('selectionChange', ckez.CKeditor.onSelection);
-			wgt._overrideFormSubmit();		
+			wgt._overrideFormSubmit();
 			this.on('key', ckez.CKeditor.onAutoHeight); //on press any key
 			this.on('loadSnapshot', ckez.CKeditor.onAutoHeight);//on Redo And Undo
 			this.on('beforePaste', ckez.CKeditor.onAutoHeight);
@@ -405,40 +405,44 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 				
 				if (editor.checkDirty()) // Issue #7
 					wgt.previousValue = editor.getData();
-			}			
+			}
 		}, 500);
 	},
 	
 	onBlur: function (event, ahead) {
-		var editor = event.editor ? event.editor : event,
+		var editor = event.editor || event,
 			wgt = zk.Widget.$(editor.element.getId());
-			
+		
+		//clicking some toolbar buttons will also trigger onBlur
+		//but the focus is considered still "inside" ckeditor widget
+		//if the editor instance did not lose focus, ignore the onBlur event
+		if (zk.currentFocus === wgt) return;
+		
 		if (wgt._tidChg) {
 			clearInterval(wgt._tidChg);
 			wgt._tidChg = null;
 		}
 		
+		if (!editor.document)
+			editor.document = editor.element.getDocument();
+		
 		if (wgt.$class._checkEditorDirty(editor)) { // Issue #13
-			// ZKCK-11 refix: use setTimeout to avoid ckeditor internal event conflicts
-			setTimeout(function () {
-				var val = editor.getData();
-				wgt._value = val; //save for onRestore
-				// B70-CKEZ-23: Do not send ahead when fire onChange, it will reverse the queue.
-				wgt.fire('onChange', {value: val});
-				editor.resetDirty();
-			}, 0);
+			var val = editor.getData();
+			wgt._value = val; //save for onRestore
+			//ZKCK-16, 17 use sendAhead to make sure onChange always happens first
+			wgt.fire('onChange', {value: val}, {sendAhead: ahead});
+			editor.resetDirty();
 		}
 	},
 	
 	onSelection: function (event) {
-		
 		var editor = event.editor,
 			wgt = zk.Widget.$(editor.element.getId()),
 			selection = editor.getSelection();
 		
 		if (!zk(wgt).isRealVisible) return;
 		
-		// fix selection for ie11
+		// fix selection for ie
 		if (CKEDITOR.env.ie && CKEDITOR.env.version < 9) {
 			selection = selection.getNative().createRange().text;
 		} else if (CKEDITOR.env.ie && CKEDITOR.env.version >= 9) {
@@ -465,7 +469,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			body = cnt.find('iframe').contents().find("body"),
 			defaultHeight = zk.parseInt(editor.config.height);
 				
-		if (wgt._autoHeight) {				
+		if (wgt._autoHeight) {
 			setTimeout(function(){//body.height() is correct after delay time
 				
 				var pMargin = zk.parseInt(body.find("P").css("marginBottom")), // for FF
@@ -482,7 +486,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 				
 				cnt.height(cnth);
 				textArea.height(h);
-			},20); 
+			},20);
 		}
 	},
 	

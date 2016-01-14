@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+B-ZKCK-16.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Tue, Jan 12, 2016  3:09:41 PM, Created by Christopher
+
+Copyright (C) 2016 Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+	<label multiline="true">
+		1. Type anything in CKeditor.
+		2. Click "Source" icon on CKeditor.
+		3. Click "Show value" button should not see any JS Error.
+	</label>
+	<ckeditor id="editor" />
+	<button label="Show value" onClick="alert(editor.getValue());" />
+</zk>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+B-ZKCK-17.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Wed, Jan 13, 2016  3:42:09 PM, Created by Christopher
+
+Copyright (C) 2016 Potix Corporation. All Rights Reserved.
+
+-->
+<zk xmlns:w="client">
+	<label multiline="true">
+		type anything in the editor, and click very quickly on the button,
+		should see only one zkau request going from client to server, with
+		events in the correct order of onChange -> onClick
+	</label>
+	<ckeditor id="editor" />
+	<textbox id="textbox" />
+	<button label="click quickly" w:onMouseDown="for(i = 0; i &lt; 100000;i++) {new Date()}" onClick=""/>
+</zk>
