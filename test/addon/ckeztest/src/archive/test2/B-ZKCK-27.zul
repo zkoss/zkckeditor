@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+B-ZKCK-27.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Fri, Jan 15, 2016 11:44:03 AM, Created by Christopher
+
+Copyright (C) 2016 Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+	<label multiline="true">
+		1. click the image browser in the ckeditor toolbar
+		2. switch to the "upload" tab
+		3. select files in your local file system, look for images with file name other than just english
+		4. click the button "send it to the server"
+		5. dialog should automatically jump back to the "image info" tab
+		6. click "ok" to insert it into the editor area
+		you should see you uploaded image in the editor area, otherwise the bug is not fixed
+	</label>
+	<ckeditor id="_ckeditor" filebrowserImageBrowseUrl="test2/img" filebrowserUploadUrl="test2/img" toolbar="Complex" width="100%" />
+</zk>

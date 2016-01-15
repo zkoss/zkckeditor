@@ -21,6 +21,7 @@ import java.io.File;
 import java.util.Map;
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.io.FilenameUtils;
 import org.zkoss.lang.Objects;
 import org.zkoss.lang.Strings;
 import org.zkoss.zk.ui.AbstractComponent;
@@ -454,8 +455,12 @@ public class CKeditor extends AbstractComponent {
 				FileItem item, String type) {
 
 			String fileName = item.getName();
+			if (fileName == null || fileName.isEmpty()) {
+				throw new UiException("Empty filename: " + fileName);
+			}
+			//ZKCK-27: IE11 and Edge will return full path
+			fileName = FilenameUtils.getName(fileName);
 			File file = new File(realPath + "/" + fileName);
-			
 			if (!file.getParentFile().exists())
 				throw new UiException("Folder not found: " + realPath);
 			try {
