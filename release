@@ -1,0 +1,63 @@
+#!/bin/bash
+#
+#{{IS_NOTE
+#	Purpose:
+#	Description:
+#	History:
+#		April 7 17:38:16 2014, Created by jumperchen
+#}}IS_NOTE
+#
+#Copyright (C) 2014 Potix Corporation. All Rights Reserved.
+#
+#{{IS_RIGHT
+#}}IS_RIGHT
+#
+
+if [ -d "ckez" ]; then
+	cd ckez
+else
+	echo "cannot locate ckez/"
+	exit 1
+fi
+
+mainprj="$(pwd)" # prj/zkckeditor/ckez
+releasedir=$mainprj/target/release
+ver=$(head -1 version)
+stamp=$(date +%Y%m%d)
+target=$1
+if [ "$target" == "official" ] ; then
+	pver=$ver
+	mver=$ver
+elif [ "$target" == "FL" ] ; then
+	pver=$ver-FL-$stamp
+	mver=$pver
+else
+	echo "Usage: release [official|FL]"
+	exit 1
+fi
+
+# update pom version
+function upVer {
+	# replace the 1st occurance of version number, using long hand in-place for compatibility between BSD and GNU sed
+	sed --in-place='' "1,/version>.*<\/version/s/version>.*<\/version/version>$1<\/version/" $mainprj/pom.xml
+}
+
+upVer $mver
+mvn -Dmaven.test.skip=true clean install
+
+if [ -d "$releasedir" ]; then
+	rm -r $releasedir
+else
+	mkdir $releasedir
+fi
+
+cp -r $mainprj/target/maven $releasedir/maven
+cp -r $mainprj/target/bin $releasedir/bin
+
+if [ "$target" == "FL" ] ; then
+	# revert back pom.xml, as it is FL release
+	echo "FL release, revert back version number change"
+	upVer $ver-SNAPSHOT
+fi
+
+echo "All done!!!"
