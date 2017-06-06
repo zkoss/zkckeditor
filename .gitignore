@@ -15,3 +15,7 @@ ckez/target/*
 */.settings/*.component
 */.settings/*.xml
 test/addon/ckeztest/.settings
+
+# IntelliJ
+.idea/
+*.iml
