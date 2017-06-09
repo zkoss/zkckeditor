@@ -25,5 +25,5 @@ package org.zkforge.ckez;
 public class Version {
 	/** Returns the version UID.
 	 */
-	public static final String UID = "4.4.6.4";
+	public static final String UID = "4.7.0.0";
 }

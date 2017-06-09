@@ -299,24 +299,24 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		}
 		
 		if (filebrowserBrowseUrl)
-			config.filebrowserBrowseUrl = fileBrowserTempl + '?Type=Files&url=' + filebrowserBrowseUrl;
+			config.filebrowserBrowseUrl = fileBrowserTempl + '?Type=Files&url=' + filebrowserBrowseUrl; // fixme
 
 		if (filebrowserImageBrowseUrl)
-			config.filebrowserImageBrowseUrl = fileBrowserTempl + '?Type=Images&url=' + filebrowserImageBrowseUrl;
+			config.filebrowserImageBrowseUrl = fileBrowserTempl + '?Type=Images&url=' + filebrowserImageBrowseUrl; // fixme
 
 		if (filebrowserFlashBrowseUrl)
-			config.filebrowserFlashBrowseUrl = fileBrowserTempl + '?Type=Flash&url=' + filebrowserFlashBrowseUrl;
+			config.filebrowserFlashBrowseUrl = fileBrowserTempl + '?Type=Flash&url=' + filebrowserFlashBrowseUrl; // fixme
 		
 		if (filebrowserUploadUrl)
-			config.filebrowserUploadUrl = fileUploadTempl + '?Type=Files&url=' + filebrowserUploadUrl + 
+			config.filebrowserUploadUrl = fileUploadTempl + '?Type=Files&url=' + filebrowserUploadUrl +  // fixme
 				'&dtid=' + dtid + '&uuid=' + uuid;
 
 		if (filebrowserImageUploadUrl)
-			config.filebrowserImageUploadUrl = fileUploadTempl + '?Type=Images&url=' + filebrowserImageUploadUrl + 
+			config.filebrowserImageUploadUrl = fileUploadTempl + '?Type=Images&url=' + filebrowserImageUploadUrl + // fixme
 				'&dtid=' + dtid + '&uuid=' + uuid;
 
 		if (filebrowserFlashUploadUrl)
-			config.filebrowserFlashUploadUrl = fileUploadTempl + '?Type=Flash&url=' + filebrowserFlashUploadUrl + 
+			config.filebrowserFlashUploadUrl = fileUploadTempl + '?Type=Flash&url=' + filebrowserFlashUploadUrl + // fixme
 				'&dtid=' + dtid + '&uuid=' + uuid;
 		
 		if (this._toolbar)

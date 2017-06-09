@@ -26,8 +26,7 @@ public class WebAppInit implements org.zkoss.zk.ui.util.WebAppInit {
 
 	public void init(WebApp wapp) throws Exception {
 		if (DHtmlUpdateServlet.getAuExtension(wapp, "/ckezupload") == null) {
-			DHtmlUpdateServlet.addAuExtension(wapp, "/ckezupload",
-					new CkezUploadExtension());
+			DHtmlUpdateServlet.addAuExtension(wapp, "/ckezupload", new CkezUploadExtension());
 			CKeditor.setFileUploadHandlePage(wapp.getUpdateURI(false) + "/ckezupload");
 		}
 	}

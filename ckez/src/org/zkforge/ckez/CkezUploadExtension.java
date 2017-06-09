@@ -91,7 +91,7 @@ public class CkezUploadExtension implements AuExtension {
 					nextURI, attrs, Servlets.PASS_THRU_ATTR);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace(); // fixme
 		}
 	}
 	

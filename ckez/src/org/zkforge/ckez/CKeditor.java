@@ -455,7 +455,7 @@ public class CKeditor extends AbstractComponent {
 				FileItem item, String type) {
 
 			String fileName = item.getName();
-			if (fileName == null || fileName.isEmpty()) {
+			if (fileName == null || fileName.length() < 1) {
 				throw new UiException("Empty filename: " + fileName);
 			}
 			//ZKCK-27: IE11 and Edge will return full path
@@ -466,7 +466,7 @@ public class CKeditor extends AbstractComponent {
 			try {
 				item.write(file);
 			} catch (Exception e) {
-				e.printStackTrace();
+				e.printStackTrace(); // fixme
 			}
 
 			return uploadUrl + "/" + fileName;

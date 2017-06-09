@@ -101,7 +101,7 @@ public class FilebrowserController extends GenericForwardComposer {
 		for (Iterator it = parentFolderMap.entrySet().iterator(); it.hasNext();) {
 			Map.Entry entry = (Map.Entry)it.next();
 			Object value = entry.getValue();
-			
+
 			if (value instanceof Map)
 				list.add(new DefaultTreeNode(entry, initTreeModel((Map) value, new ArrayList())));
 		}
@@ -109,7 +109,7 @@ public class FilebrowserController extends GenericForwardComposer {
 	}
 	
 	private Map parseFolders(String path, Map parentFolderMap) {
-		
+
 		Iterator it = application.getResourcePaths(path).iterator();
 		while (it.hasNext()) {
 			String pagePath = String.valueOf(it.next());
@@ -130,12 +130,12 @@ public class FilebrowserController extends GenericForwardComposer {
 	
 	private boolean shallShowFolder(String folderName) {
 		Object obj = fileFilterMap.get(folderName);
-		return (obj == null) ? true : Boolean.valueOf((String) obj).booleanValue();
+		return (obj == null) || Boolean.valueOf((String) obj);
 	}
 	
 	private boolean shallShowFile(String folderName) {
 		// B70-CKEZ-22: Ignore file extension case.
-		return Boolean.valueOf((String) fileFilterMap.get(folderName.toLowerCase())).booleanValue();
+		return Boolean.valueOf((String) fileFilterMap.get(folderName.toLowerCase()));
 	}
 	
 	private Map initFileFilterMap() {
