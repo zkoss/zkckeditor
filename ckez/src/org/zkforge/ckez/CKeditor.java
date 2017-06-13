@@ -16,12 +16,13 @@
  */
 package org.zkforge.ckez;
 
-
 import java.io.File;
 import java.util.Map;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.io.FilenameUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.zkoss.lang.Objects;
 import org.zkoss.lang.Strings;
 import org.zkoss.zk.ui.AbstractComponent;
@@ -37,6 +38,9 @@ import org.zkoss.zk.ui.event.InputEvent;
  * @version $Revision: 3.0 $ $Date: 2009/10/7 17:56:45 $
  */
 public class CKeditor extends AbstractComponent {
+
+	private static final Logger logger = LoggerFactory.getLogger(CKeditor.class);
+
 	private static String _fileBrowserTempl = "~./ckez/html/browse.zul";
 	private static String _fileUploadHandlePage = "";
 	
@@ -114,8 +118,9 @@ public class CKeditor extends AbstractComponent {
 	 * Sets the toolbar set for this CKeditor.
 	 */
 	public void setToolbar(String toolbar) {
-		if (toolbar != null && toolbar.length() == 0)
+		if (toolbar != null && Strings.isEmpty(toolbar)) {
 			toolbar = null;
+		}
 		if (!Objects.equals(toolbar, _toolbar)) {
 			_toolbar = toolbar;
 			smartUpdate("toolbar", toolbar);
@@ -135,8 +140,9 @@ public class CKeditor extends AbstractComponent {
 	 * Sets the width of this CKeditor.
 	 */
 	public void setWidth(String width) {
-		if (width != null && width.length() == 0)
+		if (width != null && Strings.isEmpty(width)) {
 			width = null;
+		}
 		if (!Objects.equals(width, _width)) {
 			_width = width;
 			smartUpdate("width", width);
@@ -156,8 +162,9 @@ public class CKeditor extends AbstractComponent {
 	 * Sets the height of this CKeditor.
 	 */
 	public void setHeight(String height) {
-		if (height != null && height.length() == 0)
+		if (height != null && Strings.isEmpty(height)) {
 			height = null;
+		}
 		if (!Objects.equals(height, _height)) {
 			_height = height;
 			smartUpdate("height", height);
@@ -185,8 +192,9 @@ public class CKeditor extends AbstractComponent {
 	 * @see #getVflex 
 	 */
 	public void setVflex(String flex) {
-		if (flex != null && flex.length() == 0)
+		if (flex != null && Strings.isEmpty(flex)) {
 			flex = null;
+		}
 		if (!Objects.equals(_vflex, flex)) {
 			_vflex = flex;
 			smartUpdate("vflex", flex);
@@ -222,8 +230,9 @@ public class CKeditor extends AbstractComponent {
 	 * @see #getHflex 
 	 */
 	public void setHflex(String flex) {
-		if (flex != null && flex.length() == 0)
+		if (flex != null && Strings.isEmpty(flex)) {
 			flex = null;
+		}
 		if (!Objects.equals(_hflex, flex)) {
 			_hflex = flex;
 			smartUpdate("hflex", flex);
@@ -450,34 +459,30 @@ public class CKeditor extends AbstractComponent {
 	}
 	
 	private static final CkezFileWriter _defWriter = new CkezFileWriter() {
-
-		public String writeFileItem(String uploadUrl, String realPath,
-				FileItem item, String type) {
+		public String writeFileItem(String uploadUrl, String realPath, FileItem item, String type) {
 
 			String fileName = item.getName();
-			if (fileName == null || fileName.length() < 1) {
+			if (Strings.isEmpty(fileName)) {
 				throw new UiException("Empty filename: " + fileName);
 			}
+
 			//ZKCK-27: IE11 and Edge will return full path
 			fileName = FilenameUtils.getName(fileName);
 			File file = new File(realPath + "/" + fileName);
-			if (!file.getParentFile().exists())
+			if (!file.getParentFile().exists()) {
 				throw new UiException("Folder not found: " + realPath);
+			}
 			try {
 				item.write(file);
 			} catch (Exception e) {
-				e.printStackTrace(); // fixme
+				throw new UiException("Failed to write file item", e);
 			}
-
 			return uploadUrl + "/" + fileName;
 		}
 	};
-	
-	
-	
+
 	/**/ String writeFileItem(String uploadUrl, String realPath, FileItem item, String type) {
-		return (fileWriter != null ? fileWriter: _defWriter)
-			.writeFileItem(uploadUrl, realPath, item, type);
+		return (fileWriter != null ? fileWriter: _defWriter).writeFileItem(uploadUrl, realPath, item, type);
 	}
 
 	public void service(org.zkoss.zk.au.AuRequest request, boolean everError) {
@@ -505,8 +510,7 @@ public class CKeditor extends AbstractComponent {
 			super.service(request, everError);
 	}
 	
-	protected void renderProperties(org.zkoss.zk.ui.sys.ContentRenderer renderer)
-	throws java.io.IOException {
+	protected void renderProperties(org.zkoss.zk.ui.sys.ContentRenderer renderer) throws java.io.IOException {
 		super.renderProperties(renderer);
 
 		render(renderer, "value", _value);
@@ -570,8 +574,9 @@ public class CKeditor extends AbstractComponent {
 	 * <p>Note: the template has no effect, ifds
 	 */
 	public static void setFileBrowserTemplate(String uri) {
-		if (uri == null || uri.length() == 0)
+		if (Strings.isEmpty(uri)) {
 			throw new IllegalArgumentException("empty");
+		}
 		_fileBrowserTempl = uri;
 	}
 	/** Returns the template used to create the file browser dialog.
@@ -583,8 +588,9 @@ public class CKeditor extends AbstractComponent {
 	/** Sets the location of the script that handles file uploads.
 	 */
 	public static void setFileUploadHandlePage(String uri) {
-		if (uri == null || uri.length() == 0)
+		if (Strings.isEmpty(uri)) {
 			throw new IllegalArgumentException("empty");
+		}
 		_fileUploadHandlePage = uri;
 	}
 	/** Returnsthe location of the script that handles file uploads.

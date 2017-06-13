@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+B-ZKCK-34.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Tue, Jun 13, 2017 11:44:03 AM, Created by Christopher
+
+Copyright (C) 2017 Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+	<label multiline="true">
+		There are two things to test here
+		1. image browser
+			a. click the image browser icon in the ckeditor toolbar
+			b. click the "browser server" button in the "image into" tab
+			c. confirm that you are in the correct folder, and the folder path is NOT in the url
+		2. image upload
+			a. click the image browser icon in the ckeditor toolbar
+			b. switch to the "upload" tab
+			c. select a file to upload from your local file system
+			d. click the button "send it to the server"
+			e. dialog should automatically jump back to the "image info" tab
+			f. check "URL" input box that the image is uploaded to the correct url
+	</label>
+	<label multiline="true">
+		folder url = "test2/img"
+		should be able to browser, upload, and insert the upload image into ckeditor
+	</label>
+	<ckeditor id="_ckeditor-1" filebrowserImageBrowseUrl="test2/img" filebrowserUploadUrl="test2/img" toolbar="Complex" width="100%" height="300px"/>
+	<label multiline="true">
+		folder url = "/WEB-INF"
+		should be able to browse and upload, but cannot insert the uploaded image into ckeditor,
+		because usually server will deny access to contents in WEB-INF (unless server config is changed)
+	</label>
+	<ckeditor id="_ckeditor-2" filebrowserImageBrowseUrl="/WEB-INF" filebrowserUploadUrl="/WEB-INF" toolbar="Complex" width="100%" height="300px"/>
+</zk>

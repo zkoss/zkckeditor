@@ -28,14 +28,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.zkoss.web.servlet.Servlets;
 import org.zkoss.zk.au.http.AuExtension;
 import org.zkoss.zk.au.http.DHtmlUpdateServlet;
 import org.zkoss.zk.ui.Desktop;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.UiException;
 import org.zkoss.zk.ui.sys.WebAppCtrl;
 /**
  * The AU extension to upload files by ckeditor.
@@ -46,6 +50,11 @@ import org.zkoss.zk.ui.sys.WebAppCtrl;
  */
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class CkezUploadExtension implements AuExtension {
+
+	private static final Logger logger = LoggerFactory.getLogger(CkezUploadExtension.class);
+
+	private static final String nextURI = "~./ckez/html/fileupload-done.html.dsp";
+
 	private ServletContext _ctx;
 	
 	public CkezUploadExtension() {
@@ -58,56 +67,63 @@ public class CkezUploadExtension implements AuExtension {
 	public void destroy() {
 	}
 
-	public void service(HttpServletRequest request,
-			HttpServletResponse response, String pi) throws ServletException,
+	public void service(HttpServletRequest request, HttpServletResponse response, String pi) throws ServletException,
 			IOException {
 		final Session sess = Sessions.getCurrent(false);
 		if (sess == null) {
 			response.setIntHeader("ZK-Error", HttpServletResponse.SC_GONE);
 			return;
 		}
-		String type = request.getParameter("type");
-		String dtid = request.getParameter("dtid");
-		String uuid = request.getParameter("uuid");
-		String url = request.getParameter("url");
-		
-		try {
-			
-			FileItem item = parseFileItem(request);
-			url = FilebrowserController.getFolderUrl(url);
-			String path = request.getContextPath() + url;
-			
-			if (item != null) {
-				final Desktop desktop = ((WebAppCtrl)sess.getWebApp())
-					.getDesktopCache(sess).getDesktopIfAny(dtid);
-				CKeditor ckez = (CKeditor)desktop.getComponentByUuidIfAny(uuid);
-				String nextURI = "~./ckez/html/fileupload-done.html.dsp";
-				final Map attrs = new HashMap();
-				attrs.put("CKEditorFuncNum", request.getParameter("CKEditorFuncNum"));
-				String serverPath = ckez.writeFileItem(path, desktop.getWebApp().getRealPath(url), item, type);
-				String itemName = item.getName();
-				attrs.put("path", serverPath.replace(itemName, URLEncoder.encode(itemName, "UTF-8").replace("+", "%20")));
-				Servlets.forward(_ctx, request, response,
-					nextURI, attrs, Servlets.PASS_THRU_ATTR);
-			}
-		} catch (Exception e) {
-			e.printStackTrace(); // fixme
+		final String type = request.getParameter("Type");
+		final String dtid = request.getParameter("dtid");
+		final String uuid = request.getParameter("uuid");
+
+		final FileItem item = parseFileItem(request);
+		if (item == null) return;
+
+		final Desktop desktop = ((WebAppCtrl) sess.getWebApp()).getDesktopCache(sess).getDesktopIfAny(dtid);
+		if (desktop == null) return;
+
+		final CKeditor ckez = (CKeditor) desktop.getComponentByUuidIfAny(uuid);
+		if (ckez == null) return;
+
+		String url;
+		if ("Files".equals(type)) {
+			url = ckez.getFilebrowserUploadUrl();
+		} else if ("Images".equals(type)) {
+			url = ckez.getFilebrowserImageUploadUrl();
+		} else if ("Flash".equals(type)) {
+			url = ckez.getFilebrowserFlashUploadUrl();
+		} else {
+			return;
 		}
+
+		url = FilebrowserController.getFolderUrl(url);
+		String path = request.getContextPath() + url;
+
+		final Map attrs = new HashMap();
+		attrs.put("CKEditorFuncNum", request.getParameter("CKEditorFuncNum"));
+		String serverPath = ckez.writeFileItem(path, desktop.getWebApp().getRealPath(url), item, type);
+		String itemName = item.getName();
+		attrs.put("path", serverPath.replace(itemName, URLEncoder.encode(itemName, "UTF-8").replace("+", "%20")));
+		Servlets.forward(_ctx, request, response, nextURI, attrs, Servlets.PASS_THRU_ATTR);
 	}
 	
-	private FileItem parseFileItem(HttpServletRequest request) throws Exception {
+	private FileItem parseFileItem(HttpServletRequest request) {
 		if (ServletFileUpload.isMultipartContent(request)) {
-
 			FileItemFactory factory = new DiskFileItemFactory();
 			ServletFileUpload servletFileUpload = new ServletFileUpload(factory);
 			servletFileUpload.setHeaderEncoding("UTF-8");
-			List fileItemsList = servletFileUpload.parseRequest(request);
-
-			for (Iterator it = fileItemsList.iterator(); it.hasNext();) {
-				FileItem item = (FileItem) it.next();
-				if (!item.isFormField()) {
-					return item;
+			try {
+				List fileItemsList = servletFileUpload.parseRequest(request);
+				for (Object f : fileItemsList) {
+					FileItem item = (FileItem) f;
+					if (!item.isFormField()) {
+						return item;
+					}
 				}
+			} catch (FileUploadException e) {
+				logger.error("Upload failed", e);
 			}
 		}
 		return null;

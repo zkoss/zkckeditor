@@ -19,18 +19,14 @@ package org.zkforge.ckez;
  * 
  * @author Jimmy Shiau
  */
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 import org.zkoss.lang.Strings;
-import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.UiException;
+import org.zkoss.zk.ui.*;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zk.ui.sys.WebAppCtrl;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.DefaultTreeModel;
 import org.zkoss.zul.DefaultTreeNode;
@@ -51,26 +47,30 @@ public class FilebrowserController extends GenericForwardComposer {
 											"bat", "exe", "dll", "reg", "cgi", "asmx"};
 	private static final String[] FLASH = {"swf"};
 	private static final String[] MEDIA = {"swf", "fla", "jpg", "gif", "jpeg", "png", "avi", "mpg", "mpeg"}; 
-	
-	private String type = "";
-	private Map fileFilterMap;
-	
+
+	private static final String swfPath = "~./ckez/img/flashIcon.jpg";
+
+	private Set<String> _fileWhiteList; // depending on type param, init later
+	private Set<String> _folderBlackList = new HashSet<String>(Arrays.asList(EXCLUDE_FOLDERS));
+
 	private Tree tree;
 	private Div cntDiv;
 	private Toolbarbutton selBtn;
 	
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
-		
-		type = ((String[])param.get("Type"))[0];
-		fileFilterMap = initFileFilterMap();
-		
-		String url = ((String[]) param.get("url"))[0];
+
+		final Object t = param.get("Type");
+		if (t == null) return;
+		final String type = ((String[]) t)[0];
+		_fileWhiteList = initFileWhiteList(type);
+
+		final String url = getFolderUrl(getUrl(param, type));
 		if (Strings.isBlank(url)) return;
 		
-		url = getFolderUrl(url);
-		if (application.getResourcePaths(url) == null)
+		if (application.getResourcePaths(url) == null) {
 			throw new UiException("Folder not found: " + url);
+		}
 		
 		Map rootFolderMap = new TreeMap();
 		Map map = new TreeMap();
@@ -79,16 +79,54 @@ public class FilebrowserController extends GenericForwardComposer {
 		parseFolders(url, map);
 		
 		tree.setItemRenderer(new ExplorerTreeitemRenderer());
-		tree.setModel(new DefaultTreeModel(new DefaultTreeNode("ROOT",initTreeModel(rootFolderMap, new ArrayList()))));
+		tree.setModel(new DefaultTreeModel(new DefaultTreeNode("ROOT", initTreeModel(rootFolderMap, new ArrayList()))));
 		
 		showImages(map);
 	}
 
+	private String getUrl(Map param, String type) {
+		final Object d = param.get("dtid");
+		if (d == null) return null;
+		final String dtid = ((String[]) d)[0];
+
+		final Object u = param.get("uuid");
+		if (u == null) return null;
+		final String uuid = ((String[]) u)[0];
+
+		final Session sess = Sessions.getCurrent(false);
+		if (sess == null) return null;
+
+		final Desktop desktop = ((WebAppCtrl) sess.getWebApp()).getDesktopCache(sess).getDesktopIfAny(dtid);
+		if (desktop == null) return null;
+
+		final CKeditor ckez = (CKeditor) desktop.getComponentByUuidIfAny(uuid);
+		if (ckez == null) return null;
+
+		if ("Images".equals(type)) {
+			return ckez.getFilebrowserImageBrowseUrl();
+		} else if ("Flash".equals(type)) {
+			return ckez.getFilebrowserFlashBrowseUrl();
+		} else if ("Files".equals(type)) {
+			return ckez.getFilebrowserBrowseUrl();
+		} else {
+			return null;
+		}
+	}
+
+	private Set<String> initFileWhiteList(String type) {
+		if ("Images".equals(type)) {
+			return new HashSet<String>(Arrays.asList(IMAGES));
+		} else if ("Flash".equals(type)) {
+			return new HashSet<String>(Arrays.asList(FLASH));
+		} else if ("Files".equals(type)) {
+			return new HashSet<String>(Arrays.asList(FILES));
+		} else {
+			return new HashSet<String>();
+		}
+	}
+
 	/*package*/ static String getFolderUrl(String url) {
-//		int index = url.lastIndexOf(";jsessionid");
-//		if (index > 0)
-//			url = url.substring(0, index);
-		
+		if (Strings.isBlank(url)) return "";
 		if (url.startsWith("./"))
 			url = url.substring(1);
 		
@@ -98,8 +136,8 @@ public class FilebrowserController extends GenericForwardComposer {
 	}
 
 	private List initTreeModel(Map parentFolderMap, List list) {
-		for (Iterator it = parentFolderMap.entrySet().iterator(); it.hasNext();) {
-			Map.Entry entry = (Map.Entry)it.next();
+		for (Object o : parentFolderMap.entrySet()) {
+			Map.Entry entry = (Map.Entry) o;
 			Object value = entry.getValue();
 
 			if (value instanceof Map)
@@ -110,9 +148,8 @@ public class FilebrowserController extends GenericForwardComposer {
 	
 	private Map parseFolders(String path, Map parentFolderMap) {
 
-		Iterator it = application.getResourcePaths(path).iterator();
-		while (it.hasNext()) {
-			String pagePath = String.valueOf(it.next());
+		for (Object o : application.getResourcePaths(path)) {
+			String pagePath = String.valueOf(o);
 			if (pagePath.endsWith("/")) {
 				String folderName = pagePath.substring(0, pagePath.length() - 1);
 				folderName = folderName.substring(folderName.lastIndexOf("/") + 1);
@@ -129,43 +166,15 @@ public class FilebrowserController extends GenericForwardComposer {
 	}
 	
 	private boolean shallShowFolder(String folderName) {
-		Object obj = fileFilterMap.get(folderName);
-		return (obj == null) || Boolean.valueOf((String) obj);
+		return !_folderBlackList.contains(folderName); // not in black list -> can show
 	}
 	
-	private boolean shallShowFile(String folderName) {
+	private boolean shallShowFile(String fileName) {
 		// B70-CKEZ-22: Ignore file extension case.
-		return Boolean.valueOf((String) fileFilterMap.get(folderName.toLowerCase()));
+		// can't have empty folder name
+		return !Strings.isEmpty(fileName) && _fileWhiteList.contains(fileName.toLowerCase()); // in white list -> can show
 	}
 	
-	private Map initFileFilterMap() {
-		Map fileFilterMap = new HashMap();
-		
-		for (int i = 0, j = EXCLUDE_FOLDERS.length; i < j; i++)
-			fileFilterMap.put(EXCLUDE_FOLDERS[i], "false");
-		for (int i = 0, j = EXCLUDE_FILES.length; i < j; i++)
-			fileFilterMap.put(EXCLUDE_FILES[i], "false");
-		
-		
-		if (type.equals("Flash"))
-			for (int i = 0, j = FLASH.length; i < j; i++)
-				fileFilterMap.put(FLASH[i], "true");
-		else if (type.equals("Images"))
-			for (int i = 0, j = IMAGES.length; i < j; i++)
-				fileFilterMap.put(IMAGES[i], "true");
-		else if (type.equals("Files")) {
-			for (int i = 0, j = FLASH.length; i < j; i++)
-				fileFilterMap.put(FLASH[i], "true");
-			for (int i = 0, j = IMAGES.length; i < j; i++)
-				fileFilterMap.put(IMAGES[i], "true");
-			for (int i = 0, j = FILES.length; i < j; i++)
-				fileFilterMap.put(FILES[i], "true");
-		}
-		
-		return fileFilterMap;
-	}
-	
-
 	public void onSelect$tree(){
 		cntDiv.getChildren().clear();
 		Treeitem item = tree.getSelectedItem();
@@ -176,37 +185,36 @@ public class FilebrowserController extends GenericForwardComposer {
 	
 	
 	private void showImages(Map map) {
-		for (Iterator it = map.entrySet().iterator(); it.hasNext();) {
-			Map.Entry me = (Map.Entry) it.next();
+		for (Object o : map.entrySet()) {
+			Map.Entry me = (Map.Entry) o;
 			Object value = me.getValue();
+
 			if (value instanceof Map) continue;
-			String path = String.valueOf(value);
-			String swfPath = "";
-			if (path.endsWith("swf"))
-				swfPath = "~./ckez/img/flashIcon.jpg";
-			Toolbarbutton tb = new Toolbarbutton(String.valueOf(me.getKey()), "".equals(swfPath)? path: swfPath);
-			tb.addEventListener("onClick", new EventListener() {
+
+			final String path = String.valueOf(value);
+
+			Toolbarbutton tb = new Toolbarbutton(String.valueOf(me.getKey()), path.endsWith("swf") ? swfPath : path);
+			tb.addEventListener(Events.ON_CLICK, new EventListener() {
 				public void onEvent(Event event) throws Exception {
-					if (selBtn !=null)
+					if (selBtn != null)
 						selBtn.setSclass(null);
 					selBtn = (Toolbarbutton) event.getTarget();
 					selBtn.setSclass("sel");
 				}
 			});
-			int CKEditorFuncNum = 1;
-			CKEditorFuncNum = new Integer(((String[])param.get("CKEditorFuncNum"))[0]).intValue();
-			String script = "window.opener.CKEDITOR.tools.callFunction("+
-				CKEditorFuncNum+", '" + execution.encodeURL(path) + "'); window.close(); ";
-			tb.setWidgetListener("onDoubleClick",script);
-			
+			final int CKEditorFuncNum = Integer.parseInt(((String[]) param.get("CKEditorFuncNum"))[0]);
+			String script = "window.opener.CKEDITOR.tools.callFunction(" +
+					CKEditorFuncNum + ", '" + execution.encodeURL(path) + "'); window.close(); ";
+			tb.setWidgetListener("onDoubleClick", script);
+
 			cntDiv.appendChild(tb);
 		}
-		
 	}
 	
 	private class ExplorerTreeitemRenderer implements TreeitemRenderer {
+
 		public void render(Treeitem item, Object data) throws Exception {
-			Map.Entry entry = (Map.Entry)((DefaultTreeNode)data).getData();
+			Map.Entry entry = (Map.Entry) ((DefaultTreeNode) data).getData();
 			item.setLabel(String.valueOf(entry.getKey()));
 			Object value = entry.getValue();
 			item.setValue(value);
@@ -215,8 +223,7 @@ public class FilebrowserController extends GenericForwardComposer {
 				item.setSelected(true);
 		}
 
-		public void render(Treeitem item, Object data, int index)
-				throws Exception {
+		public void render(Treeitem item, Object data, int index) throws Exception {
 			render(item, data);
 		}
 	}

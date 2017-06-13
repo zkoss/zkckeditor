@@ -299,25 +299,22 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		}
 		
 		if (filebrowserBrowseUrl)
-			config.filebrowserBrowseUrl = fileBrowserTempl + '?Type=Files&url=' + filebrowserBrowseUrl; // fixme
+			config.filebrowserBrowseUrl = fileBrowserTempl + '?Type=Files&dtid=' + dtid + '&uuid=' + uuid;
 
 		if (filebrowserImageBrowseUrl)
-			config.filebrowserImageBrowseUrl = fileBrowserTempl + '?Type=Images&url=' + filebrowserImageBrowseUrl; // fixme
+			config.filebrowserImageBrowseUrl = fileBrowserTempl + '?Type=Images&dtid=' + dtid + '&uuid=' + uuid;
 
 		if (filebrowserFlashBrowseUrl)
-			config.filebrowserFlashBrowseUrl = fileBrowserTempl + '?Type=Flash&url=' + filebrowserFlashBrowseUrl; // fixme
+			config.filebrowserFlashBrowseUrl = fileBrowserTempl + '?Type=Flash&dtid=' + dtid + '&uuid=' + uuid;
 		
 		if (filebrowserUploadUrl)
-			config.filebrowserUploadUrl = fileUploadTempl + '?Type=Files&url=' + filebrowserUploadUrl +  // fixme
-				'&dtid=' + dtid + '&uuid=' + uuid;
+			config.filebrowserUploadUrl = fileUploadTempl + '?Type=Files&dtid=' + dtid + '&uuid=' + uuid;
 
 		if (filebrowserImageUploadUrl)
-			config.filebrowserImageUploadUrl = fileUploadTempl + '?Type=Images&url=' + filebrowserImageUploadUrl + // fixme
-				'&dtid=' + dtid + '&uuid=' + uuid;
+			config.filebrowserImageUploadUrl = fileUploadTempl + '?Type=Images&dtid=' + dtid + '&uuid=' + uuid;
 
 		if (filebrowserFlashUploadUrl)
-			config.filebrowserFlashUploadUrl = fileUploadTempl + '?Type=Flash&url=' + filebrowserFlashUploadUrl + // fixme
-				'&dtid=' + dtid + '&uuid=' + uuid;
+			config.filebrowserFlashUploadUrl = fileUploadTempl + '?Type=Flash&dtid=' + dtid + '&uuid=' + uuid;
 		
 		if (this._toolbar)
 			config.toolbar = this._toolbar;
@@ -413,9 +410,9 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		var editor = event.editor || event,
 			wgt = zk.Widget.$(editor.element.getId());
 		
-		//clicking some toolbar buttons will also trigger onBlur
-		//but the focus is considered still "inside" ckeditor widget
-		//if the editor instance did not lose focus, ignore the onBlur event
+		// clicking some toolbar buttons will also trigger onBlur
+		// but the focus is considered still "inside" ckeditor widget
+		// if the editor instance did not lose focus, ignore the onBlur event
 		if (zk.currentFocus === wgt) return;
 		
 		if (wgt._tidChg) {
@@ -452,14 +449,6 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		}
 		
 		if (selection == '') return;
-		
-		//unimplemented, because it just fire on select a html tag
-//		zk.log(selection);
-//		wgt.fire('onSelection', {
-//			start: 0,
-//			end: 0,
-//			selected: selection
-//		});
 	},
 	
 	onAutoHeight: function (event) {
@@ -470,7 +459,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			defaultHeight = zk.parseInt(editor.config.height);
 				
 		if (wgt._autoHeight) {
-			setTimeout(function(){//body.height() is correct after delay time
+			setTimeout(function(){ //body.height() is correct after delay time
 				
 				var pMargin = zk.parseInt(body.find("P").css("marginBottom")), // for FF
 					bodyMargin = zk.parseInt(body.css("marginBottom")),        // for ie
