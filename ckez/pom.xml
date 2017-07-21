@@ -66,10 +66,10 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<sourceDirectory>${project.basedir}/src</sourceDirectory>
 		<resources>
 			<resource>
 				<directory>${project.basedir}/src/archive</directory>
+				<filtering>true</filtering>
 			</resource>
 		</resources>
 		<plugins>
@@ -135,6 +135,7 @@
 				<version>2.9.1</version>
 				<executions>
 					<execution>
+						<phase>package</phase>
 						<configuration>
 							<encoding>UTF-8</encoding>
 							<charset>UTF-8</charset>
@@ -243,6 +244,19 @@
 								</resource>
 							</resources>
 						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>templating-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<id>filter-src</id>
+						<goals>
+							<goal>filter-sources</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>

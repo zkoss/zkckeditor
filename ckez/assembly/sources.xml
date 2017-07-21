@@ -9,7 +9,7 @@
 	<includeBaseDirectory>false</includeBaseDirectory>
 	<fileSets>
 		<fileSet>
-			<directory>${project.basedir}/src/org/zkforge/ckez</directory>
+			<directory>${project.basedir}/src/main/java</directory>
 			<outputDirectory>ckez/</outputDirectory>
 		</fileSet>
 	</fileSets>
