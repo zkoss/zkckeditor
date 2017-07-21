@@ -9,18 +9,10 @@
 	<fileSets>
 		<fileSet>
 			<directory>${project.basedir}</directory>
-			<excludes>
-				<exclude>${project.build.directory}/</exclude>
-				<exclude>${project.basedir}/.settings/</exclude>
-				<exclude>${project.basedir}/assembly/</exclude>
-				<exclude>${project.basedir}/.gitignore</exclude>
-				<exclude>${project.basedir}/version</exclude>
-				<exclude>${project.basedir}/classpath</exclude>
-				<exclude>${project.basedir}/codegen</exclude>
-				<exclude>${project.basedir}/debug</exclude>
-				<exclude>${project.basedir}/deploy</exclude>
-				<exclude>${project.basedir}/format</exclude>
-			</excludes>
+			<includes>
+				<include>pom.xml</include>
+				<include>src/**</include>
+			</includes>
 			<outputDirectory>/${project.artifactId}</outputDirectory>
 		</fileSet>
 	</fileSets>

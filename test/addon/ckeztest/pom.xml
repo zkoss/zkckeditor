@@ -22,9 +22,6 @@
 		<jfreechart.version>1.0.13</jfreechart.version>
 		<filters.version>2.0.235</filters.version>
 		<ckez.version>4.7.0.0-SNAPSHOT</ckez.version>
-		<gmapsz.version>2.0.51</gmapsz.version>
-		<timelinez.version>2.3.1_50</timelinez.version>
-		<timeplotz.version>1.1_50</timeplotz.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<version>8.0.5-Eval</version>
@@ -222,21 +219,6 @@
 			<artifactId>ckez</artifactId>
 			<version>${ckez.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.zkoss.zkforge</groupId>
-			<artifactId>timelinez</artifactId>
-			<version>${timelinez.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.zkoss.zkforge</groupId>
-			<artifactId>timeplotz</artifactId>
-			<version>${timeplotz.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.zkoss.zkforge</groupId>
-			<artifactId>gmapsz</artifactId>
-			<version>${gmapsz.version}</version>
-		</dependency>
 	</dependencies>
 	<build>
 		<directory>${project.basedir}/debug</directory>
@@ -265,6 +247,8 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>7.6.8.v20121106</version>
 				<configuration>
+					<stopKey>foo</stopKey>
+					<stopPort>9999</stopPort>
 					<webAppSourceDirectory>${project.basedir}/src/archive/</webAppSourceDirectory>
 					<webAppConfig>
 						<contextPath>/${project.artifactId}</contextPath>

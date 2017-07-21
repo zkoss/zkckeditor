@@ -23,7 +23,7 @@
 		</license>
 	</licenses>
 	<scm>
-		<url>http://zkforge.svn.sourceforge.net/viewvc/zkforge/trunk/ckez</url>
+		<url>https://github.com/zkoss/zkckeditor</url>
 	</scm>
 	<repositories>
 		<repository>
@@ -56,12 +56,12 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
 		</dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.5</version>
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+	</dependencies>
 	<build>
 		<sourceDirectory>${project.basedir}/src</sourceDirectory>
 		<resources>
@@ -91,8 +91,8 @@
 						<include>**/ext/CKeditor/style.js</include>
 						<include>**/CKeditor.js</include>
 					</includes>
-	                <encoding>UTF-8</encoding>
-	            </configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -126,7 +126,6 @@
 				<version>2.9.1</version>
 				<executions>
 					<execution>
-						<phase>package</phase>
 						<configuration>
 							<encoding>UTF-8</encoding>
 							<charset>UTF-8</charset>
@@ -209,6 +208,31 @@
 							<descriptors>
 								<descriptor>assembly/bundle.xml</descriptor>
 							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>copy-release</id>
+						<phase>install</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/release/${project.version}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.build.directory}</directory>
+									<includes>
+										<include>maven/**</include>
+										<include>bin/**</include>
+									</includes>
+								</resource>
+							</resources>
 						</configuration>
 					</execution>
 				</executions>
