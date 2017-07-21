@@ -12,9 +12,12 @@
 		<outputname>zk-CKEditor</outputname>
 	</properties>
 	<packaging>jar</packaging>
-	<name>The CKeditor Component for ZK</name>
-	<url>http://www.zkoss.org</url>
-	<description>The CKeditor Component for ZK 5.0.0 or later</description>
+	<name>The CKEditor Component for ZK</name>
+	<url>https://www.zkoss.org</url>
+	<description>The CKEditor Component for ZK 5.0.0 or later</description>
+	<organization>
+		<name>Potix Corporation</name>
+	</organization>
 	<licenses>
 		<license>
 			<name>GNU LESSER General Public License, Version 2.1</name>
@@ -114,8 +117,14 @@
 					<finalName>${project.artifactId}</finalName>
 					<outputDirectory>${project.build.directory}/bin</outputDirectory>
 					<archive>
-						<!--<manifestFile>${project.basedir}/src/archive/META-INF/MANIFEST.MF</manifestFile>-->
 						<addMavenDescriptor>false</addMavenDescriptor>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+						<manifestEntries>
+							<Implementation-Title>org.zkforge.ckez</Implementation-Title>
+						</manifestEntries>
 					</archive>
 				</configuration>
 			</plugin>
