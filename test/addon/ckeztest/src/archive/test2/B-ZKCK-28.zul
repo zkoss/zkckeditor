@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+B-ZKCK-28.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Fri Jul 28 14:57:47 CST 2017, Created by rudyhuang
+
+Copyright (C) 2017 Potix Corporation. All Rights Reserved.
+
+-->
+<zk xmlns:w="client">
+    <ckeditor id="ckedit"/>
+
+    <label multiline="true">
+        1. Press "click for rerender", the CKEditor will rerender properly.
+        2. Press "click for rerender twice", the CKEditor will rerender properly. You can adjust the second rerender waiting period.
+    </label>
+    <slider id="period" minpos="0" maxpos="3000" curpos="100" />
+    <button label="click for rerender" w:onClick="zk.$('@ckeditor').rerender();"/>
+    <button label="click for rerender twice">
+        <attribute w:name="onClick">
+            zk.$('@ckeditor').rerender();
+            var period = zk.$("$period").getCurpos();
+            setTimeout(function () {
+                zk.$('@ckeditor').rerender();
+            }, period);
+        </attribute>
+    </button>
+</zk>

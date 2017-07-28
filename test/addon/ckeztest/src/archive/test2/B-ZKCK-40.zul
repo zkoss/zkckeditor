@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+B-ZKCK-40.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Fri Jul 28 10:32:05 CST 2017, Created by rudyhuang
+
+Copyright (C) 2017 Potix Corporation. All Rights Reserved.
+
+-->
+<zk xmlns:w="client">
+	<label multiline="true">
+		1. You can adjust the detach timing by slider. (default: 100ms)
+		2. Press "add Ckeditor". It will create a new ckeditor and detach it.
+		3. Press "popup". A "test" will pop up.
+		4. Press "typeof zk.$('@ckeditor')". After being detached, the result should be undefined.
+	</label>
+	<div id="div" />
+	<slider id="period" minpos="0" maxpos="3000" curpos="100" />
+	<button label="add Ckeditor">
+		<attribute name="onClick"><![CDATA[
+			Div container = new Div();
+			container.appendChild(new org.zkforge.ckez.CKeditor());
+			div.appendChild(container);
+			self.disabled = true;
+		]]></attribute>
+		<attribute w:name="onClick"><![CDATA[
+			var btn = this;
+			var period = zk.$("$period").getCurpos();
+			setTimeout(function(){
+				zAu.send(new zk.Event(btn, 'onUser'));
+			}, period);
+		]]></attribute>
+		<attribute name="onUser"><![CDATA[
+			div.firstChild.detach();
+			self.disabled = false;
+		]]></attribute>
+	</button>
+	<button label="popup" popup="pp"/>
+	<popup id="pp">
+		test
+	</popup>
+	<button w:onClick="zk.log(typeof(zk.$('@ckeditor')));">typeof zk.$('@ckeditor')</button>
+</zk>

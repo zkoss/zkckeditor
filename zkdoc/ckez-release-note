@@ -1,13 +1,16 @@
 Ckez 4.7.0.0
 
 * Features:
-	F-ZKCK-33: Update ckez source to current version
-	F-ZKCK-39: Editor upgrade to current latest release CKEditor 4.7.0
+	ZKCK-33: Update ckez source to current version
+	ZKCK-39: Editor upgrade to current latest release CKEditor 4.7.0
 
 * Bugs:
-	B-ZKCK-34: Zkoss CKEditor vulnerable to file browsing
+	ZKCK-34: Zkoss CKEditor vulnerable to file browsing
+	ZKCK-40: Memory leak in CKEditor
+	ZKCK-28: quick successive bindings cause exception
 
 * Upgrade Notes:
+	+ Upgrade to ckeditor 4.7.0
 
     --------
 Ckez 4.4.6.3

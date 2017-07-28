@@ -157,28 +157,26 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 	},
 	
 	unbind_ : function() {
-		if (!this._editor) {//bug 3048386: detach ckeditor before it loaded cause js error
-			this._unbind = true;
-			this._arguments = arguments;
-			return;
-		}
-		// Issue 18, 19: If it catches js error when destroying ckeditor, then finishes the following instructions
-		try {
-			this._editor.destroy(true);
-		} catch (err) {
-			// finish detaching ckeditor
-			CKEDITOR.tools.removeFunction(this._editor._.frameLoadedHandler);
-			this._editor.fire('contentDomUnload');
-			
-			// finish destroying ckeditor
-			this._editor.status = 'destroyed';
-			this._editor.fire('destroy');
-			this._editor.removeAllListeners();
-			CKEDITOR.remove(this._editor);
-			CKEDITOR.fire('instanceDestroyed', null, this._editor);
+		this._unbind = true;
+		if (this._editor) {//bug 3048386: detach ckeditor before it loaded cause js error
+			// Issue 18, 19: If it catches js error when destroying ckeditor, then finishes the following instructions
+			try {
+				this._editor.destroy(true);
+			} catch (err) {
+				// finish detaching ckeditor
+				CKEDITOR.tools.removeFunction(this._editor._.frameLoadedHandler);
+				this._editor.fire('contentDomUnload');
+
+				// finish destroying ckeditor
+				this._editor.status = 'destroyed';
+				this._editor.fire('destroy');
+				this._editor.removeAllListeners();
+				CKEDITOR.remove(this._editor);
+				CKEDITOR.fire('instanceDestroyed', null, this._editor);
+			}
 		}
 
-		this._unbind = this._editor = this._tmpVflex = this._tmpHflex = null;
+		this._editor = this._tmpVflex = this._tmpHflex = null;
 		zWatch.unlisten({
 			onSend : this,
 			onRestore : this,
@@ -186,6 +184,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			onSize : this
 		});
 		this.$supers('unbind_', arguments);
+		this._unbind = null;
 	},
 	
 	onSize: function () {
@@ -276,6 +275,8 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 	}, 
 		
 	_init: function() {
+		// ZKCK-40: detached before init
+		if (!this.desktop || this._unbind) return;
 		var wgt = this,
 			uuid = this.uuid,
 			dtid = this.desktop.id,
@@ -326,10 +327,6 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		jq(cnt).ckeditor(function(){
 			if (wgt._unbind) {
 				this.destroy();
-				wgt.unbind = wgt._editor = null;
-				zWatch.unlisten({onSend : wgt});
-				zWatch.unlisten({onRestore : wgt});
-				wgt.$supers('unbind_', wgt._arguments);
 				return;
 			}
 			wgt._editor = this;
