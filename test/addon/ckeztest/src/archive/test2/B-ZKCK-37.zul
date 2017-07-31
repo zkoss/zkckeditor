@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+B-ZKCK-37.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Mon Jul 31 15:08:48 CST 2017, Created by rudyhuang
+
+Copyright (C) 2017 Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+    <label multiline="true">
+        1. Maximize CKEditor (Toolbar 3rd button from the right, last row)
+        2. Resize the browser window.
+        3. The editable area should stay maximum.
+    </label>
+    <ckeditor value="test test test" vflex="1"/>
+</zk>

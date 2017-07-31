@@ -68,6 +68,9 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 	},
 	setFlexSize_: function(sz, ignoreMargins) {
 		if (this._editor) {
+			// ZKCK-37 When maximized, don't do anything. Let CKEditor handle it.
+			if (this._isMaximize)
+				return;
 			var n = this.$n(),
 				zkn = zk(n);
 			if (sz.height !== undefined) {
@@ -190,7 +193,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 	onSize: function () {
 		var editor = this._editor;
 		// B-ZKCK-10: call resize only if window is binded to editor
-		if (editor && editor.document.getWindow().$) {
+		if (editor && editor.document && editor.document.getWindow().$) {
 			if (zk.ie == 8) {
 				editor.resize('100%', this.$n().clientHeight);
 			} else {
@@ -337,6 +340,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			this.on('key', ckez.CKeditor.onAutoHeight); //on press any key
 			this.on('loadSnapshot', ckez.CKeditor.onAutoHeight);//on Redo And Undo
 			this.on('beforePaste', ckez.CKeditor.onAutoHeight);
+			this.on('maximize', ckez.CKeditor.onMaximize);
 			// ZKCK-30
 			jq('iframe', this.container.$).contents().on('click', wgt.proxy(wgt._mimicOnClick));
 			this.resetDirty();
@@ -485,6 +489,15 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 				textArea.height(h);
 			},20);
 		}
+	},
+
+	onMaximize: function (event) {
+		var editor = event.editor,
+			wgt = zk.Widget.$(editor.element.getId()),
+			isMaximize = event.data == CKEDITOR.TRISTATE_ON;
+		wgt._isMaximize = isMaximize;
+		if (!isMaximize)
+			zWatch.fire('onSize');
 	},
 	
 	// Issue #13: pass through the html formatter before compare

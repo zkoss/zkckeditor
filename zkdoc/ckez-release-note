@@ -9,6 +9,7 @@ Ckez 4.7.0.0
 	ZKCK-40: Memory leak in CKEditor
 	ZKCK-28: quick successive bindings cause exception
 	ZKCK-30: CKeditor prevent some events, causes popups to not close.
+	ZKCK-37: CKEditor maxized content disappear with vflex 1
 
 * Upgrade Notes:
 	+ Upgrade to ckeditor 4.7.0
