@@ -337,6 +337,8 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			this.on('key', ckez.CKeditor.onAutoHeight); //on press any key
 			this.on('loadSnapshot', ckez.CKeditor.onAutoHeight);//on Redo And Undo
 			this.on('beforePaste', ckez.CKeditor.onAutoHeight);
+			// ZKCK-30
+			jq('iframe', this.container.$).contents().on('click', wgt.proxy(wgt._mimicOnClick));
 			this.resetDirty();
 
 			// restore tmp value while rerendered
@@ -377,13 +379,22 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 				wgt.fire('onSave', {value: val}, {sendAhead: true});
 			};
 		});
+	},
+
+	_mimicOnClick: function (event) {
+		zWatch.fire('onFloatUp', this, {triggerByClick: event.which});
 	}
 }, {
 	onFocus: function (event) {
 		var editor = event.editor,
 			wgt = zk.Widget.$(editor.element.getId()),
 			tmp = editor._.previousValue;
-			
+		// ZKCK-30
+		if (wgt.canActivate()) {
+			zk.currentFocus = wgt;
+			zWatch.fire('onFloatUp', wgt, {triggerByFocus: true});
+		}
+
 		wgt._tidChg = setInterval(function () {
 			if (tmp != editor._.previousValue)
 				tmp = wgt.previousValue = editor._.previousValue;

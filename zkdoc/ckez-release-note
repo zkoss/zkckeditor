@@ -8,6 +8,7 @@ Ckez 4.7.0.0
 	ZKCK-34: Zkoss CKEditor vulnerable to file browsing
 	ZKCK-40: Memory leak in CKEditor
 	ZKCK-28: quick successive bindings cause exception
+	ZKCK-30: CKeditor prevent some events, causes popups to not close.
 
 * Upgrade Notes:
 	+ Upgrade to ckeditor 4.7.0

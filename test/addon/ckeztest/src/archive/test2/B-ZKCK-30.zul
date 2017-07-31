@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+B-ZKCK-30.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Mon Jul 31 09:52:35 CST 2017, Created by rudyhuang
+
+Copyright (C) 2017 Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+    <button popup="id, type=toggle" label="Popup"/>
+    <popup id="id">test</popup>
+    <datebox/>
+    <ckeditor/>
+    <label multiline="true">
+        1. Let the popup/notification show (for example, the calendar of datebox)
+        2. Change focus on the edit area of CKEditor by clicking a mouse button
+        3. The popup/notification disappears
+
+        1. Let the notification show (for example, the popup of button)
+        2. Change focus on the edit area of CKEditor by pressing Tab
+        3. The notification still appears (only mouse click should close notification)
+    </label>
+</zk>
