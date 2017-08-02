@@ -154,8 +154,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		zWatch.listen({
 			onSend : this,
 			onRestore : this,
-			onVParent : this,
-			onSize : this
+			onVParent : this
 		});
 	},
 	
@@ -183,23 +182,10 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		zWatch.unlisten({
 			onSend : this,
 			onRestore : this,
-			onVParent : this,
-			onSize : this
+			onVParent : this
 		});
 		this.$supers('unbind_', arguments);
 		this._unbind = null;
-	},
-
-	onSize: function () {
-		var editor = this._editor;
-		// B-ZKCK-10: call resize only if window is binded to editor
-		if (editor && editor.document && editor.document.getWindow().$) {
-			if (zk.ie == 8) {
-				editor.resize('100%', this.$n().clientHeight);
-			} else {
-				editor.resize();
-			}
-		}
 	},
 
 	onSend: function (ctrl) {
