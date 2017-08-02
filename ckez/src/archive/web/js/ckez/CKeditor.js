@@ -189,7 +189,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		this.$supers('unbind_', arguments);
 		this._unbind = null;
 	},
-	
+
 	onSize: function () {
 		var editor = this._editor;
 		// B-ZKCK-10: call resize only if window is binded to editor
@@ -201,7 +201,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			}
 		}
 	},
-	
+
 	onSend: function (ctrl) {
 		var implicit = ctrl.args[1];
 		//don't send back if implicit (such as onTimer)
@@ -394,10 +394,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			wgt = zk.Widget.$(editor.element.getId()),
 			tmp = editor._.previousValue;
 		// ZKCK-30
-		if (wgt.canActivate()) {
-			zk.currentFocus = wgt;
-			zWatch.fire('onFloatUp', wgt, {triggerByFocus: true});
-		}
+		zWatch.fire('onFloatUp', wgt, {triggerByFocus: true});
 
 		wgt._tidChg = setInterval(function () {
 			if (tmp != editor._.previousValue)
