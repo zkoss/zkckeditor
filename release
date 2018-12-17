@@ -13,37 +13,37 @@
 #}}IS_RIGHT
 #
 
-if [ -d "ckez" ]; then
+if [[ -d "ckez" ]]; then
 	cd ckez
 else
 	echo "cannot locate ckez/"
 	exit 1
 fi
 
-ver=$(mvn help:evaluate -Dexpression=project.version | grep -e '^[^\[]' | sed 's/-SNAPSHOT//')
+ver=$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout | grep -e '^[^\[]' | sed 's/-SNAPSHOT//')
 stamp=$(date +%Y%m%d)
 target=$1
-if [ "$target" == "official" ] ; then
-	pver=$ver
+if [[ "$target" == "official" ]] ; then
 	mver=$ver
-elif [ "$target" == "FL" ] ; then
-	pver=$ver-FL-$stamp
-	mver=$pver
+elif [[ "$target" == "FL" ]] ; then
+	mver=$ver-FL-$stamp
 else
 	echo "Usage: release [official|FL]"
 	exit 1
 fi
 
+echo Version=$mver
+
 # update pom version
-mvn versions:set -DnewVersion=$mver
+mvn org.codehaus.mojo:versions-maven-plugin:2.4:set -DnewVersion=$mver
 mvn -Dmaven.test.skip=true clean install
 
-if [ "$target" == "FL" ] ; then
+if [[ "$target" == "FL" ]] ; then
 	# revert back pom.xml, as it is FL release
 	echo "FL release, revert back version number change"
-	mvn versions:revert
+	mvn org.codehaus.mojo:versions-maven-plugin:2.4:revert
 else
-	mvn versions:commit
+	mvn org.codehaus.mojo:versions-maven-plugin:2.4:commit
 fi
 
 echo "All done!!!"
