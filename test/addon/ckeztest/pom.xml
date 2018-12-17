@@ -21,7 +21,7 @@
 		<jasperreports.version>4.0.1</jasperreports.version>
 		<jfreechart.version>1.0.13</jfreechart.version>
 		<filters.version>2.0.235</filters.version>
-		<ckez.version>4.7.0.0</ckez.version>
+		<ckez.version>4.11.1.0-SNAPSHOT</ckez.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<version>8.0.5-Eval</version>
