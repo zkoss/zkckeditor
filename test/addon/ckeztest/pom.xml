@@ -34,7 +34,7 @@
 		</license>
 	</licenses>
 	<scm>
-		<url>http://svn.sourceforge.net/viewvc/zk1/releases/${project.version}/zktest</url>
+		<url>https://github.com/zkoss/zkckeditor</url>
 	</scm>
 	<repositories>
 		<repository>
@@ -42,7 +42,7 @@
 			<url>http://mavensync.zkoss.org/maven2</url>
 		</repository>
 		<repository>
-			<id>ZK PE/EE Evaluation</id>
+			<id>ZK Evaluation</id>
 			<url>http://mavensync.zkoss.org/eval/</url>
 		</repository>		
 	</repositories>
