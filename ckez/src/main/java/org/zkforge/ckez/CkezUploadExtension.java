@@ -102,9 +102,9 @@ public class CkezUploadExtension implements AuExtension {
 		String path = request.getContextPath() + url;
 
 		final Map attrs = new HashMap();
-		attrs.put("CKEditorFuncNum", request.getParameter("CKEditorFuncNum"));
 		String serverPath = ckez.writeFileItem(path, desktop.getWebApp().getRealPath(url), item, type);
 		String itemName = item.getName();
+		attrs.put("filename", itemName.replace("\"", "\\\""));
 		attrs.put("path", serverPath.replace(itemName, URLEncoder.encode(itemName, "UTF-8").replace("+", "%20")));
 		Servlets.forward(_ctx, request, response, nextURI, attrs, Servlets.PASS_THRU_ATTR);
 	}
