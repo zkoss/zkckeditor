@@ -52,7 +52,22 @@ function upVer {
 		find test/addon/ckeztest -name pom.xml -exec sed --in-place='' "/version>/,/<\//s/>$oldVersion.*<\//>$newVersion<\//" {} \;
 		grep -n --color=auto $newVersion test/addon/ckeztest/pom.xml
 	fi
-	
+
+	echo "$1 config.xml"
+	find $1/src -name config.xml -exec sed --in-place='' "
+	/<version/,/\/version>/s/>$oldVersion.*<\//>$newVersion<\//g
+	" {} \; -exec grep -n --color=auto $newVersion {} \;
+
+	echo "$1 lang-addon.xml"
+	find $1/src -name lang-addon.xml -exec sed --in-place='' "
+	/<version/,/\/version>/s/>$oldVersion.*<\//>$newVersion<\//g
+	" {} \; -exec grep -n --color=auto $newVersion {} \;
+
+	echo "$1 lang-addon.xml javascript"
+	find $1/src -name lang-addon.xml -exec sed --in-place='' "
+	s/version=\"$oldVersion.*\"/version=\"$newVersion\"/g
+	" {} \; -exec grep -n --color=auto $newVersion {} \;
+
 	echo "$1 Version.java"
 	find $1/src -name Version.java -exec sed --in-place='' "
 	s/UID = \"$oldVersion.*\";/UID = \"$newVersion\";/g
