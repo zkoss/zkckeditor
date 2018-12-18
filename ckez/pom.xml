@@ -227,7 +227,7 @@
 				<executions>
 					<execution>
 						<id>copy-release</id>
-						<phase>install</phase>
+						<phase>package</phase>
 						<goals>
 							<goal>copy-resources</goal>
 						</goals>
