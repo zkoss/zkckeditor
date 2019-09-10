@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+B-ZKCK-50.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Tue Sep 10 12:27:10 CST 2019, Created by rudyhuang
+
+Copyright (C) 2019 Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+    <zscript><![CDATA[
+        public void log(Event event) {
+            Clients.log(event.toString());
+        }
+    ]]></zscript>
+    <label multiline="true">
+        Case 1
+        1. Click the first textbox.
+        2. Press Tab to focus in CKEditor and start typing something.
+        3. Should have onChanging events triggered.
+        Case 2
+        1. Click the last textbox.
+        2. Press Shift+Tab to focus in CKEditor and start typing something.
+        3. Should have onChanging events triggered.
+    </label>
+    <textbox placeholder="textbox onBlur" onBlur="log(event)"/>
+    <ckeditor onChanging="log(event)"
+              onChange="log(event)"
+    />
+    <textbox placeholder="textbox no onBlur" />
+</zk>

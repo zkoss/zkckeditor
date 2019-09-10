@@ -178,7 +178,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			}
 		}
 
-		this._editor = this._tmpVflex = this._tmpHflex = null;
+		this._editor = this._focusManager = this._tmpVflex = this._tmpHflex = null;
 		zWatch.unlisten({
 			onSend : this,
 			onRestore : this,
@@ -319,6 +319,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 				return;
 			}
 			wgt._editor = this;
+			wgt._focusManager = new CKEDITOR.focusManager(this);
 			this.on('focus', ckez.CKeditor.onFocus);
 			this.on('blur', ckez.CKeditor.onBlur);
 			this.on('selectionChange', ckez.CKeditor.onSelection);
@@ -382,23 +383,24 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		// ZKCK-30
 		zWatch.fire('onFloatUp', wgt, {triggerByFocus: true});
 
-		wgt._tidChg = setInterval(function () {
-			if (tmp != editor._.previousValue)
-				tmp = wgt.previousValue = editor._.previousValue;
-			
-			// Issue #7
-			if (editor.checkDirty() && wgt.previousValue != editor.getData()) {
-				wgt.fire('onChanging', {
-					value: editor.getData(),
-					start: 0,
-					bySelectBack: false
-					},
-				{ignorable:1}, 100);
-				
-				if (editor.checkDirty()) // Issue #7
-					wgt.previousValue = editor.getData();
-			}
-		}, 500);
+		if (!wgt._tidChg)
+			wgt._tidChg = setInterval(function () {
+				if (tmp != editor._.previousValue)
+					tmp = wgt.previousValue = editor._.previousValue;
+
+				// Issue #7
+				if (editor.checkDirty() && wgt.previousValue != editor.getData()) {
+					wgt.fire('onChanging', {
+						value: editor.getData(),
+						start: 0,
+						bySelectBack: false
+						},
+					{ignorable:1}, 100);
+
+					if (editor.checkDirty()) // Issue #7
+						wgt.previousValue = editor.getData();
+				}
+			}, 500);
 	},
 	
 	onBlur: function (event, ahead) {
@@ -409,8 +411,9 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		// but the focus is considered still "inside" ckeditor widget
 		// if the editor instance did not lose focus, ignore the onBlur event
 		if (zk.currentFocus === wgt) return;
-		
-		if (wgt._tidChg) {
+
+		// ZKCK-50: If CKEditor has the focus, just ignore it
+		if (wgt._tidChg && !wgt._focusManager.hasFocus) {
 			clearInterval(wgt._tidChg);
 			wgt._tidChg = null;
 		}
