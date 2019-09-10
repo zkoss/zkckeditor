@@ -563,4 +563,8 @@ Copyright (C) 2006 Potix Corporation. All Rights Reserved.
 		<evaluator-class>org.zkoss.zkmax.xel.el21.ApacheELFactory</evaluator-class>
 	</xel-config>
 	-->
+	<library-property>
+		<name>org.zkoss.zk.WPD.cache</name>
+		<value>false</value>
+	</library-property>
 </zk>
