@@ -81,8 +81,8 @@ public class CKeditor extends AbstractComponent {
 	
 	static {
 		// Issue 20: Sends every onChange event when ckeditor sends onChange command
-		addClientEvent(CKeditor.class, Events.ON_CHANGE, CE_IMPORTANT|CE_REPEAT_IGNORE|CE_NON_DEFERRABLE);
-		addClientEvent(CKeditor.class, Events.ON_CHANGING, CE_BUSY_IGNORE|CE_NON_DEFERRABLE);
+		addClientEvent(CKeditor.class, Events.ON_CHANGE, CE_IMPORTANT|CE_REPEAT_IGNORE);
+		addClientEvent(CKeditor.class, Events.ON_CHANGING, CE_BUSY_IGNORE);
 		addClientEvent(CKeditor.class, "onSave", CE_IMPORTANT|CE_REPEAT_IGNORE);
 	}
 	/**

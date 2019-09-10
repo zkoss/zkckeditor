@@ -1,5 +1,6 @@
 Ckez 4.11.1.1
 * Features:
+	ZKCK-49: Revisit CE_NON_DEFERRABLE events
 
 * Bugs:
 	ZKCK-50: missing onChanging events
