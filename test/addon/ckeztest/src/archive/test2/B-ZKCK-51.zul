@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+B-ZKCK-51.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Wed Sep 11 16:45:37 CST 2019, Created by rudyhuang
+
+Copyright (C) 2019 Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+    <label multiline="true">
+        1. Only affect after ZK 8.6.3 EE and this bug should try a few times to reproduce.
+        2. Open the groupbox.
+        3. Shouldn't see any JavaScript exception.
+    </label>
+    <groupbox title="test" open="false" height="900px">
+        <ckeditor width="540px" />
+    </groupbox>
+</zk>

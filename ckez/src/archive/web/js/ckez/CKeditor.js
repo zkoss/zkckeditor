@@ -225,8 +225,10 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 	_restore: function () {
 		var iframe = jq('#cke_' + this.uuid + '-cnt iframe')[0];
 		if (!iframe) return;
-		
-		CKEDITOR.remove( this._editor );
+
+		if (this._editor)
+			CKEDITOR.remove( this._editor );
+
 		jq(this.$n()).html('<textarea id="' + this.uuid + '-cnt">' + this._value + '</textarea>');
 		this.clearCache();
 		this._init();
