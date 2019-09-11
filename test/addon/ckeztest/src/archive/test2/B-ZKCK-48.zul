@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+B-ZKCK-48.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Wed Sep 11 17:48:46 CST 2019, Created by rudyhuang
+
+Copyright (C) 2019 Potix Corporation. All Rights Reserved.
+
+-->
+<zk xmlns:w="client">
+    <label multiline="true">
+        1. Type something in CKeditor.
+        2. Click "Check Spelling".
+        3. Click "Finish Checking".
+        4. It shouldn't hang with a "loading" icon circling.
+    </label>
+    <ckeditor>
+        <attribute w:name="getConfig_"><![CDATA[
+            function (config) {
+                config.disableNativeSpellChecker = true;
+                config.removePlugins = 'scayt';
+                config.scayt_autoStartup = false;
+                config.toolbar = [['SpellChecker']];
+                return config;
+            }
+        ]]></attribute>
+    </ckeditor>
+</zk>
