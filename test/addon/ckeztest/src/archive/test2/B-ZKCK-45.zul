@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+B-ZKCK-45.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Wed Sep 11 16:23:33 CST 2019, Created by rudyhuang
+
+Copyright (C) 2019 Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+    <label>Please re-verify ZKCK-30</label>
+    <include src="B-ZKCK-30.zul" />
+</zk>

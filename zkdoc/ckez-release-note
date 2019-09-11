@@ -5,6 +5,7 @@ Ckez 4.11.1.1
 * Bugs:
 	ZKCK-50: missing onChanging events
 	ZKCK-46: CKeditor onSelection handler doesn't expect native selection to be null
+	ZKCK-45: Ckez uses jQuery 1.7 functions, not compatible with ZK 5/6
 
 * Upgrade Notes:
 

@@ -329,7 +329,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			this.on('beforePaste', ckez.CKeditor.onAutoHeight);
 			this.on('maximize', ckez.CKeditor.onMaximize);
 			// ZKCK-30
-			jq('iframe', this.container.$).contents().on('click', wgt.proxy(wgt._mimicOnClick));
+			jq('iframe', this.container.$).contents().click(wgt.proxy(wgt._mimicOnClick));
 			this.resetDirty();
 
 			// restore tmp value while rerendered
