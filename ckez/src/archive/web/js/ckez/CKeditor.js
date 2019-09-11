@@ -431,22 +431,6 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 	},
 	
 	onSelection: function (event) {
-		var editor = event.editor,
-			wgt = zk.Widget.$(editor.element.getId()),
-			selection = editor.getSelection();
-		
-		if (!zk(wgt).isRealVisible) return;
-		
-		// fix selection for ie
-		if (CKEDITOR.env.ie && CKEDITOR.env.version < 9) {
-			selection = selection.getNative().createRange().text;
-		} else if (CKEDITOR.env.ie && CKEDITOR.env.version >= 9) {
-			selection = document.getSelection();
-		} else {
-			selection = selection.getNative().toString();
-		}
-		
-		if (selection == '') return;
 	},
 	
 	onAutoHeight: function (event) {

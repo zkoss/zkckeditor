@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+B-ZKCK-46.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Wed Sep 11 12:53:57 CST 2019, Created by rudyhuang
+
+Copyright (C) 2019 Potix Corporation. All Rights Reserved.
+
+-->
+<zk xmlns:w="client">
+    <label multiline="true">
+        1. Insert a table using the "insert table" button
+        2. Right click in a table cell
+        3. Choose "Column" > "Insert Column Before"
+        4. Right click in a table cell
+        5. Choose "Row" > "Insert Row Before"
+        6. Shouldn't see any exception in browser console
+    </label>
+    <script><![CDATA[
+    window.addEventListener('error', function(event) {
+        zk.log(event.message);
+        console.error(event);
+    });
+    ]]></script>
+    <ckeditor>
+        <attribute w:name="getConfig_"><![CDATA[
+            function (config) {
+                config.toolbar = [['Table']];
+                return config;
+            }
+        ]]></attribute>
+    </ckeditor>
+</zk>
