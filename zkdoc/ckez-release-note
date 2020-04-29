@@ -1,10 +1,11 @@
 Ckez 4.14.0.0
 * Features:
+	ZKCK-54: Upgrade to latest version (4.14+)
 
 * Bugs:
 
-
 * Upgrade Notes:
+	+ Upgrade to ckeditor 4.14.0
 
     --------
 Ckez 4.11.1.1
