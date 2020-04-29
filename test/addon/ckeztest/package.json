@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "devDependencies": {
-    "testcafe": "^1.4.3"
+    "testcafe": "^1.8.4"
   },
   "scripts": {
     "test": "testcafe chrome test/"
