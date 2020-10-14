@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+B-ZKCK-57.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Wed Oct 14 17:08:32 CST 2020, Created by rudyhuang
+
+Copyright (C) 2020 Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+	<label multiline="true">
+		1. Load this page.
+		2. Vflex not working with toolbarLocation = bottom (works in ZK 9.0.1.2)
+		3. If you can see the yellow background, the bug still exists.
+	</label>
+	<div style="height: 400px; width: 400px; background-color: yellow;">
+		<ckeditor toolbar="Simple" customConfigurationsPath="/test2/B-ZKCK-57.js" vflex="1"/>
+	</div>
+</zk>

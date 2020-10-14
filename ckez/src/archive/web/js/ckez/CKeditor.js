@@ -114,8 +114,8 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		// compute text area height
 		// B-CKEZ-14: CKEditor Vflex doesn't work properly
 		var textArea  = jq(n).find('.cke_contents'),
-			topHeight = textArea.prev().outerHeight(), // top menu buttons
-			bottomHeight = textArea.next().outerHeight();
+			topHeight = textArea.prev().outerHeight() || 0, // top menu buttons
+			bottomHeight = textArea.next().outerHeight() || 0;
 		h = h - topHeight - bottomHeight;
 
 		// set text area height

@@ -69,6 +69,17 @@
 			<url>http://repo1.maven.org/maven2</url>
 		</pluginRepository>
 	</pluginRepositories>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.zkoss.zk</groupId>
+				<artifactId>zk-bom</artifactId>
+				<version>9.1.0-Eval</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
 		<!-- turn this on if you want use breeze with zk5
 		<dependency>
@@ -101,47 +112,46 @@
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zkbind</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zk</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zkplus</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zul</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zhtml</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zkex</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zkmax</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.zkoss.common</groupId>
 			<artifactId>zcommon</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.zkoss.common</groupId>
 			<artifactId>zweb</artifactId>
-			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.zkoss.common</groupId>
+			<artifactId>zweb-dsp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.zkoss.theme</groupId>
+			<artifactId>breeze</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.zkoss.zkforge.el</groupId>

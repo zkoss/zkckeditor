@@ -2,6 +2,7 @@ Ckez 4.14.0.1
 * Features:
 
 * Bugs:
+	ZKCK-57: CKEditor flex fail with jquery3 on ZK 9.1
 
 * Upgrade Notes:
 

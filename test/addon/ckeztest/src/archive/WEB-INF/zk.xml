@@ -567,4 +567,8 @@ Copyright (C) 2006 Potix Corporation. All Rights Reserved.
 		<name>org.zkoss.zk.WPD.cache</name>
 		<value>false</value>
 	</library-property>
+	<library-property>
+		<name>org.zkoss.theme.preferred</name>
+		<value>breeze</value>
+	</library-property>
 </zk>
