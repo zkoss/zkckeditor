@@ -160,6 +160,10 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 	
 	unbind_ : function() {
 		this._unbind = true;
+		if (!this._editor) {
+			// ensure to destroy failed-initialized editor
+			this._editor = CKEDITOR.instances[this.uuid + '-cnt'];
+		}
 		if (this._editor) {//bug 3048386: detach ckeditor before it loaded cause js error
 			// Issue 18, 19: If it catches js error when destroying ckeditor, then finishes the following instructions
 			try {

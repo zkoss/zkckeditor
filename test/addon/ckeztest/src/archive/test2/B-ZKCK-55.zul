@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+B-ZKCK-55.zul
+
+    Purpose:
+
+    Description:
+
+    History:
+        Thu Nov 05 16:46:36 CST 2020, Created by rudyhuang
+
+Copyright (C) 2020 Potix Corporation. All Rights Reserved.
+
+-->
+<zk xmlns:w="client">
+    <script><![CDATA[
+    zk.load('ckez');
+    jq(window).on('error', function (e, url, line) {
+        zk.log(e.originalEvent.error);
+    });
+    ]]>
+    </script>
+    <label multiline="true">
+        1. Click the "cause JS error" button multiple times.
+        2. It shouldn't have any exception in the browser console (or zk log).
+        3. Click the "Show CKEDITOR.instances count" button, the result should be 0.
+    </label>
+    <button label="cause JS error">
+        <attribute w:name="onClick"><![CDATA[
+        var mydiv = zk.$('$mydiv'),
+            ed = new ckez.CKeditor();
+        mydiv.appendChild(ed);
+        setTimeout(function() {
+            ed.detach();
+        }, 50);
+        ]]></attribute>
+    </button>
+    <button label="Show CKEDITOR.instances count">
+        <attribute w:name="onClick"><![CDATA[
+        zk.log(Object.keys(CKEDITOR.instances).length);
+        ]]></attribute>
+    </button>
+    <div id="mydiv"/>
+</zk>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+B-ZKCK-55.zul
+
+    Purpose:
+
+    Description:
+
+    History:
+        Thu Nov 05 16:46:36 CST 2020, Created by rudyhuang
+
+Copyright (C) 2020 Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+    <script><![CDATA[
+    jq(window).on('error', function (e, url, line) {
+        zk.log(e.originalEvent.error);
+    });
+    ]]>
+    </script>
+    <zscript><![CDATA[
+        import org.zkforge.ckez.*;
+        public void renderTabpanel(Component parent) {
+            parent.getChildren().clear();
+            CKeditor ed = new CKeditor();
+            parent.appendChild(ed);
+        }
+    ]]></zscript>
+    <label multiline="true">
+        1. Click tab2.
+        2. You shouldn't see any exception in the browser console (or zk log).
+        3. Repeatedly click tab2.
+        4. You shouldn't see any exception in the browser console (or zk log).
+    </label>
+    <tabbox>
+        <tabs>
+            <tab label="tab1"/>
+            <tab label="tab2"
+                 onClick='renderTabpanel(self.getLinkedPanel())'/>
+        </tabs>
+        <tabpanels>
+            <tabpanel/>
+            <tabpanel onCreate='renderTabpanel(self)'/>
+        </tabpanels>
+    </tabbox>
+</zk>
