@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+B-ZKCK-31.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Tue Nov 10 12:47:29 CST 2020, Created by rudyhuang
+
+Copyright (C) 2020 Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+	<label multiline="true">
+		1. Click "open window".
+		2. Maximize CKEditor (Toolbar 3rd button from the right, last row)
+		3. Resize the browser window.
+		4. The CKEditor should stay maximum.
+	</label>
+	<button label="open window" onClick="win.doPopup();"/>
+
+	<window id="win" visible="false" border="normal" position="center">
+		<ckeditor  toolbar="Complex" width="100%" />
+		<button label="close" onClick="win.setVisible(false);"/>
+	</window>
+</zk>

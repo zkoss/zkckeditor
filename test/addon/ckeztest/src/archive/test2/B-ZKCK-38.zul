@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+B-ZKCK-38.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Tue Nov 10 10:47:51 CST 2020, Created by rudyhuang
+
+Copyright (C) 2020 Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+	<borderlayout height="100%">
+		<north>
+			<label multiline="true">
+				1. Maximize CKEditor (Toolbar 3rd button from the right, last row)
+				2. Resize the browser window.
+				3. The CKEditor should be visible.
+			</label>
+		</north>
+		<center autoscroll="true">
+			<ckeditor />
+		</center>
+	</borderlayout>
+</zk>

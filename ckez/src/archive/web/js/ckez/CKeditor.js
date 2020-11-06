@@ -362,6 +362,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			wgt = zk.Widget.$(editor.element.getId()),
 			isMaximize = event.data == CKEDITOR.TRISTATE_ON;
 		wgt._isMaximize = isMaximize;
+		zk.mounting = isMaximize; // a dirty workaround to avoid ZK from triggering onSize, which will break maximize css
 		if (!isMaximize)
 			zWatch.fire('onSize');
 	},

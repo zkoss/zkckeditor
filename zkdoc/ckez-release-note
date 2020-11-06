@@ -5,6 +5,8 @@ Ckez 4.14.0.1
 	ZKCK-57: CKEditor flex fail with jquery3 on ZK 9.1
 	ZKCK-55: js error inside tabbox (+ client rod)
 	ZKCK-29: inconsistent height calculation for ckeditor
+	ZKCK-31: CkEditor doesn't maximize itself correctly
+	ZKCK-38: CKEditor in borderlayout using autoscroll disapear when maximized
 
 * Upgrade Notes:
 
