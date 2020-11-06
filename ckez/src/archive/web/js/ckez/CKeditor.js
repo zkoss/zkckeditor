@@ -15,7 +15,6 @@ it will be useful, but WITHOUT ANY WARRANTY.
 CKEDITOR.focusManager._.blurDelay = 0;
 
 ckez.CKeditor = zk.$extends(zul.Widget, {
-	_height: '200',
 	_value: '',
 	
 	$define: {
@@ -38,106 +37,24 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		},
 		config: _zkf,
 		toolbar: _zkf,
+		toolbar: _zkf,
 		width: function (v) {
-			if (!v || !this.$n()) return;
-			this._setSize(jq('#cke_' + this.uuid + '-cnt'), v, 'width');
+			this._syncSize();
 		},
 		height: function (v) {
-			if (!v || !this.$n()) return;
-			this._setSize(jq('#cke_' + this.uuid + '-cnt'), v, 'height');
+			this._syncSize();
 		}
-	},	
-
-	setVflex: function (v) {
-		if (v == 'min') v = false;
-		// set vflex if editor is prepared,
-		// or sotre it in temp value.
-		if (this._editor)
-			this.$super(ckez.CKeditor, 'setVflex', v);
-		else
-			this._tmpVflex = v;
-	},
-	setHflex: function (v) {
-		if (v == 'min') v = false;
-		// set hflex if editor is prepared,
-		// or sotre it in temp value.
-		if (this._editor)
-			this.$super(ckez.CKeditor, 'setHflex', v);
-		else
-			this._tmpHflex = v;
 	},
 	setFlexSize_: function(sz, ignoreMargins) {
-		if (this._editor) {
-			// ZKCK-37 When maximized, don't do anything. Let CKEditor handle it.
-			if (this._isMaximize)
-				return;
-			var n = this.$n(),
-				zkn = zk(n);
-			if (sz.height !== undefined) {
-				if (sz.height == 'auto')
-					n.style.height = '';
-				else if (sz.height != '') //bug #2943174, #2979776
-					this.setFlexSizeH_(n, zkn, sz.height, ignoreMargins);
-				else {
-					n.style.height = this._height || '';
-					if (this._height)
-						this._setSize(jq('#cke_' + this.uuid + '-cnt'), this._height, 'height');
-					else
-						this._setSize(jq('#cke_' + this.uuid + '-cnt'), '200px', 'height');
-				}
-			}
-			if (sz.width !== undefined) {
-				if (sz.width == 'auto')
-					n.style.width = '';
-				else if (sz.width != '') //bug #2943174, #2979776
-					this.setFlexSizeW_(n, zkn, sz.width, ignoreMargins);
-				else {
-					n.style.width = this._width || '';
-					if (this._width)
-						this._setSize(jq('#cke_' + this.uuid + '-cnt'), this._width, 'width');
-					else
-						this._setSize(jq('#cke_' + this.uuid + '-cnt'), '100%', 'width');
-				}
-			}
-			return {height: n.offsetHeight, width: n.offsetWidth};
-		}
+		this.$supers('setFlexSize_', arguments);
+		// ZKCK-37 When maximized, don't do anything. Let CKEditor handle it.
+		if (this._isMaximize)
+			return;
+		this._syncSize();
 	},
-	setFlexSizeH_: function(n, zkn, height, ignoreMargins) {
-		// store height in temp value because setFlexSizeW_
-		// might change topHeight then reset height again.
-		this._hflexHeight = height;
 
-		this.$super(ckez.CKeditor, 'setFlexSizeH_', n, zkn, height, ignoreMargins);
-		var h = parseInt(n.style.height); // get parent setted height
-		// remove outer div height so container like groupbox can change size with it
-		n.style.height = '';
-		// compute text area height
-		// B-CKEZ-14: CKEditor Vflex doesn't work properly
-		var textArea  = jq(n).find('.cke_contents'),
-			topHeight = textArea.prev().outerHeight() || 0, // top menu buttons
-			bottomHeight = textArea.next().outerHeight() || 0;
-		h = h - topHeight - bottomHeight;
-
-		// set text area height
-		this._setSize(textArea, jq.px0(h), 'height');
-	},
-	setFlexSizeW_: function(n, zkn, width, ignoreMargins) {
-		// get current topHeight
-		var topHeight = jq('#cke_' + this.uuid + '-cnt .cke_top').outerHeight();
-
-		this.$super(ckez.CKeditor, 'setFlexSizeW_', n, zkn, width, ignoreMargins);
-		var w = parseInt(n.style.width); // get parent setted width
-
-		// set content width
-		//w = w - 16;
-		this._setSize(jq('#cke_' + this.uuid + '-cnt'), jq.px0(w), 'width');
-		// set height again if topHeight changed
-		// ignore if vflex not setted
-		if (topHeight != jq('#cke_' + this.uuid + '-cnt .cke_top').outerHeight() && this._vflex)
-			this.setFlexSizeH_(n, zkn, this._hflexHeight, ignoreMargins);
-	},
 	redraw: function (out) {
-		out.push('<div', this.domAttrs_({domStyle: true}), '><textarea id="', this.uuid, '-cnt"></textarea></div>');
+		out.push('<div', this.domAttrs_(), '><textarea id="', this.uuid, '-cnt"></textarea></div>');
 	},
 	
 	domAttrs_: function (no) {
@@ -182,7 +99,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			}
 		}
 
-		this._editor = this._focusManager = this._tmpVflex = this._tmpHflex = null;
+		this._editor = this._focusManager = null;
 		zWatch.unlisten({
 			onSend : this,
 			onRestore : this,
@@ -239,22 +156,14 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		
 		if (zk.ie)
 			jq('#cke_' + this.uuid + '-cnt').width(jq('#cke_'+this.uuid+'-cnt').width());
-	}, 
-	
-	_setSize: function (node, value, prop) {
-		value = this._getValue(value);
-		if (!value) return;
-		
-		node[prop](value);
-		this._editor.config[prop] = value;
 	},
-	
-	_getValue: function (value) {
-		if (!value) return null;
-		if (value.endsWith('%'))
-			return zk.ie ? jq.px0(jq(this.$n()).width()) : value;
-			
-		return jq.px0(zk.parseInt(value));
+
+	_syncSize: function () {
+		var editor = this._editor,
+			n = this.$n();
+		if (editor && n) {
+			editor.resize('100%', n.clientHeight);
+		}
 	},
 	
 	getEditor: function () {
@@ -285,9 +194,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			fileBrowserTempl = this.fileBrowserTempl,
 			fileUploadTempl = this.fileUploadTempl,
 			config = this.getConfig_({
-				customConfig: customConfigPath,
-				width: this._getValue(this._width),
-				height: this._getValue(this._height)
+				customConfig: customConfigPath
 			});
 		
 		if (this._config) {
@@ -338,24 +245,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			jq('iframe', this.container.$).contents().click(wgt.proxy(wgt._mimicOnClick));
 			this.resetDirty();
 
-			// restore tmp value while rerendered
-			if (!wgt._tmpHflex && wgt._hflex) {
-				wgt._tmpHflex = wgt._hflex;
-				wgt.setHflex(null);
-			}
-			if (!wgt._tmpVflex && wgt._vflex) {
-				wgt._tmpVflex = wgt._vflex;
-				wgt.setVflex(null);
-			}
-
-			if (wgt._tmpHflex) {
-				wgt.setHflex(wgt._tmpHflex, {force:true});
-				wgt._tmpHflex = null;
-			}
-			if (wgt._tmpVflex) {
-				wgt.setVflex(wgt._tmpVflex, {force:true});
-				wgt._tmpVflex = null;
-			}
+			wgt._syncSize();
 		}, config);
 		
 	},

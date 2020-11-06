@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+B-ZKCK-29.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Fri Nov 06 15:00:45 CST 2020, Created by rudyhuang
+
+Copyright (C) 2020 Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+    <label multiline="true">
+        1. Load this page.
+        2. These ckeditors should be the same height.
+    </label>
+    <hlayout style="overflow: visible">
+        <div style="outline: 1px solid red;">
+            <ckeditor width="500px" height="500px"/>
+        </div>
+        <div width="500px" height="500px" style="outline: 1px solid green;">
+            <ckeditor hflex="1" vflex="1"/>
+        </div>
+        <div width="500px" height="500px" style="outline: 1px solid red;">
+            <ckeditor width="100%" height="100%"/>
+        </div>
+    </hlayout>
+</zk>
