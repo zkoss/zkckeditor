@@ -362,9 +362,39 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			wgt = zk.Widget.$(editor.element.getId()),
 			isMaximize = event.data == CKEDITOR.TRISTATE_ON;
 		wgt._isMaximize = isMaximize;
-		zk.mounting = isMaximize; // a dirty workaround to avoid ZK from triggering onSize, which will break maximize css
+		ckez.CKeditor._toggleOnResize(!isMaximize);
 		if (!isMaximize)
 			zWatch.fire('onSize');
+	},
+
+	_toggleOnResize: function (enabled) {
+		var jqWindow = jq(window),
+			resizeHandlers;
+		if (enabled) {
+			resizeHandlers = ckez.CKeditor.resizeHandlers;
+			if (resizeHandlers) {
+				for (var i = 0, len = resizeHandlers.length; i < len; i++) {
+					jqWindow.resize(resizeHandlers[i].handler);
+				}
+			}
+			ckez.CKeditor.resizeHandlers = null;
+		} else {
+			resizeHandlers = this._getJQueryEventHandlers()['resize'];
+			if (resizeHandlers)
+				resizeHandlers = resizeHandlers.slice(); // shallow copy from a live array
+			ckez.CKeditor.resizeHandlers = resizeHandlers;
+			jqWindow.unbind('resize');
+		}
+	},
+	_getJQueryEventHandlers: function () {
+		if (typeof(jq._data) === 'function') { // jQuery 1.8+
+			return jq._data(window, 'events') || {};
+		}
+		var jqWindow = jq(window);
+		if (typeof(jqWindow.data) === 'function') { // jQuery <= 1.7
+			return jqWindow.data('events') || {};
+		}
+		return {};
 	},
 	
 	// Issue #13: pass through the html formatter before compare
