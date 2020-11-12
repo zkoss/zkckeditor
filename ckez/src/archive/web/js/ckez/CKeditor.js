@@ -100,6 +100,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		}
 
 		this._editor = this._focusManager = null;
+		ckez.CKeditor._toggleOnResize(true, this); // remember to register resize back
 		zWatch.unlisten({
 			onSend : this,
 			onRestore : this,
@@ -362,27 +363,27 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			wgt = zk.Widget.$(editor.element.getId()),
 			isMaximize = event.data == CKEDITOR.TRISTATE_ON;
 		wgt._isMaximize = isMaximize;
-		ckez.CKeditor._toggleOnResize(!isMaximize);
+		ckez.CKeditor._toggleOnResize(!isMaximize, wgt);
 		if (!isMaximize)
 			zWatch.fire('onSize');
 	},
 
-	_toggleOnResize: function (enabled) {
+	_toggleOnResize: function (enabled, wgt) {
 		var jqWindow = jq(window),
 			resizeHandlers;
 		if (enabled) {
-			resizeHandlers = ckez.CKeditor.resizeHandlers;
+			resizeHandlers = wgt._resizeHandlers;
 			if (resizeHandlers) {
 				for (var i = 0, len = resizeHandlers.length; i < len; i++) {
 					jqWindow.resize(resizeHandlers[i].handler);
 				}
 			}
-			ckez.CKeditor.resizeHandlers = null;
+			wgt._resizeHandlers = null;
 		} else {
 			resizeHandlers = this._getJQueryEventHandlers()['resize'];
 			if (resizeHandlers)
 				resizeHandlers = resizeHandlers.slice(); // shallow copy from a live array
-			ckez.CKeditor.resizeHandlers = resizeHandlers;
+			wgt._resizeHandlers = resizeHandlers;
 			jqWindow.unbind('resize');
 		}
 	},
