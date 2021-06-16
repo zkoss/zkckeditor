@@ -15,9 +15,9 @@ Copyright (C) 2012 Potix Corporation. All Rights Reserved.
 package org.zkforge.ckez;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -29,18 +29,20 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.RequestContext;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.zkoss.web.servlet.Servlets;
 import org.zkoss.zk.au.http.AuExtension;
 import org.zkoss.zk.au.http.DHtmlUpdateServlet;
 import org.zkoss.zk.ui.Desktop;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
-import org.zkoss.zk.ui.UiException;
 import org.zkoss.zk.ui.sys.WebAppCtrl;
+
 /**
  * The AU extension to upload files by ckeditor.
  * It is based on Apache Commons File Upload.
@@ -78,7 +80,7 @@ public class CkezUploadExtension implements AuExtension {
 		final String dtid = request.getParameter("dtid");
 		final String uuid = request.getParameter("uuid");
 
-		final FileItem item = parseFileItem(request);
+		final FileItem item = parseFileItem(toRequestContext(request));
 		if (item == null) return;
 
 		final Desktop desktop = ((WebAppCtrl) sess.getWebApp()).getDesktopCache(sess).getDesktopIfAny(dtid);
@@ -101,23 +103,42 @@ public class CkezUploadExtension implements AuExtension {
 		url = FilebrowserController.getFolderUrl(url);
 		String path = request.getContextPath() + url;
 
-		final Map attrs = new HashMap();
+		final Map<String, String> attrs = new HashMap<String, String>();
 		String serverPath = ckez.writeFileItem(path, desktop.getWebApp().getRealPath(url), item, type);
 		String itemName = item.getName();
 		attrs.put("filename", itemName.replace("\"", "\\\""));
 		attrs.put("path", serverPath.replace(itemName, URLEncoder.encode(itemName, "UTF-8").replace("+", "%20")));
 		Servlets.forward(_ctx, request, response, nextURI, attrs, Servlets.PASS_THRU_ATTR);
 	}
+
+	private RequestContext toRequestContext(final HttpServletRequest request) {
+		return new RequestContext() {
+			public String getCharacterEncoding() {
+				return request.getCharacterEncoding();
+			}
+
+			public String getContentType() {
+				return request.getContentType();
+			}
+
+			public int getContentLength() {
+				return request.getContentLength();
+			}
+
+			public InputStream getInputStream() throws IOException {
+				return request.getInputStream();
+			}
+		};
+	}
 	
-	private FileItem parseFileItem(HttpServletRequest request) {
+	private FileItem parseFileItem(RequestContext request) {
 		if (ServletFileUpload.isMultipartContent(request)) {
 			FileItemFactory factory = new DiskFileItemFactory();
 			ServletFileUpload servletFileUpload = new ServletFileUpload(factory);
 			servletFileUpload.setHeaderEncoding("UTF-8");
 			try {
-				List fileItemsList = servletFileUpload.parseRequest(request);
-				for (Object f : fileItemsList) {
-					FileItem item = (FileItem) f;
+				List<FileItem> fileItemsList = servletFileUpload.parseRequest(request);
+				for (FileItem item : fileItemsList) {
 					if (!item.isFormField()) {
 						return item;
 					}
