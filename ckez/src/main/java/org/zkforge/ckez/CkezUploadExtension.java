@@ -28,8 +28,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadBase;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.RequestContext;
+import org.apache.commons.fileupload.UploadContext;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
@@ -112,7 +114,7 @@ public class CkezUploadExtension implements AuExtension {
 	}
 
 	private RequestContext toRequestContext(final HttpServletRequest request) {
-		return new RequestContext() {
+		return new UploadContext() {
 			public String getCharacterEncoding() {
 				return request.getCharacterEncoding();
 			}
@@ -123,6 +125,16 @@ public class CkezUploadExtension implements AuExtension {
 
 			public int getContentLength() {
 				return request.getContentLength();
+			}
+
+			public long contentLength() {
+				long size;
+				try {
+					size = Long.parseLong(request.getHeader(FileUploadBase.CONTENT_LENGTH));
+				} catch (NumberFormatException e) {
+					size = request.getContentLength();
+				}
+				return size;
 			}
 
 			public InputStream getInputStream() throws IOException {
