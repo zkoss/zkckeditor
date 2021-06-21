@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.zkoss.zkforge</groupId>
 	<artifactId>ckez</artifactId>
-	<version>4.14.0.2-SNAPSHOT</version>
+	<version>4.16.1.0-SNAPSHOT</version>
 	<properties>
 		<zk.version>5.0.6</zk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
