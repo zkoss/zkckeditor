@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+B-ZKCK-62.zul
+
+	Purpose:
+		
+	Description:
+		
+	History:
+		Mon Jun 21 14:06:10 CST 2021, Created by rudyhuang
+
+Copyright (C) 2021 Potix Corporation. All Rights Reserved.
+
+-->
+<zk>
+	<label multiline="true">
+		1. Resize the CKEditor by dragging the right-bottom handle.
+		2. The yellow area should be stuck to CKEditor.
+		(Auto height special test case)
+		1. Type until the editor be expanded automatically.
+		2. Resize the CKEditor by dragging the right-bottom handle.
+		3. The yellow area should be stuck to CKEditor.
+	</label>
+	<hlayout>
+		<div width="500px" style="border: 1px solid black;">
+			<label value="Fixed height 700px"/>
+			<div style="background-color: pink; height: 50px; width: 100%;"/>
+			<ckeditor height="700px"/>
+			<div style="background-color: yellow; height: 50px; width: 100%;"/>
+		</div>
+		<div width="500px" style="border: 1px solid black;">
+			<label value="No height, auto height"/>
+			<div style="background-color: pink; height: 50px; width: 100%;"/>
+			<ckeditor autoHeight="true"/>
+			<div style="background-color: yellow; height: 50px; width: 100%;"/>
+		</div>
+		<div width="500px" style="border: 1px solid black;">
+			<label value="No height (default)"/>
+			<div style="background-color: pink; height: 50px; width: 100%;"/>
+			<ckeditor/>
+			<div style="background-color: yellow; height: 50px; width: 100%;"/>
+		</div>
+	</hlayout>
+</zk>

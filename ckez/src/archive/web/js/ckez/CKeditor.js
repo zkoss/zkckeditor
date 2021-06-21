@@ -164,6 +164,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			n = this.$n();
 		if (editor && n) {
 			editor.resize('100%', n.clientHeight);
+			n.style.height = ''; // keeps the outer div flexible
 		}
 	},
 	
@@ -351,8 +352,7 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 				// Issue 17: autoHeight="true" not work well in ckez 4.0.1.0
 				if (cnth < defaultHeight) cnth = defaultHeight;
 				h = cnth - topHeight - bottomHeight;
-				
-				cnt.height(cnth);
+
 				textArea.height(h);
 			},20);
 		}

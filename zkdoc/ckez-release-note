@@ -3,6 +3,7 @@ Ckez 4.16.1.0
 	ZKCK-63: Upgrade to 4.16.1
 
 * Bugs:
+	ZKCK-62: CKeditor act as fixed height / width
 
 * Upgrade Notes:
 	+ Upgrade to ckeditor 4.16.1
