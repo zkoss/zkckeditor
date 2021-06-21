@@ -9,6 +9,7 @@ Ckez 4.16.1.0
 	+ Upgrade to ckeditor 4.16.1
 	+ WebSpellChecker is EOL and disabled by default: https://webspellchecker.com/blog/2020/12/02/end-of-life-for-spell-checker-dialog-plugin-for-ckeditor-4/
 	  To use it, add `config.extraPlugins = 'wsc';` in your config.
+	+ For Jakarta EE 9 support, please use 4.16.1.0-jakarta version instead.
 
     --------
 Ckez 4.14.0.1
