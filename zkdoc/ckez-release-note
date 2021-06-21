@@ -1,9 +1,13 @@
 Ckez 4.16.1.0
 * Features:
+	ZKCK-63: Upgrade to 4.16.1
 
 * Bugs:
 
 * Upgrade Notes:
+	+ Upgrade to ckeditor 4.16.1
+	+ WebSpellChecker is EOL and disabled by default: https://webspellchecker.com/blog/2020/12/02/end-of-life-for-spell-checker-dialog-plugin-for-ckeditor-4/
+	  To use it, add `config.extraPlugins = 'wsc';` in your config.
 
     --------
 Ckez 4.14.0.1
