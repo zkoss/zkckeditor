@@ -48,7 +48,7 @@ public class CKeditor extends AbstractComponent {
 
 	private String _width = "100%";
 
-	private String _height = "200px";
+	private String _height = "";
 
 	private String _toolbar;
 	
@@ -78,6 +78,8 @@ public class CKeditor extends AbstractComponent {
 	private String _vflex;
 
 	private boolean _autoHeight;
+
+	private boolean _resizable = true;
 	
 	static {
 		// Issue 20: Sends every onChange event when ckeditor sends onChange command
@@ -152,7 +154,7 @@ public class CKeditor extends AbstractComponent {
 	/**
 	 * Returns the height of this CKeditor.
 	 * <p>
-	 * Default: 200px
+	 * Default: null
 	 */
 	public String getHeight() {
 		return _height;
@@ -160,6 +162,8 @@ public class CKeditor extends AbstractComponent {
 
 	/**
 	 * Sets the height of this CKeditor.
+	 * <p>
+	 * Notice that if height is not enough for the editor toolbox, the text area height will be 0.
 	 */
 	public void setHeight(String height) {
 		if (height != null && Strings.isEmpty(height)) {
@@ -265,6 +269,27 @@ public class CKeditor extends AbstractComponent {
 		if (_autoHeight != autoHeight) {
 			_autoHeight = autoHeight;
 			smartUpdate("autoHeight", _autoHeight);
+		}
+	};
+
+	/**
+	 * Returns whether enable to resize of the component or not.
+	 * <p> Default: true.
+	 * @since 4.16.1.1
+	 */
+	public boolean isResizable() {
+		return _resizable;
+	}
+
+	/**
+	 * Sets whether enable to resize of the component or not.
+	 * @param resizable
+	 * @since 4.16.1.1
+	 */
+	public void setResizable(boolean resizable) {
+		if (_resizable != resizable) {
+			_resizable = resizable;
+			smartUpdate("resizable", _resizable);
 		}
 	};
 
@@ -516,7 +541,7 @@ public class CKeditor extends AbstractComponent {
 		render(renderer, "value", _value);
 		if (!"100%".equals(_width))
 			render(renderer, "width", _width);
-		if (!"200px".equals(_height))
+		if (_height != null)
 			render(renderer, "height", _height);
 
 		render(renderer, "customConfigurationsPath", getEncodedURL(_customPath));
@@ -524,6 +549,7 @@ public class CKeditor extends AbstractComponent {
 		
 		render(renderer, "toolbar", _toolbar);
 		render(renderer, "autoHeight", _autoHeight);
+		render(renderer, "resizable", _resizable);
 		
 		if (!Strings.isBlank(_filebrowserBrowseUrl))
 			render(renderer, "filebrowserBrowseUrl", _filebrowserBrowseUrl);

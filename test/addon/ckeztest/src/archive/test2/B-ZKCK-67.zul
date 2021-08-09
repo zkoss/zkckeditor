@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+B-ZKCK-67.zul
+
+	Purpose:
+
+	Description:
+
+	History:
+		Thu Aug 05 16:18:22 CST 2021, Created by katherine
+
+Copyright (C) 2021 Potix Corporation. All Rights Reserved.
+-->
+<zk xmlns:w="client" xmlns:ca="client/attribute">
+	<label multiline="true">
+		1. Get height of each CKEditor, height should be equal to init height.
+		2. CKEditor1 can be resize, CKEditor2 can't be resize.
+		3. Click "resizeable = false" button, CKEditor2 can't be resize.
+	</label>
+	<hlayout>
+		<div width="500px" style="border: 1px solid black;">
+			<button label="get height" w:onClick="zk.log(jq('$ckeditor1').height());"/>
+			<label value="init height 200px"/>
+			<div style="background-color: pink; height: 50px; width: 100%;"/>
+			<ckeditor id="ckeditor1" height="200px"/>
+			<div style="background-color: yellow; height: 50px; width: 100%;"/>
+		</div>
+		<div width="500px" style="border: 1px solid black;">
+			<button label="get height" w:onClick="zk.log(jq('$ckeditor2').height());"/>
+			<button label="true" class="btn" onClick="ckeditor2.setResizable(true)"/>
+			<label value="init height 201px"/>
+			<div style="background-color: pink; height: 50px; width: 100%;"/>
+			<ckeditor id="ckeditor2" height="201px" resizable="false"/>
+			<div style="background-color: yellow; height: 50px; width: 100%;"/>
+		</div>
+		<div width="500px" style="border: 1px solid black;">
+			<button label="get height" w:onClick="zk.log(jq('$ckeditor3').height());"/>
+			<button label="false" onClick="ckeditor3.setResizable(false)"/>
+			<label value="init height 400px"/>
+			<div style="background-color: pink; height: 50px; width: 100%;"/>
+			<ckeditor id="ckeditor3" height="400px" resizable="false"/>
+			<div style="background-color: yellow; height: 50px; width: 100%;"/>
+		</div>
+	</hlayout>
+</zk>

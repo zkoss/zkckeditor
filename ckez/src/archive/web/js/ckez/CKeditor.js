@@ -43,6 +43,18 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		},
 		height: function (v) {
 			this._syncSize();
+		},
+		/**
+		 * Returns whether enable to resize of the component or not.
+		 * <p>Default: true.
+		 * @since 4.16.1.1
+		 */
+		/**
+		 * Sets whether enable to resize of the component or not.
+		 * @since 4.16.1.1
+		 */
+		resizable: function (resizable) {
+			this._contentResizable(resizable);
 		}
 	},
 	setFlexSize_: function(sz, ignoreMargins) {
@@ -164,7 +176,15 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 			n = this.$n();
 		if (editor && n) {
 			editor.resize('100%', n.clientHeight);
-			n.style.height = ''; // keeps the outer div flexible
+			jq(n).css("overflow", "auto");
+		}
+	},
+
+	_contentResizable: function (resizable) {
+		var editor = this._editor;
+		if (editor) {
+			editor.config.resize_enabled = resizable;
+			this.rerender();
 		}
 	},
 	
@@ -224,6 +244,8 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		if (this._toolbar)
 			config.toolbar = this._toolbar;
 		
+		if (!this.isResizable())
+			config.resize_enabled = false;
 		
 		var cnt = this.$n('cnt');
 		jq(cnt).text(this._value); // ZKCK-13: init the value of the textarea here instead of at redraw
