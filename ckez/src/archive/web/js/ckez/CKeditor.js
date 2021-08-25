@@ -83,7 +83,8 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		zWatch.listen({
 			onSend : this,
 			onRestore : this,
-			onVParent : this
+			onVParent : this,
+			onShow: this
 		});
 	},
 	
@@ -116,7 +117,8 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		zWatch.unlisten({
 			onSend : this,
 			onRestore : this,
-			onVParent : this
+			onVParent : this,
+			onShow: this
 		});
 		this.$supers('unbind_', arguments);
 		this._unbind = null;
@@ -141,6 +143,14 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 		// B-ZKCK-8: call restore only if editor is a child of origin
 		if (this._isChildOf(evt.origin)) {
 			this._restore();
+		}
+	},
+
+	onShow: function () {
+		var editor = this._editor;
+		if (editor) {
+			jq(this).find('.cke_contents').height(editor.config.height);
+			this._syncSize();
 		}
 	},
 	

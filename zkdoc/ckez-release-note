@@ -2,6 +2,7 @@ Ckez 4.16.1.2
 * Features:
 
 * Bugs:
+	ZKCK-69: CKEditor height is unset if rendered in a non-visible node with ROD off
 
 * Upgrade Notes:
 

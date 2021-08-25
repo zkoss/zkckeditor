@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+B-ZKCK-69.zul.zul
+
+	Purpose:
+
+	Description:
+
+	History:
+		Tue Aug 24 11:24:49 CST 2021, Created by katherine
+
+Copyright (C) 2021 Potix Corporation. All Rights Reserved.
+-->
+<zk xmlns:w="client" xmlns:ca="client/attribute">
+	<label multiline="true">
+		1. click show content button.
+		2. click get height button, the height should be 200.
+	</label>
+	<button label="show content" class="btn" onClick="tg.setVisible(true)" />
+	<button label="get height" w:onClick="zk.log(jq('.cke_contents').height());"/>
+	<div visible="false" id="tg">
+		<custom-attributes org.zkoss.zul.client.rod="false" />
+		<ckeditor hflex="1"></ckeditor>
+	</div>
+</zk>
