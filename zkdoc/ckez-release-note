@@ -1,10 +1,12 @@
-Ckez 4.16.1.2
+Ckez 4.16.2.0
+Sep 28, 2021
 * Features:
 
 * Bugs:
 	ZKCK-69: CKEditor height is unset if rendered in a non-visible node with ROD off
 
 * Upgrade Notes:
+	+ Upgrade to ckeditor 4.16.2
 
     --------
 Ckez 4.16.1.1
