@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.zkoss.zkforge</groupId>
 	<artifactId>ckez</artifactId>
-	<version>4.17.0.0-SNAPSHOT</version>
+	<version>4.17.1.0-SNAPSHOT</version>
 	<properties>
 		<zk.version>5.0.6</zk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -15,7 +15,7 @@
 	<name>The CKEditor Component for ZK</name>
 	<url>https://www.zkoss.org</url>
 	<description>The CKEditor Component for ZK 5.0.0 or later</description>
-	<organization>
+	<organization>./upVer oldver newver
 		<name>Potix Corporation</name>
 	</organization>
 	<licenses>
