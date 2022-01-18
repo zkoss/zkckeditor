@@ -1,9 +1,12 @@
 Ckez 4.17.1.0
+Jan 18, 2022
 * Features:
+	ZKCK-73: update to 4.17.1 for security fixes
 
 * Bugs:
 
 * Upgrade Notes:
+	+ Upgrade to ckeditor 4.17.1
 
     --------
 Ckez 4.16.2.0
