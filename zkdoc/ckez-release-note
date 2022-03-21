@@ -1,9 +1,12 @@
 Ckez 4.18.0.0
 * Features:
+	ZKCK-75: update CKEZ to 4.18.0
 
 * Bugs:
 
 * Upgrade Notes:
+	+ Upgrade to ckeditor 4.18.0
+	+ Web Spell Checker is deprecated and removed since ckeditor 4.18.0
 
     --------
 Ckez 4.17.1.0
