@@ -1,6 +1,10 @@
 import { Selector } from 'testcafe';
 
 fixture('ZKCK-48')
+	// According to CKeditor 4.18.0 release note, Web Spell Checker ended support for WebSpellChecker Dialog on
+	// December 31st, 2021. This means the plugin is not supported any longer. Therefore, we decided to deprecate
+	// and remove the WebSpellChecker Dialog plugin from CKEditor 4 presets.
+	.skip
 	.page('http://localhost:8080/ckeztest/test2/B-ZKCK-48.zul');
 
 test('WCS dialog should be closed after finishing', async t => {
