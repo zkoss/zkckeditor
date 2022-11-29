@@ -77,29 +77,56 @@
 			</resource>
 		</resources>
 		<plugins>
-			<plugin>
-				<groupId>org.zkoss.maven</groupId>
-				<artifactId>yuicompressor-maven-plugin-zk</artifactId>
-				<version>1.2.0</version>
+			<plugin><!-- Preserve the original JS source file as *.src.js to enable source maps in debugger -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
 				<executions>
 					<execution>
-						<phase>package</phase>
+						<phase>process-resources</phase>
+						<configuration>
+							<target>
+								<copy todir="${project.build.outputDirectory}/web">
+									<fileset dir="${project.basedir}/src/archive/web">
+										<include name="**/ext/CKeditor/config.js"/>
+										<include name="**/ext/CKeditor/styles.js"/>
+										<include name="**/CKeditor.js"/>
+									</fileset>
+									<globmapper from="*.js" to="*.src.js"/>
+								</copy>
+							</target>
+						</configuration>
 						<goals>
-							<goal>compress</goal>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin><!-- Minimize the JS source files as *.js in the output directory -->
+				<groupId>com.github.blutorange</groupId>
+				<artifactId>closure-compiler-maven-plugin</artifactId>
+				<version>2.24.0</version>
+				<executions>
+					<execution>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>minify</goal>
 						</goals>
 					</execution>
 				</executions>
 				<configuration>
-					<excludes>
-						<exclude>**/ext/CKeditor/**</exclude>
-					</excludes>
+					<baseSourceDir>${basedir}/src/archive/web</baseSourceDir>
+					<baseTargetDir>${project.build.outputDirectory}/web</baseTargetDir>
 					<includes>
 						<include>**/ext/CKeditor/config.js</include>
-						<include>**/ext/CKeditor/content.css</include>
-						<include>**/ext/CKeditor/style.js</include>
+						<include>**/ext/CKeditor/styles.js</include>
 						<include>**/CKeditor.js</include>
 					</includes>
 					<encoding>UTF-8</encoding>
+					<skipMerge>true</skipMerge>
+					<closureCompilationLevel>WHITESPACE_ONLY</closureCompilationLevel>
+					<closureEmitUseStrict>false</closureEmitUseStrict>
+					<outputFilename>#{path}/#{basename}.#{extension}</outputFilename>
 				</configuration>
 			</plugin>
 			<plugin>
