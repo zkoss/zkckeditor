@@ -8,7 +8,7 @@
 		<bsh.version>2.0b4</bsh.version>
 		<servlet.version>2.4</servlet.version>
 		<jetty.version>9.4.28.v20200408</jetty.version>
-		<ckez.version>4.18.0.0</ckez.version>
+		<ckez.version>4.20.1.0</ckez.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<version>8.0.5-Eval</version>
