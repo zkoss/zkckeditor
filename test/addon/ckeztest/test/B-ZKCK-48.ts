@@ -7,7 +7,8 @@ fixture('ZKCK-48')
 	.skip
 	.page('http://localhost:8080/ckeztest/test2/B-ZKCK-48.zul');
 
-test('WCS dialog should be closed after finishing', async t => {
+// WCS dialog should be closed after finishing
+test('Skipped, no need to test, as WCS has been deprecated.', async t => {
 	await t
 		.click('.cke_wysiwyg_frame')
 		.pressKey('a b c d e f g')
