@@ -184,7 +184,10 @@ ckez.CKeditor = zk.$extends(zul.Widget, {
 	_syncSize: function () {
 		var editor = this._editor,
 			n = this.$n();
-		if (editor && n) {
+		// Restore the fix for ZKCK-37 (but moved from `onSize` to `_syncSize` here) that was removed in
+		// https://github.com/zkoss/zkckeditor/commit/df9697fa81bcdad0222db8d2570f9fa551b238a1
+		// The issue was re-introduced in release 4.16.2.0 whereas release 4.16.1.1 was not plagued.
+		if (n && editor?.document?.getWindow()?.$) {
 			editor.resize('100%', n.clientHeight);
 			jq(n).css("overflow", "auto");
 		}
