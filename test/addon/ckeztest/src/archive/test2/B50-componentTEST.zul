@@ -30,8 +30,7 @@
 		</attribute>
 	</ckeditor>
 	</h:form>
-	<textbox id="ta" rows="6" width="100%" height="250px"
-		onChange="ed.value = self.value" />
+	<textbox id="ta" rows="6" width="100%" onChange="ed.value = self.value" />
 	<button label="click me">
 		<attribute name="onClick" id="fastClick">
 			alert("textbox value: " + ta.value + "\n" + "fck value: " + ed.value);

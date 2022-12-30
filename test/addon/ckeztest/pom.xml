@@ -86,6 +86,14 @@
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zkplus</artifactId>
 		</dependency>
+		<dependency><!-- For testing only. In particular, "B-ZKCK-14.zul". -->
+			<groupId>org.zkoss.zk</groupId>
+			<artifactId>zkplus-legacy</artifactId>
+		</dependency>
+		<dependency><!-- For testing only. In particular, "macrogmaps.zul". -->
+			<groupId>org.zkoss.zkforge</groupId>
+			<artifactId>gmapsz</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zul</artifactId>

@@ -1,5 +1,10 @@
 
 <zk>
+	<label multiline="true">
+		1. Should load successfully without any error.
+		2. The upper editor should have a toolbar with only 7 tools.
+		3. The lower editor should have a big toolbar.
+	</label>
 	<ckeditor customConfigurationsPath="/test2/data/config.js" toolbar="Basic"/>
 	<ckeditor/>
 </zk>

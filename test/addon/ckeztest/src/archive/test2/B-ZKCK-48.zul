@@ -14,6 +14,13 @@ Copyright (C) 2019 Potix Corporation. All Rights Reserved.
 -->
 <zk xmlns:w="client">
     <label multiline="true">
+        THIS TESTCASE SHOULD BE IGNORED
+        THIS TESTCASE IS SKIPPED IN B-ZKCK-48.ts
+
+        According to CKeditor 4.18.0 release note, Web Spell Checker ended support for WebSpellChecker Dialog on
+        December 31st, 2021. This means the plugin is not supported any longer. Therefore, we decided to deprecate
+        and remove the WebSpellChecker Dialog plugin from CKEditor 4 presets.
+
         1. Type something in CKeditor.
         2. Click "Check Spelling".
         3. Click "Finish Checking".

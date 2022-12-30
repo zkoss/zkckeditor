@@ -16,6 +16,11 @@ Copyright (C)  Potix Corporation. All Rights Reserved.
 <zk xmlns:a="http://www.zkoss.org/2005/zk/annotation" xmlns="http://www.zkoss.org/2005/zul"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.zkoss.org/2005/zul" xmlns:w="client">
+	<label multiline="true">
+		1. Type something in the editor.
+		2. Click the button "Show value".
+		3. See an alert with the text you typed in the editor.
+	</label>
 	<ckeditor id="editor" toolbar="tb">
 		<!-- config ckeditor -->
 		<attribute w:name="getConfig_"><![CDATA[
