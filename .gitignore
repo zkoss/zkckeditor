@@ -19,3 +19,5 @@ test/addon/ckeztest/.settings
 # IntelliJ
 .idea/
 *.iml
+
+node_modules
