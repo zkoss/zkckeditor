@@ -1,3 +1,6 @@
-<window title="Window" border="normal" height="100%" width="900px" sizable="true">
-	<ckeditor vflex="1"/>
-</window>
+<zk>
+	<label>Should load successfully without any error.</label>
+	<window title="Window" border="normal" height="100%" width="900px" sizable="true">
+		<ckeditor vflex="1"/>
+	</window>
+</zk>

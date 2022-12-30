@@ -1,1 +1,4 @@
-<ckeditor autoHeight="true"/>
+<zk>
+	<label>Should load successfully without any error.</label>
+	<ckeditor autoHeight="true"/>
+</zk>

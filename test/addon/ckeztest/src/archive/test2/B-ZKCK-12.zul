@@ -39,6 +39,7 @@ Copyright (C)  Potix Corporation. All Rights Reserved.
 				<ckeditor id="editor2" />
 			</window>
 			<button id="btn4" label="Click Me to get value after invalidate ckeditor components" />
+			<label>Check the terminal where you started jetty</label>
 		</vbox>
 	</window>
 </zk>

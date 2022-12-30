@@ -15,7 +15,7 @@ Copyright (C) 2011 Potix Corporation. All Rights Reserved.
 -->
 <zk>
 	<div> Before this test, edit WEB-INF/zk.xml and turn on ckez-bind-addon.xml</div>
-	<div> Change any value below, all value should sync.</div>
+	<div> Change any value below, and click somewhere OUTSIDE the ckeditor (like in B50-2964214.zul). All value should sync.</div>
 	<window apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('org.zkoss.zktest.test2.bind.CkezBindVM')"
 		width="800px" height="600px">

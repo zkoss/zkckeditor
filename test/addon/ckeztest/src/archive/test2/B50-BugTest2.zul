@@ -2,6 +2,7 @@
 	<label multiline="true">
 		1. Type something in the editor.
 		2. Click save. You should see an alert window containing the content you just typed in the editor.
+		If you see "body p" at the bottom of the editor, expect the alerted text to be enclosed in "&lt;p&gt;&lt;/p&gt;"
 	</label>
 	<n:form>
 		<ckeditor onSave="alert(self.value);"/>
