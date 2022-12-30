@@ -15,7 +15,7 @@ Copyright (C) 2017 Potix Corporation. All Rights Reserved.
 <zk>
     <!-- Original issue: http://tracker.zkoss.org/browse/ZK-3228 -->
     <button label="click me to add fill the panel content" id="btn"/>
-    ckeditor in panel below not working
+    ckeditor in the panel below should work; see ZK-3228
     <panel fulfill="btn.onClick">
         <panelchildren>
             <ckeditor width="600px">
@@ -23,7 +23,7 @@ Copyright (C) 2017 Potix Corporation. All Rights Reserved.
             </ckeditor>
         </panelchildren>
     </panel>
-    ckeditor in div below working
+    ckeditor in the div below should work
     <div fulfill="btn.onClick">
         <div>
             <ckeditor width="600px">

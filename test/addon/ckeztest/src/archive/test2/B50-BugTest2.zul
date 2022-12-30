@@ -1,4 +1,8 @@
 <zk xmlns:n="http://www.zkoss.org/2005/zk/native">
+	<label multiline="true">
+		1. Type something in the editor.
+		2. Click save. You should see an alert window containing the content you just typed in the editor.
+	</label>
 	<n:form>
 		<ckeditor onSave="alert(self.value);"/>
 	</n:form>

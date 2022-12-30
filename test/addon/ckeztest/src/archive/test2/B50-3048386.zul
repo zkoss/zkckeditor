@@ -1,5 +1,10 @@
 <zk xmlns:w="http://www.zkoss.org/2005/zk/client">
 	<div id="div"/>
+	<label multiline="true">
+		1. Click "add". Should see an editor appear.
+		2. Click "detach". Should see the editor disappear.
+		3. Don't click "add" nor "detach" anymore. If you do, you might have to restart the server in order to get rid of the error box.
+	</label>>
 	<button label="add Ckeditor">
 		<attribute name="onClick"><![CDATA[
 			div.appendChild(new org.zkforge.ckez.CKeditor());

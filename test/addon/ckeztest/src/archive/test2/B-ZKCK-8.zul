@@ -1,5 +1,5 @@
 <zk>
-    Hover on menu to open menupopup, the whole ckeditor blinks
+    ZKCK-8: Hover on menu to open menupopup, the whole ckeditor shouldn't blink.
     <ckeditor value="REQUEST" />
     <menubar autodrop="true" orient="vertical">
         <menu label="Hover me!">

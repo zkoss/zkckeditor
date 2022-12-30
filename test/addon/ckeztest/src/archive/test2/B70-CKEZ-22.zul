@@ -1,6 +1,6 @@
 <zk>
 	<label multiline="true">
-		1. Opne the  image browser
+		1. Open the image browser
 		2. Should see B70-CKEZ-22.JPG
 	</label>
 	<ckeditor filebrowserImageBrowseUrl="test2/img"/>

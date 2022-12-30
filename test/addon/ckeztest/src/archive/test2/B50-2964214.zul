@@ -25,5 +25,5 @@ Copyright (C) 2009 Potix Corporation. All Rights Reserved.
 				&lt;a href="http://aa" &gt;http://aa&lt;/a&gt;
 			</attribute>
 	</ckeditor>
-	<textbox id="ta" height="200px" rows="6" width="100%" onChange="ed.value = self.value"/>
+	<textbox id="ta" rows="6" width="100%" onChange="ed.value = self.value"/>
 </zk>
