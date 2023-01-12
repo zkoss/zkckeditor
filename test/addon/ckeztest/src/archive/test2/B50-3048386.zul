@@ -1,5 +1,8 @@
 <zk xmlns:w="http://www.zkoss.org/2005/zk/client">
 	<div id="div"/>
+	<label multiline="true">
+		Click "add Ckeditor" once and don't click anything else. Should see an editor appear then disappear after 1.5 seconds.
+	</label>
 	<button label="add Ckeditor">
 		<attribute name="onClick"><![CDATA[
 			div.appendChild(new org.zkforge.ckez.CKeditor());

@@ -15,7 +15,7 @@ fixture('ZKCK-62')
 	.skip // drag bug: https://github.com/DevExpress/testcafe/issues/5148
 	.page('http://localhost:8080/ckeztest/test2/B-ZKCK-62.zul');
 
-test('test', async t => {
+test('Skipped, please test manually.', async t => {
 	const ckeditor = Selector('.z-ckeditor'),
 		resizer = Selector('.cke_1 .cke_resizer'),
 		oldHeight = await ckeditor.offsetHeight;

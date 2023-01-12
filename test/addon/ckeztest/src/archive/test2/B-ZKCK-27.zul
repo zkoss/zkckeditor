@@ -15,6 +15,7 @@ Copyright (C) 2016 Potix Corporation. All Rights Reserved.
 -->
 <zk>
 	<label multiline="true">
+		Same as B-ZKCK-23.zul but specifically for IE 11 and Edge on Windows 10.
 		1. click the image browser in the ckeditor toolbar
 		2. switch to the "upload" tab
 		3. select files in your local file system, look for images with file name other than just english
