@@ -1,3 +1,15 @@
+Ckez 4.21.0.0
+May 5, 2023
+* Features:
+	ZKCK-81: upgrade CKEditor 4.21.0 for security fix
+
+* Bugs:
+
+* Upgrade Notes:
+	+ Upgrade to ckeditor 4.21.0
+	+ ckeditor 4.21.0 fixes CVE-2023-28439 (GHSA-vh5c-xwqv-cv9g): Cross-site scripting (XSS) caused by the editor instance destroying process
+
+    --------
 Ckez 4.20.1.0
 Jan 9, 2023
 * Features:
