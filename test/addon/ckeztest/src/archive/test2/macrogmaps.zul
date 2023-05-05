@@ -1,3 +1,4 @@
+<label>This test case can be ignored if gmap support is dropped.</label>
 <window width="400px" height="300px" closable="true" title="gmaps">
  <gmaps width="400px" height="250px" showLargeCtrl="true"
   showTypeCtrl="true" lat="18.51912660542399" lng="73.85640621185303"
