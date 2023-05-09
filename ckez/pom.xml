@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.zkoss.zkforge</groupId>
 	<artifactId>ckez</artifactId>
-	<version>4.20.1.0</version>
+	<version>4.21.0.0</version>
 	<properties>
 		<zk.version>5.0.6</zk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -57,7 +57,7 @@
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
-			<version>1.4</version>
+			<version>1.5</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
