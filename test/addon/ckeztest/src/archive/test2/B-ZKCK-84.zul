@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+B-ZKCK-84.zul
+
+        Purpose:
+
+        Description:
+
+        History:
+                Fri Dec 15 10:53:55 CST 2023, Created by jamson
+
+Copyright (C) 2023 Potix Corporation. All Rights Reserved.
+-->
+<zk>
+	<ckeditor value="To test this issue, you have to open B-ZKCK-84.html and follow the guides."/>
+</zk>

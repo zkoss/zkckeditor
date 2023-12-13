@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="http://localhost:8080/ckeztest/zkau/web/js/zkmax/embedded/embedded.js"></script>
+	</head>
+	<body>
+		<div>Set Library Property org.zkoss.web.servlet.http.embedded.enabled to true in zk.xml to enable embedded mode.</div>
+		<div>If you didn't see the ckeditor below, the bug still exist</div>
+		<div>(This bug triggered when use absolute-path to embedded a zul.</div>
+		<div id="zkapp"/>
+		<script>zEmbedded.load('zkapp', 'http://localhost:8080/ckeztest/test2/B-ZKCK-84.zul');</script>
+	</body>
+</html>

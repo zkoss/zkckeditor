@@ -1,3 +1,13 @@
+Ckez 4.21.0.1
+
+* Features:
+
+* Bugs:
+	ZKCK-84: CKEditor requests ExecutionImpl.encodeURL with null value, causes NPE in embedded mode
+
+* Upgrade Notes:
+
+    --------
 Ckez 4.21.0.0
 May 5, 2023
 * Features:
