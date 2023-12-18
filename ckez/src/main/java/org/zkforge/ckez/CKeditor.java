@@ -544,7 +544,9 @@ public class CKeditor extends AbstractComponent {
 		if (_height != null)
 			render(renderer, "height", _height);
 
-		render(renderer, "customConfigurationsPath", getEncodedURL(_customPath));
+		// ZK-5598
+		render(renderer, "customConfigurationsPath",
+				_customPath != null ? getEncodedURL(_customPath) : null);
 		render(renderer, "config", _config);
 		
 		render(renderer, "toolbar", _toolbar);
