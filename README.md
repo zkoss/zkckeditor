@@ -1,7 +1,7 @@
 zkckeditor
 ==========
 
-Update: As of June 2023, CKEditor has announced end-of-life of CKEditor 4. The new CKEditor 5 is incompatible with ZK CKEditor's MPL/LGPL licenses, so this repository will no longer be updated. If you require a custom ZK wrapper for a newer version of CKEditor, contact us at info@zkoss.org.
+**Update**: As of June 2023, CKEditor has announced end-of-life of CKEditor 4. The new CKEditor 5 is incompatible with ZK CKEditor's MPL/LGPL licenses, so this repository will no longer be updated. If you require a custom ZK wrapper for a newer version of CKEditor, contact us at info@zkoss.org.
 
 The component used to represent [CKEditor][1]
 
