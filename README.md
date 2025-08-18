@@ -1,23 +1,23 @@
 zkckeditor
 ==========
 
-**Update**: As of June 2023, CKEditor has announced end-of-life of CKEditor 4. The new CKEditor 5 is incompatible with ZK CKEditor's MPL/LGPL licenses, so this repository will no longer be updated. If you require a custom ZK wrapper for a newer version of CKEditor, contact us at info@zkoss.org.
+:warning:**Update**: As of June 2023, CKEditor has announced end-of-life of CKEditor 4. The new CKEditor 5 is incompatible with ZK CKEditor's MPL/LGPL licenses, so this repository will no longer be updated. If you require a custom ZK wrapper for a newer version of CKEditor, contact us at info@zkoss.org.
 
-The component used to represent [CKEditor][1]
+## Legacy Content (CKEditor 4 and earlier versions)
 
-CKEditor is a popular HTML on-line text editor developed by Frederico Caldeira Knabben.
+The zkckeditor component used to represent [CKEditor][1], making it easy to integrate CKEditor into ZK applications using Java.
 
-CKEditor is a text editor to be used inside web pages. It's a WYSIWYG editor, which means that the text being edited on it looks as similar as possible to the results users have when publishing it.
+ZK, the framework that ZK CKEditor is built for, is an open-source Java framework for building enterprise web and mobile applications
 
-It brings to the web common editing features found on desktop editing applications like Microsoft Word and OpenOffice.
+CKEditor is a widely used HTML WYSIWYG text editor developed by Frederico Caldeira Knabben. It allows users to edit text directly within web pages, with the content appearing as close as possible to the final published result. It brings to the web many common editing features found in desktop applications like Microsoft Word and OpenOffice.
 
-## Resources
+### Resources
 
-### License
+#### License
  * [LGPL](http://www.gnu.org/licenses/lgpl.html)
  * [MPL](http://www.mozilla.org/MPL/2.0/)
 
-### Documentation
+#### Documentation
  * [Component Reference][2]
 
 
